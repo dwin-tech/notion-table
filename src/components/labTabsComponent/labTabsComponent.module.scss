@@ -1,0 +1,8 @@
+@import '../../style/variables.scss';
+
+.tabs_container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: $gray;
+}

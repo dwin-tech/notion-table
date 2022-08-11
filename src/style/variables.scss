@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600;800&display=swap');
+
+$Monserat: 'Montserrat', sans-serif;
+
+
+//colors
+
+$dark: rgb(55, 53, 47);
+$gray: rgba(55, 53, 47, 0.5);
+
+//font-size
+$smallFont: 14px;
+$bigFont: 32px;
+
+//font-weight
+$fontWeight: 700;
+
+
+//line-height
+$lineHeight: 1.5;
+
+
+@mixin flexCentre($flex-Dir, $Just-Cont) {
+    display: flex;
+    align-items: center;
+    flex-direction: $flex-Dir;
+    justify-content: $Just-Cont;
+}
+
+@mixin customButton {
+    border: none;
+    color: $gray;
+    background-color: #fff;
+    cursor: pointer;
+    font-size: $smallFont;
+
+    &:hover{
+        background-color: $gray;
+        border-radius: 3px;
+    }
+}

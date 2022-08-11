@@ -1,0 +1,23 @@
+@import './variables.scss';
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    font-family: $Monserat;
+    color: $gray;
+}
+
+
+#root {
+    height: 100%;
+}
+
+// .big_Container {
+//     padding-left: 96px;
+// }

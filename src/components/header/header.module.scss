@@ -1,0 +1,89 @@
+@import '../../style/variables.scss';
+
+.header_Container {
+    display: flex;
+    align-items: flex-start;
+    font-size: $smallFont;
+    color: $gray;
+    padding-top: 15px;
+
+    button {
+        display: none;
+        color: $gray;
+    }
+
+    & :nth-child(1n+1) {
+        margin-right: 10px;
+    }  
+}
+
+.big_Container {
+    height: 128px;
+    padding: 15px  0 10px 96px;
+
+    :nth-child(1n+1) {
+        margin-bottom: 5px;
+    }
+
+
+    &:hover {
+        button {
+            @include flexCentre(row, left);
+            border:  none;
+            background-color: #fff;
+
+        }
+    }
+
+    .add_btn {
+        border-radius: 3px;
+        &:hover {
+            background-color: $gray;
+            cursor: pointer;
+        }
+    }
+
+    .header_emoji_input {
+        height: 30px;
+        display:  flex;
+        align-items: center;
+        font-size: 30px;
+
+        button {
+            font-size: 30px;
+            height: 30px;
+            border: none;
+            background-color: #fff;
+            cursor: pointer;
+        }
+
+        input {
+            height: 30px;
+            border: none;
+            outline: none;
+            font-size: 30px;
+            
+            
+            &::placeholder {
+                font-size: 30px;
+                opacity: 0.4;
+            }
+        }
+    }
+
+    .descripyion_container{
+        input {
+            border: none;
+            outline: none;
+            font-size: $smallFont;
+            color: $dark;
+             &::placeholder {
+               color: $gray;
+             }
+        }
+    }
+}
+
+
+
+
