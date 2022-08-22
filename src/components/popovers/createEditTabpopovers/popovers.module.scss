@@ -1,0 +1,98 @@
+@import '../../../style/variables.scss';
+
+
+
+.createTabPoper_btn {
+    @include customButton();
+    font-size: 17px;
+    text-align: center;
+}
+
+
+.left_border {
+   border-left: 1px solid #000; 
+   height: 82vh;
+   width: 100%;
+   overflow: hidden;
+
+
+   & :first-child {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+
+    .onclose_btn {
+        @include customCloseBtn()
+    }
+   }
+
+}
+
+.layout_section {
+    .layout_buttons:not(.left_border) {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        & button:nth-child(1n+1) {
+            width: 95%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0;
+
+        }
+
+        & button:nth-child(1n+1) :first-child {
+            padding: 0
+        }
+    }
+
+}
+
+.view_container {
+    padding: 0 5px;
+}
+
+
+
+
+.layout_container {
+@include customButtonGroup(space-between);
+}
+
+
+.border_bottom {
+    margin: 10px 0;
+    width: 100%;
+    border-bottom: 1px solid #333;
+}
+
+.tab_popover_custom_btn {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   button:nth-child(1n+1) {
+    @include customButtonGroup(left);
+   } 
+   & button:last-child {
+    &:hover{
+        color: red;
+    }
+   }
+}
+
+.left_second_border{ 
+    border-left: 1px solid #000; 
+    height: 82vh;
+}
+.view_options_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+

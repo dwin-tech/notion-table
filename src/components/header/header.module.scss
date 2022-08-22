@@ -1,6 +1,6 @@
 @import '../../style/variables.scss';
 
-.header_Container {
+.header_container {
     display: flex;
     align-items: flex-start;
     font-size: $smallFont;
@@ -17,7 +17,7 @@
     }  
 }
 
-.big_Container {
+.header_section {
     height: 128px;
     padding: 15px  0 10px 96px;
 
@@ -35,7 +35,7 @@
         }
     }
 
-    .add_btn {
+    .add_icon_btn , .add_description_btn{
         border-radius: 3px;
         &:hover {
             background-color: $gray;
@@ -43,7 +43,7 @@
         }
     }
 
-    .header_emoji_input {
+    .emoji_and_input_contsiner {
         height: 30px;
         display:  flex;
         align-items: center;
@@ -71,7 +71,7 @@
         }
     }
 
-    .descripyion_container{
+    .description_container{
         input {
             border: none;
             outline: none;

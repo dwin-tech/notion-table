@@ -1,0 +1,37 @@
+@import '../../style/variables.scss';
+
+
+.tabs_section {
+    @include flexCentre(row, space-between)
+}
+
+.tabs_container {
+    display: flex;
+    align-items: center;
+}
+
+.tabs_container {
+    display: flex;
+    &:first-child {
+        display: flex;
+    }
+}
+
+
+.tabs_container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+}
+
+.add_btn {
+    background-color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #f0f0f0;
+    }
+}

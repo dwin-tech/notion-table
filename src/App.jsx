@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "./components/header/Header";
-import TableTabs from "./components/tableTabs/TableTabs";
+import TabsAndButtons from "./components/labTabsComponent/TabsAndButtons";
 import "./style/style.scss";
 
 export default function App() {
@@ -8,7 +8,7 @@ export default function App() {
     <div className="App">
       <div className="big_Container">
         <Header />
-        <TableTabs />
+        <TabsAndButtons />
       </div>
     </div>
   );

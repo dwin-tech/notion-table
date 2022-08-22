@@ -6,7 +6,7 @@ $Monserat: 'Montserrat', sans-serif;
 //colors
 
 $dark: rgb(55, 53, 47);
-$gray: rgba(55, 53, 47, 0.5);
+$gray: rgba(55, 53, 47, 0.3);
 
 //font-size
 $smallFont: 14px;
@@ -38,4 +38,46 @@ $lineHeight: 1.5;
         background-color: $gray;
         border-radius: 3px;
     }
+}
+
+@mixin customButtonGroup($just-cont) {
+        display: flex;
+        align-items: center;
+        justify-content: $just-cont;
+        padding: 0;
+        width: 95%;
+        height: 35px;
+        border: none;
+        cursor: pointer;
+        background-color: #fff;
+        margin: 5px 0;
+        border-radius: 5px;
+    
+        & :nth-child(1n+1) {
+            display: flex;
+            align-items: center;
+        }
+    
+        &:hover {
+            background-color: #f0f0f0;
+        }
+    
+}
+
+
+@mixin customCloseBtn {
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: #fff;
+
+    &:hover {
+        background-color: $gray;
+    }
+    
 }

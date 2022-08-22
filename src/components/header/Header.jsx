@@ -1,59 +1,87 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
 import style from "./header.module.scss";
 import EmojiPickerPopover from "../emojiPicker/EmojiPickerPopover";
+import HeaderCustomButtons from "./HeaderButtons";
+import HeaderCustomInput from "./HeaderInput";
 import {
-  changeTitle,
-  changeDescription,
-  changeShowEmojiPickerPopover,
-  updateInitialState,
-} from "../../features/headerInfo/headerInfoSlice";
-import HeaderCustomButtons from "./HeaderCustomButtons";
-import HeaderCustomInputs from "./HeaderCustomInput";
+  DESCRIPTION,
+  TITLE,
+  CHOSSEN_EMOJI,
+  TOOGLE_SHOW_DESCRIPTION,
+  TOGGLE_SHOW_EMOJI_PICKER_POPOVER,
+} from "../../constants/headerContantes/headerConstantes";
+import setDataIntoStorage, {
+  getDatainToStorage,
+} from "../../utils/callLoacalStoraje";
 
 export default function Header() {
-  const dispatch = useDispatch();
-  const initialState = useSelector((store) => store.headerInfo);
-  const { title, description, emoji, showDescription } = useSelector(
-    (store) => store.headerInfo
-  );
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [chosenEmoji, setChosenEmoji] = useState("");
+  const [toggleShowDescription, setToggleShowDescription] = useState(false);
+  const [toggleShowEmojiPickerPopover, setToggleShowEmojiPickerPopover] =
+    useState(false);
+
+  const changeTitle = (value) => {
+    setTitle(value);
+    setDataIntoStorage(TITLE, value);
+  };
+
+  const changeDescription = (value) => {
+    setDescription(value);
+    setDataIntoStorage(DESCRIPTION, value);
+  };
 
   useEffect(() => {
-    const initialStateStorage = localStorage.getItem("headerInfo");
-    dispatch(updateInitialState(JSON.parse(initialStateStorage)));
+    setTitle(getDatainToStorage(TITLE) || "");
+    setDescription(getDatainToStorage(DESCRIPTION) || "");
+    setChosenEmoji(getDatainToStorage(CHOSSEN_EMOJI) || "");
+    setToggleShowDescription(
+      getDatainToStorage(TOOGLE_SHOW_DESCRIPTION) || false
+    );
+    setToggleShowEmojiPickerPopover(
+      getDatainToStorage(TOGGLE_SHOW_EMOJI_PICKER_POPOVER) || false
+    );
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem("headerInfo", JSON.stringify(initialState));
-  }, [initialState]);
-
   return (
-    <div className={style.big_Container}>
+    <div className={style.header_section}>
       {" "}
-      <div className={style.header_Container}>
-        <HeaderCustomButtons />
+      <div className={style.header_container}>
+        <HeaderCustomButtons
+          chosenEmoji={chosenEmoji}
+          setChosenEmoji={setChosenEmoji}
+          description={description}
+          toggleShowDescription={toggleShowDescription}
+          setToggleShowDescription={setToggleShowDescription}
+        />
       </div>
-      <EmojiPickerPopover />
-      <div className={style.header_emoji_input}>
+      <EmojiPickerPopover
+        show={toggleShowEmojiPickerPopover}
+        setShow={setToggleShowEmojiPickerPopover}
+        setEmoji={setChosenEmoji}
+      />
+      <div className={style.emoji_and_input_contsiner}>
         <button
           type="submit"
           onClick={() => {
-            dispatch(changeShowEmojiPickerPopover());
+            setToggleShowEmojiPickerPopover(true);
+            setDataIntoStorage(TOGGLE_SHOW_EMOJI_PICKER_POPOVER, true);
           }}
         >
-          {emoji}
+          {chosenEmoji}
         </button>
-        <HeaderCustomInputs
+        <HeaderCustomInput
           value={title}
-          changeFunction={changeTitle}
+          onChange={changeTitle}
           placeholder="Untitled"
         />
       </div>
-      {showDescription && (
-        <div className={style.descripyion_container}>
-          <HeaderCustomInputs
+      {toggleShowDescription && (
+        <div className={style.description_container}>
+          <HeaderCustomInput
             value={description}
-            changeFunction={changeDescription}
+            onChange={changeDescription}
             placeholder="Add a description..."
           />
         </div>

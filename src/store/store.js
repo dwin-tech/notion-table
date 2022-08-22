@@ -1,9 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import headerInfoReducer from "../features/headerInfo/headerInfoSlice";
+import tableTypeInfoSlice from "../features/tableTypeInfo/tableTypeInfoSlice";
+import showPopoverInfoSlice from "../features/showPopoversInfo/showPopoverInfoSlice";
+import tableTabsInfoSlice from "../features/tableTabsInfo/tableTabsInfoSlice";
 
 const store = configureStore({
   reducer: {
-    headerInfo: headerInfoReducer,
+    tableTabsInfo: tableTabsInfoSlice,
+    tableTypeInfo: tableTypeInfoSlice,
+    showPopoverInfo: showPopoverInfoSlice,
   },
 });
 

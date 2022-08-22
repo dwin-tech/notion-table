@@ -3,35 +3,28 @@ import React from "react";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import TagFacesIcon from "@mui/icons-material/TagFaces";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  changeEmoji,
-  changeShowEmojiPickerPopover,
-} from "../../features/headerInfo/headerInfoSlice";
+import PropTypes from "prop-types";
 import style from "./emojiPicker.module.scss";
-import smile from "../smile/smiles";
+import emojies from "../emojies/emojies";
+import {
+  CHOSSEN_EMOJI,
+  TOGGLE_SHOW_EMOJI_PICKER_POPOVER,
+} from "../../constants/headerContantes/headerConstantes";
+import setDataIntoStorage from "../../utils/callLoacalStoraje";
 
-export default function EmojiPickerPopover() {
-  const dispatch = useDispatch();
-  const { showEmojiPickerPopover } = useSelector((store) => store.headerInfo);
-  // const [anchorEl, setAnchorEl] = useState(null);
-
-  // const handleClick = (event) => {
-  //   setAnchorEl(event.currentTarget);
-  // };
-
+export default function EmojiPickerPopover({ show, setShow, setEmoji }) {
   const handleClose = () => {
-    dispatch(changeShowEmojiPickerPopover());
+    setShow(false);
+    setDataIntoStorage(TOGGLE_SHOW_EMOJI_PICKER_POPOVER, false);
   };
 
-  const id = showEmojiPickerPopover ? "simple-popover" : undefined;
+  const id = show ? "simple-popover" : undefined;
 
   return (
     <div>
       <Popover
         id={id}
-        open={showEmojiPickerPopover}
-        // anchorEl={}
+        open={show}
         onClose={handleClose}
         anchorOrigin={{
           vertical: "top",
@@ -48,9 +41,12 @@ export default function EmojiPickerPopover() {
                 type="submit"
                 className={style.with_icon_btn}
                 onClick={() => {
-                  const emoji = smile[Math.floor(Math.random() * 55)];
-                  dispatch(changeEmoji(emoji));
-                  dispatch(changeShowEmojiPickerPopover());
+                  const emoji =
+                    emojies[Math.floor(Math.random() * (emojies.length - 1))];
+                  setEmoji(emoji);
+                  setDataIntoStorage(CHOSSEN_EMOJI, emoji);
+                  setShow(false);
+                  setDataIntoStorage(TOGGLE_SHOW_EMOJI_PICKER_POPOVER, false);
                 }}
               >
                 <TagFacesIcon fontSize="string" />
@@ -59,8 +55,10 @@ export default function EmojiPickerPopover() {
               <button
                 type="submit"
                 onClick={() => {
-                  dispatch(changeEmoji(""));
-                  dispatch(changeShowEmojiPickerPopover());
+                  setEmoji("");
+                  setDataIntoStorage(CHOSSEN_EMOJI, "");
+                  setShow(false);
+                  setDataIntoStorage(TOGGLE_SHOW_EMOJI_PICKER_POPOVER, false);
                 }}
               >
                 Remove
@@ -69,8 +67,10 @@ export default function EmojiPickerPopover() {
           </div>
           <Picker
             onEmojiClick={(e, o) => {
-              dispatch(changeEmoji(o.emoji));
-              dispatch(changeShowEmojiPickerPopover());
+              setEmoji(o.emoji);
+              setDataIntoStorage(CHOSSEN_EMOJI, o.emoji);
+              setDataIntoStorage(TOGGLE_SHOW_EMOJI_PICKER_POPOVER, false);
+              setShow(false);
             }}
           />
         </Typography>
@@ -78,3 +78,9 @@ export default function EmojiPickerPopover() {
     </div>
   );
 }
+
+EmojiPickerPopover.propTypes = {
+  show: PropTypes.bool.isRequired,
+  setShow: PropTypes.func.isRequired,
+  setEmoji: PropTypes.func.isRequired,
+};
