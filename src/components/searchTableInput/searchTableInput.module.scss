@@ -1,0 +1,23 @@
+@import '../../style/variables.scss';
+
+.tableSearch_btn {
+    @include customButton()
+}
+
+.search_container {
+    display: flex;
+    align-items: center;
+}
+
+.search_input {
+    outline: none;
+    border: none;
+    width: 130px;
+    font-size: $smallFont
+    ;
+
+    &::placeholder {
+        color:  $gray;
+        font-size: $smallFont;
+    }
+}

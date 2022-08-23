@@ -1,0 +1,20 @@
+@import '../../style/variables.scss';
+
+.emoji_btns {
+   @include flexCentre(row, space-between);
+
+   div {
+    display: flex;
+    align-items: center
+   }
+   button {
+    @include customButton();
+   }
+
+
+}
+
+.with_icon_btn{
+    display: flex;
+    align-items: center;
+   }
