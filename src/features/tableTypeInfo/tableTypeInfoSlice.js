@@ -13,16 +13,12 @@ const tableTypeInfoSlice = createSlice({
   name: "tableTypeInfoSlice",
   initialState,
   reducers: {
-    changeSelectedType: (state, action) => {
-      return Object.keys(state).reduce((acc, e) => {
-        if (e === action.payload) {
-          acc[e] = true;
-        } else {
-          acc[e] = false;
-        }
+    changeSelectedType: (state, action) =>
+      Object.keys(state).reduce((acc, e) => {
+        acc[e] = e === action.payload;
         return acc;
-      }, {});
-    },
+      }, {}),
+
     updateTableTypeState: (state, action) => {
       return { ...action.payload };
     },

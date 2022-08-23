@@ -1,15 +1,14 @@
+const possibleIncludes = [
+  "table",
+  "layout",
+  "board",
+  "timeLine",
+  "list",
+  "gallery",
+];
+
 const chekedName = (selectedObject) => {
-  if (
-    selectedObject.name === "table" ||
-    selectedObject.name === "board" ||
-    selectedObject.name === "timeLine" ||
-    selectedObject.name === "calendar" ||
-    selectedObject.name === "list" ||
-    selectedObject.name === "gallery"
-  ) {
-    return true;
-  }
-  return false;
+  return possibleIncludes.includes(selectedObject.type);
 };
 
 export default chekedName;

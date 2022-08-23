@@ -22,7 +22,7 @@ import {
 } from "../../features/tableTabsInfo/tableTabsInfoSlice";
 import setDataIntoStorage, {
   getDatainToStorage,
-} from "../../utils/callLoacalStoraje";
+} from "../../utils/callLocalStoraje";
 import selectTabIcon from "../../utils/tabIeIcons";
 
 export default function TabsAndButtons() {

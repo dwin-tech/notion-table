@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
@@ -12,11 +12,9 @@ import MailIcon from "@mui/icons-material/Mail";
 import style from "./drawer.module.scss";
 
 export default function CreateNewDrawer() {
-  const [state, setState] = React.useState({
-    right: false,
-  });
+  const [right, setRight] = useState(false);
 
-  const toggleDrawer = (anchor, open) => (event) => {
+  const toggleDrawer = (open) => (event) => {
     if (
       event.type === "keydown" &&
       (event.key === "Tab" || event.key === "Shift")
@@ -24,10 +22,10 @@ export default function CreateNewDrawer() {
       return;
     }
 
-    setState({ ...state, [anchor]: open });
+    setRight(open);
   };
 
-  const list = (anchor) => (
+  const newItemCreater = (anchor) => (
     <Box
       sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 700 }}
       role="presentation"
@@ -68,16 +66,12 @@ export default function CreateNewDrawer() {
         <button
           className={style.new_button}
           type="submit"
-          onClick={toggleDrawer("right", true)}
+          onClick={toggleDrawer(true)}
         >
           New
         </button>
-        <Drawer
-          anchor="right"
-          open={state.right}
-          onClose={toggleDrawer("right", false)}
-        >
-          {list("right")}
+        <Drawer anchor="right" open={right} onClose={toggleDrawer(false)}>
+          {newItemCreater("right")}
         </Drawer>
       </React.Fragment>
     </div>

@@ -8,7 +8,7 @@ import {
   CHOSSEN_EMOJI,
   TOOGLE_SHOW_DESCRIPTION,
 } from "../../constants/headerContantes/headerConstantes";
-import setDataIntoStorage from "../../utils/callLoacalStoraje";
+import setDataIntoStorage from "../../utils/callLocalStoraje";
 
 function HeaderCustomButtons({
   chosenEmoji,

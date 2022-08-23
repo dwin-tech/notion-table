@@ -1,16 +1,11 @@
 import React, { useEffect } from "react";
-import TableChartIcon from "@mui/icons-material/TableChart";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import ViewTimelineIcon from "@mui/icons-material/ViewTimeline";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import ViewListIcon from "@mui/icons-material/ViewList";
-import CollectionsBookmarkIcon from "@mui/icons-material/CollectionsBookmark";
 import { useDispatch, useSelector } from "react-redux";
-import { v4 as uuid } from "uuid";
+import buttons from "./buttonsArray";
 import { addNewEditTab } from "../../../../../features/tableTabsInfo/tableTabsInfoSlice";
 import { changeSelectedType } from "../../../../../features/tableTypeInfo/tableTypeInfoSlice";
 
 import style from "./layout.module.scss";
+import chekedName from "../../../../../utils/popoverFuncs";
 
 function LayoutButtons() {
   const dispatch = useDispatch();
@@ -29,34 +24,11 @@ function LayoutButtons() {
     dispatch(changeSelectedType(selectedObject.type));
   }, [selectedObject]);
 
-  const buttons = [
-    ["table", <TableChartIcon />],
-    ["board", <DashboardIcon />],
-    ["timeLine", <ViewTimelineIcon />],
-    ["calendar", <CalendarMonthIcon />],
-    ["list", <ViewListIcon />],
-    ["gallery", <CollectionsBookmarkIcon />],
-  ];
-
-  const chekedName = () => {
-    if (
-      selectedObject.name === "table" ||
-      selectedObject.name === "board" ||
-      selectedObject.name === "timeLine" ||
-      selectedObject.name === "calendar" ||
-      selectedObject.name === "list" ||
-      selectedObject.name === "gallery"
-    ) {
-      return true;
-    }
-    return false;
-  };
-
   const actionDeliver = (type) => {
     if (showNewTabPopover) {
       return { id: selectedTabId, type, name: "New View" };
     }
-    if (chekedName()) {
+    if (chekedName(selectedObject)) {
       return { id: selectedTabId, type, name: type };
     }
     return { id: selectedTabId, type, name: selectedObject.name };
@@ -66,7 +38,7 @@ function LayoutButtons() {
     <div className={style.table_type_container}>
       {buttons.map((e) => (
         <button
-          key={uuid()}
+          key={e[0]}
           type="submit"
           onClick={() => {
             dispatch(changeSelectedType(e[0]));

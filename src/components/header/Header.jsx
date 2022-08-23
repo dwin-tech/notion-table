@@ -12,7 +12,7 @@ import {
 } from "../../constants/headerContantes/headerConstantes";
 import setDataIntoStorage, {
   getDatainToStorage,
-} from "../../utils/callLoacalStoraje";
+} from "../../utils/callLocalStoraje";
 
 export default function Header() {
   const [title, setTitle] = useState("");

@@ -10,7 +10,7 @@ import {
   CHOSSEN_EMOJI,
   TOGGLE_SHOW_EMOJI_PICKER_POPOVER,
 } from "../../constants/headerContantes/headerConstantes";
-import setDataIntoStorage from "../../utils/callLoacalStoraje";
+import setDataIntoStorage from "../../utils/callLocalStoraje";
 
 export default function EmojiPickerPopover({ show, setShow, setEmoji }) {
   const handleClose = () => {
@@ -19,6 +19,28 @@ export default function EmojiPickerPopover({ show, setShow, setEmoji }) {
   };
 
   const id = show ? "simple-popover" : undefined;
+
+  const randomEmoji = () => {
+    const emoji = emojies[Math.floor(Math.random() * (emojies.length - 1))];
+    setEmoji(emoji);
+    setDataIntoStorage(CHOSSEN_EMOJI, emoji);
+    setShow(false);
+    setDataIntoStorage(TOGGLE_SHOW_EMOJI_PICKER_POPOVER, false);
+  };
+
+  const removeEmoji = () => {
+    setEmoji("");
+    setDataIntoStorage(CHOSSEN_EMOJI, "");
+    setShow(false);
+    setDataIntoStorage(TOGGLE_SHOW_EMOJI_PICKER_POPOVER, false);
+  };
+
+  const changeEmoji = (e, o) => {
+    setEmoji(o.emoji);
+    setDataIntoStorage(CHOSSEN_EMOJI, o.emoji);
+    setDataIntoStorage(TOGGLE_SHOW_EMOJI_PICKER_POPOVER, false);
+    setShow(false);
+  };
 
   return (
     <div>
@@ -40,39 +62,17 @@ export default function EmojiPickerPopover({ show, setShow, setEmoji }) {
               <button
                 type="submit"
                 className={style.with_icon_btn}
-                onClick={() => {
-                  const emoji =
-                    emojies[Math.floor(Math.random() * (emojies.length - 1))];
-                  setEmoji(emoji);
-                  setDataIntoStorage(CHOSSEN_EMOJI, emoji);
-                  setShow(false);
-                  setDataIntoStorage(TOGGLE_SHOW_EMOJI_PICKER_POPOVER, false);
-                }}
+                onClick={() => randomEmoji()}
               >
                 <TagFacesIcon fontSize="string" />
                 <div>Random</div>
               </button>
-              <button
-                type="submit"
-                onClick={() => {
-                  setEmoji("");
-                  setDataIntoStorage(CHOSSEN_EMOJI, "");
-                  setShow(false);
-                  setDataIntoStorage(TOGGLE_SHOW_EMOJI_PICKER_POPOVER, false);
-                }}
-              >
+              <button type="submit" onClick={() => removeEmoji()}>
                 Remove
               </button>
             </div>
           </div>
-          <Picker
-            onEmojiClick={(e, o) => {
-              setEmoji(o.emoji);
-              setDataIntoStorage(CHOSSEN_EMOJI, o.emoji);
-              setDataIntoStorage(TOGGLE_SHOW_EMOJI_PICKER_POPOVER, false);
-              setShow(false);
-            }}
-          />
+          <Picker onEmojiClick={(e, o) => changeEmoji(e, o)} />
         </Typography>
       </Popover>
     </div>
