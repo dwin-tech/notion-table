@@ -85,35 +85,37 @@ export default function TabsAndButtons() {
         bgcolor: "background.paper",
       }}
     >
-      <Tabs
-        value={value}
-        onChange={handleChange}
-        variant="scrollable"
-        scrollButtons
-        aria-label="visible arrows tabs example"
-        sx={{
-          [`& .${tabsClasses.scrollButtons}`]: {
-            "&.Mui-disabled": { opacity: 0.3 },
-          },
-        }}
-      >
-        {tabsArray.map((e, i) => (
-          <Tab
-            icon={selectTabIcon[e.type]}
-            iconPosition="start"
-            value={i}
-            key={e.id}
-            label={e.name}
-          />
-        ))}
-      </Tabs>
-      <button
-        className={style.add_btn}
-        type="submit"
-        onClick={(e) => addTabBtn(e)}
-      >
-        <AddIcon />
-      </button>
+      <div className={style.tabs_add_btn_container}>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          variant="scrollable"
+          scrollButtons
+          aria-label="visible arrows tabs example"
+          sx={{
+            [`& .${tabsClasses.scrollButtons}`]: {
+              "&.Mui-disabled": { opacity: 0.3 },
+            },
+          }}
+        >
+          {tabsArray.map((e, i) => (
+            <Tab
+              icon={selectTabIcon[e.type]}
+              iconPosition="start"
+              value={i}
+              key={e.id}
+              label={e.name}
+            />
+          ))}
+        </Tabs>
+        <button
+          className={style.add_btn}
+          type="submit"
+          onClick={(e) => addTabBtn(e)}
+        >
+          <AddIcon />
+        </button>
+      </div>
       <TableFunctions />
     </Box>
   );

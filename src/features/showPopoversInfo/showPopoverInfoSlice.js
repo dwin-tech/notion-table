@@ -12,29 +12,22 @@ const showPopoverInfoSlice = createSlice({
   initialState,
   reducers: {
     changeShowCreateTabPopover: (state, action) => {
-      return {
-        ...state,
-        showCreateTabPopover: action.payload,
-      };
+      // eslint-disable-next-line no-param-reassign
+      state.showCreateTabPopover = action.payload;
     },
     changeShowView: (state, action) => {
-      return {
-        ...state,
-        showView: action.payload,
-      };
+      // eslint-disable-next-line no-param-reassign
+      state.showView = action.payload;
     },
     changeSelectedValueInView: (state, action) => {
-      return {
-        ...state,
-        selectedValueInView: action.payload,
-      };
+      // eslint-disable-next-line no-param-reassign
+      state.selectedValueInView = action.payload;
     },
     changeShowNewTabPopover: (state, action) => {
-      return {
-        ...state,
-        showView: false,
-        showNewTabPopover: action.payload,
-      };
+      // eslint-disable-next-line no-param-reassign
+      state.showView = false;
+      // eslint-disable-next-line no-param-reassign
+      state.showNewTabPopover = action.payload;
     },
   },
 });

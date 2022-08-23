@@ -5,7 +5,7 @@ import LockIcon from "@mui/icons-material/Lock";
 import InsertLinkIcon from "@mui/icons-material/InsertLink";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuid } from "uuid";
 import {
   changeShowView,
@@ -16,10 +16,21 @@ import buttons from "./buttonsArray";
 
 export default function CreateTabPopoverButtons() {
   const dispatch = useDispatch();
+  const { selectedTabId, tabsArray } = useSelector(
+    (store) => store.tableTabsInfo
+  );
+  const selectedObject = tabsArray.find((e) => e.id === selectedTabId);
 
   const popoverBtns = (type) => {
     dispatch(changeSelectedValueInView(type));
     dispatch(changeShowView(true));
+  };
+
+  const selectType = (type) => {
+    if (type === "layout") {
+      return selectedObject.type;
+    }
+    return "type";
   };
   return (
     <div className={style.layout_section}>
@@ -27,9 +38,8 @@ export default function CreateTabPopoverButtons() {
         {" "}
         {buttons.map((e, i) => {
           return (
-            <>
+            <React.Fragment key={e[1]}>
               <button
-                key={uuid()}
                 type="submit"
                 className={style.layout_container}
                 onClick={() => popoverBtns(e[1])}
@@ -38,12 +48,12 @@ export default function CreateTabPopoverButtons() {
                   {e[2]} <p>{e[0]}</p>
                 </div>
                 <div>
-                  <p>type</p>
+                  <p>{selectType(e[1])}</p>
                   <KeyboardArrowRightIcon />
                 </div>
               </button>
               {!i && <div className={style.border_bottom} />}
-            </>
+            </React.Fragment>
           );
         })}
       </div>

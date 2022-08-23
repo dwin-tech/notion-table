@@ -35,3 +35,18 @@
         background-color: #f0f0f0;
     }
 }
+
+
+.tabs_add_btn_container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex: 1 1 100px;
+}
+
+.tabs_buttons_section {
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

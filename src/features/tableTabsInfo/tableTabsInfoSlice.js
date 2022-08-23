@@ -1,10 +1,11 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-empty-pattern */
+import { v4 as uuidv4 } from "uuid";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  tabsArray: [],
-  selectedTabId: 0,
+  tabsArray: [{ type: "table", name: "table", id: uuidv4() }],
+  selectedTabId: this?.tabsArray[0]?.id,
   createdTabName: "",
 };
 

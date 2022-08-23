@@ -14,14 +14,14 @@ function LayoutButtons() {
   const { selectedTabId, tabsArray } = useSelector(
     (store) => store.tableTabsInfo
   );
-  const { showNewTabPopover } = useSelector((store) => store.showPopoverInfo);
+  const { showNewTabPopover } = useSelector((store) => store?.showPopoverInfo);
   const selectedObject = tabsArray.find((e) => e.id === selectedTabId);
   const btnStyleCheked = (type) => {
     return selectedType[type] ? "blue_btn" : "black_btn";
   };
 
   useEffect(() => {
-    dispatch(changeSelectedType(selectedObject.type));
+    dispatch(changeSelectedType(selectedObject?.type));
   }, [selectedObject]);
 
   const actionDeliver = (type) => {
@@ -31,7 +31,7 @@ function LayoutButtons() {
     if (chekedName(selectedObject)) {
       return { id: selectedTabId, type, name: type };
     }
-    return { id: selectedTabId, type, name: selectedObject.name };
+    return { id: selectedTabId, type, name: selectedObject?.name };
   };
 
   return (
