@@ -1,5 +1,5 @@
 import React from "react";
-import CreateNewDrawer from "../drawerForCreateItem/NewItemDrawer";
+import CreateNewDrawer from "../drawerForCreateItem/newItemDrawer";
 import CreateEditTabPopover from "../popovers/createEditTabpopovers/CreateEditTabPopover";
 import FilterSortPopover from "../popovers/filterAndSortPopover/FilterSortPopover";
 import SearchTableInput from "../searchTableInput/SearchTableInput";

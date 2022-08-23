@@ -10,36 +10,33 @@ import {
   CHOSSEN_EMOJI,
   TOGGLE_SHOW_EMOJI_PICKER_POPOVER,
 } from "../../constants/headerContantes/headerConstantes";
-import setDataIntoStorage from "../../utils/callLocalStoraje";
+import setDataIntoStorage from "../../utils/callLocalStorage";
 
 export default function EmojiPickerPopover({ show, setShow, setEmoji }) {
+  const id = show ? "simple-popover" : undefined;
+
   const handleClose = () => {
     setShow(false);
     setDataIntoStorage(TOGGLE_SHOW_EMOJI_PICKER_POPOVER, false);
   };
 
-  const id = show ? "simple-popover" : undefined;
-
   const randomEmoji = () => {
     const emoji = emojies[Math.floor(Math.random() * (emojies.length - 1))];
     setEmoji(emoji);
     setDataIntoStorage(CHOSSEN_EMOJI, emoji);
-    setShow(false);
-    setDataIntoStorage(TOGGLE_SHOW_EMOJI_PICKER_POPOVER, false);
+    handleClose();
   };
 
   const removeEmoji = () => {
     setEmoji("");
-    setDataIntoStorage(CHOSSEN_EMOJI, "");
-    setShow(false);
-    setDataIntoStorage(TOGGLE_SHOW_EMOJI_PICKER_POPOVER, false);
+    localStorage.removeItem(CHOSSEN_EMOJI);
+    handleClose();
   };
 
   const changeEmoji = (e, o) => {
     setEmoji(o.emoji);
     setDataIntoStorage(CHOSSEN_EMOJI, o.emoji);
-    setDataIntoStorage(TOGGLE_SHOW_EMOJI_PICKER_POPOVER, false);
-    setShow(false);
+    handleClose();
   };
 
   return (
@@ -62,12 +59,12 @@ export default function EmojiPickerPopover({ show, setShow, setEmoji }) {
               <button
                 type="submit"
                 className={style.with_icon_btn}
-                onClick={() => randomEmoji()}
+                onClick={randomEmoji}
               >
                 <TagFacesIcon fontSize="string" />
                 <div>Random</div>
               </button>
-              <button type="submit" onClick={() => removeEmoji()}>
+              <button type="submit" onClick={removeEmoji}>
                 Remove
               </button>
             </div>
