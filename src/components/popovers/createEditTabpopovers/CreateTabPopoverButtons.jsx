@@ -28,7 +28,7 @@ export default function CreateTabPopoverButtons() {
 
   const selectType = (type) => {
     if (type === "layout") {
-      return selectedObject.type;
+      return selectedObject?.type;
     }
     return "type";
   };

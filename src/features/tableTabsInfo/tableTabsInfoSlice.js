@@ -1,11 +1,11 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-empty-pattern */
 import { v4 as uuidv4 } from "uuid";
 import { createSlice } from "@reduxjs/toolkit";
 
+const uuidV4 = uuidv4();
+
 const initialState = {
-  tabsArray: [{ type: "table", name: "table", id: uuidv4() }],
-  selectedTabId: this?.tabsArray[0]?.id,
+  tabsArray: [{ type: "table", name: "table", id: uuidV4 }],
+  selectedTabId: uuidV4,
   createdTabName: "",
 };
 
@@ -17,15 +17,18 @@ const tableTabsInfoSlice = createSlice({
       state.tabsArray.push(action.payload);
     },
     updateTabArray: (state, action) => {
+      // eslint-disable-next-line no-param-reassign
       state.tabsArray = action.payload;
     },
     changeSelectedTabId: (state, action) => {
+      // eslint-disable-next-line no-param-reassign
       state.selectedTabId = action.payload;
     },
     addNewEditTab: (state, action) => {
       const index = state.tabsArray.findIndex(
         (e) => e.id === action.payload.id
       );
+      // eslint-disable-next-line no-param-reassign
       state.tabsArray[index] = action.payload;
     },
     changeNameNewTab: (state, action) => {
@@ -34,12 +37,15 @@ const tableTabsInfoSlice = createSlice({
       );
 
       if (action.payload.name) {
+        // eslint-disable-next-line no-param-reassign
         state.tabsArray[index].name = action.payload.name;
       } else {
+        // eslint-disable-next-line no-param-reassign
         state.tabsArray[index].name = state.tabsArray[index].type;
       }
     },
     changeCreatedTabName: (state, action) => {
+      // eslint-disable-next-line no-param-reassign
       state.createdTabName = action.payload;
     },
   },

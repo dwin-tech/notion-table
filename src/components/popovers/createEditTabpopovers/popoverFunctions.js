@@ -6,6 +6,7 @@ import {
   changeShowCreateTabPopover,
   changeShowNewTabPopover,
   changeShowView,
+  changeToggleAddPropertyPopover,
 } from "../../../features/showPopoversInfo/showPopoverInfoSlice";
 import chekedName from "../../../utils/popoverFuncs";
 
@@ -65,6 +66,9 @@ export const doneAndCloseBtn = (
     dispatch(changeNameNewTab({ id: selectedTabId, name: "" }));
   }
   dispatch(changeShowCreateTabPopover(false));
-  dispatch(changeShowView(false));
-  dispatch(changeShowNewTabPopover(false));
+  dispatch(changeToggleAddPropertyPopover(false));
+  setTimeout(() => {
+    dispatch(changeShowNewTabPopover(false));
+    dispatch(changeShowView(false));
+  }, 500);
 };

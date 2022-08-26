@@ -1,14 +1,16 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import Popover from "@mui/material/Popover";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { useSelector, useDispatch } from "react-redux";
 import style from "./popovers.module.scss";
 import EditTabPopoverJsx from "./CreateTabPopoverJsx";
-import { changeShowCreateTabPopover } from "../../../features/showPopoversInfo/showPopoverInfoSlice";
+import {
+  changeShowCreateTabPopover,
+  // chengePopoverEventCurrentTarget,
+} from "../../../features/showPopoversInfo/showPopoverInfoSlice";
 import onClosePopover from "./popoverFunctions";
 
 export default function EditTabPopover() {
-  const buttonRef = useRef();
   const dispatch = useDispatch();
   const { showCreateTabPopover, showNewTabPopover } = useSelector(
     (store) => store.showPopoverInfo
@@ -16,12 +18,6 @@ export default function EditTabPopover() {
   const { createdTabName, selectedTabId, tabsArray } = useSelector(
     (store) => store.tableTabsInfo
   );
-  // eslint-disable-next-line no-unused-vars
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  const handleClick = () => {
-    setAnchorEl(buttonRef);
-  };
 
   const id = showCreateTabPopover ? "simple-popover" : undefined;
 
@@ -30,12 +26,11 @@ export default function EditTabPopover() {
   return (
     <div>
       <button
-        ref={buttonRef}
         className={style.createTabPoper_btn}
         type="submit"
-        onClick={(e) => {
+        onClick={() => {
           dispatch(changeShowCreateTabPopover(true));
-          handleClick(e);
+          // dispatch(chengePopoverEventCurrentTarget([e.currentTarget]));
         }}
       >
         <MoreHorizIcon />
@@ -43,8 +38,7 @@ export default function EditTabPopover() {
       <Popover
         id={id}
         open={showCreateTabPopover}
-        anchorEl={buttonRef}
-        ForwardRef={buttonRef}
+        // anchorEl={popoverEventCurrentTarget[0]}
         onClose={() =>
           onClosePopover(
             dispatch,
@@ -64,13 +58,15 @@ export default function EditTabPopover() {
         }}
         PaperProps={{
           style: {
+            // overflow: "auto",
             height: "85%",
-            marginTop: "50px",
-            marginRight: "0",
+            marginTop: "81px",
+            marginRight: "-200px",
             width: "25%",
-            minWidth: "200px",
+            minWidth: "300px",
             boxShadow: "none",
             backgroundColor: "#ffffff",
+            paddingBottom: "66px",
           },
         }}
       >
