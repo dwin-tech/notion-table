@@ -8,6 +8,7 @@ import style from "./layout.module.scss";
 import CustomInput from "../../../../custom/CustomInput";
 import LayoutButtons from "./LayoutButtons";
 import { doneAndCloseBtn } from "../../popoverFunctions";
+import { changeShowView } from "../../../../../features/showPopoversInfo/showPopoverInfoSlice";
 
 export default function Layout() {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ export default function Layout() {
         {showNewTabPopover ? (
           <div>New View</div>
         ) : (
-          <GoBackComponent text="Layout" />
+          <GoBackComponent text="Layout" onChange={changeShowView} />
         )}
         <button
           type="submit"

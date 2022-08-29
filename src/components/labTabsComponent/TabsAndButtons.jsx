@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+// eslint-disable-next-line no-unused-vars
 import Box from "@mui/material/Box";
 import Tabs, { tabsClasses } from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -30,7 +31,7 @@ export default function TabsAndButtons() {
   const { tabsArray } = useSelector((store) => store.tableTabsInfo);
   const [value, setValue] = useState(0);
 
-  const handleChange = (event, newValue) => {
+  const handleChange = (e, newValue) => {
     setValue(newValue);
     dispatch(changeSelectedTabId(tabsArray[value]?.id));
   };
@@ -41,9 +42,12 @@ export default function TabsAndButtons() {
     if (result) {
       dispatch(updateTabArray(result));
     }
-    if (selectedTab) {
+    if (selectedTab || selectedTab === 0) {
       setValue(selectedTab);
       dispatch(changeSelectedTabId(tabsArray[selectedTab]?.id));
+    } else {
+      setValue(0);
+      dispatch(changeSelectedTabId(0));
     }
   }, []);
 
@@ -73,50 +77,55 @@ export default function TabsAndButtons() {
   };
 
   return (
-    <Box
-      sx={{
-        flexGrow: 1,
-        maxWidth: {
-          sm: "100%",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        },
-        bgcolor: "background.paper",
-      }}
+    <div
+      className={style.tabs_btns_section}
+      // style={{
+      //   width: "auto",
+      //   display: "flex",
+      //   justifyContent: "space-between",
+      // }}
+      // sx={{
+      //   flexGrow: 1,
+      //   maxWidth: {
+      //     sm: "100%",
+      //     display: "flex",
+      //     justifyContent: "space-between",
+      //     alignItems: "center",
+      //   },
+      //   bgcolor: "background.paper",
+      //   width: "100%",
+      // }}
     >
-      <div className={style.tabs_add_btn_container}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          variant="scrollable"
-          scrollButtons
-          aria-label="visible arrows tabs example"
-          sx={{
-            [`& .${tabsClasses.scrollButtons}`]: {
-              "&.Mui-disabled": { opacity: 0.3 },
-            },
-          }}
-        >
-          {tabsArray.map((e, i) => (
-            <Tab
-              icon={selectTabIcon[e.type]}
-              iconPosition="start"
-              value={i}
-              key={e.id}
-              label={e.name}
-            />
-          ))}
-        </Tabs>
-        <button
-          className={style.add_btn}
-          type="submit"
-          onClick={(e) => addTabBtn(e)}
-        >
-          <AddIcon />
-        </button>
-      </div>
+      <Tabs
+        value={value}
+        onChange={handleChange}
+        variant="scrollable"
+        scrollButtons
+        aria-label="visible arrows tabs example"
+        sx={{
+          [`& .${tabsClasses.scrollButtons}`]: {
+            "&.Mui-disabled": { opacity: 0.3 },
+          },
+        }}
+      >
+        {tabsArray.map((e, i) => (
+          <Tab
+            icon={selectTabIcon[e.type]}
+            iconPosition="start"
+            value={i}
+            key={e.id}
+            label={e.name}
+          />
+        ))}
+      </Tabs>
+      <button
+        className={style.add_btn}
+        type="submit"
+        onClick={(e) => addTabBtn(e)}
+      >
+        <AddIcon />
+      </button>
       <TableFunctions />
-    </Box>
+    </div>
   );
 }

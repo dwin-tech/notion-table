@@ -10,6 +10,8 @@ import {
   changeCreatedTabName,
   changeNameNewTab,
 } from "../../../features/tableTabsInfo/tableTabsInfoSlice";
+// eslint-disable-next-line no-unused-vars
+import chekedName from "../../../utils/popoverFuncs";
 
 function EditTabPopoverJsx() {
   const dispatch = useDispatch();
@@ -17,6 +19,7 @@ function EditTabPopoverJsx() {
   const { selectedTabId, createdTabName } = useSelector(
     (store) => store.tableTabsInfo
   );
+
   const [viewName, setViewName] = useState("");
 
   const changeViewName = (val) => {
@@ -35,12 +38,14 @@ function EditTabPopoverJsx() {
 
   const closeBtn = () => {
     dispatch(changeShowCreateTabPopover(false));
-    dispatch(
-      changeNameNewTab({
-        id: selectedTabId,
-        name: viewName,
-      })
-    );
+    if (viewName) {
+      dispatch(
+        changeNameNewTab({
+          id: selectedTabId,
+          name: viewName,
+        })
+      );
+    }
   };
 
   return (
