@@ -1,11 +1,8 @@
-import { v4 as uuidv4 } from "uuid";
 import { createSlice } from "@reduxjs/toolkit";
 
-const uuidV4 = uuidv4();
-
 const initialState = {
-  tabsArray: [{ type: "table", name: "table", id: uuidV4 }],
-  selectedTabId: uuidV4,
+  tabsArray: [{ type: "table", name: "table", id: "123456" }],
+  selectedTabId: "123456",
   createdTabName: "",
 };
 

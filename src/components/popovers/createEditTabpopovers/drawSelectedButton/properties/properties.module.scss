@@ -90,3 +90,49 @@
         background-color: $gray;
     }
 }
+
+.property_btns_second_part {
+    @include customButtonGroup(space-between);
+    width: 94%;
+    margin: 5px 8px 5px 5px;
+    padding: 0 8px 0 5px;
+}
+
+
+.deleted_container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5px;
+    color: rgba(55, 53, 47,0.5);
+    cursor: text;
+    & :nth-child(1n + 1) {
+        display: flex;
+        align-items: center;
+    }
+
+    .back_delete_btns {
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 3px;
+        
+
+        &:hover {
+            background-color: rgba(55, 53, 47,0.2);
+        }
+    }
+
+}
+
+.chossen_type_btn {
+    @include customButtonGroup(space-between);
+    width: 94%;
+    margin: 5px 8px 5px 5px;
+    padding: 0 8px 0 5px;
+
+    & :last-child {
+        width: 40%;
+        display: flex;
+        justify-content: space-between;
+    }
+}

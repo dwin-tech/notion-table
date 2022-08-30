@@ -67,6 +67,7 @@ export const doneAndCloseBtn = (
   }
   dispatch(changeShowCreateTabPopover(false));
   dispatch(changeToggleAddPropertyPopover(false));
+  // TODO get rid of setTimeout (popover onClose function works with a delay)
   setTimeout(() => {
     dispatch(changeShowNewTabPopover(false));
     dispatch(changeShowView(false));
