@@ -15,15 +15,18 @@ const tableTabsInfoSlice = createSlice({
       state.tabsArray.push(action.payload);
     },
     updateTabArray: (state, action) => {
+      // eslint-disable-next-line no-param-reassign
       state.tabsArray = action.payload;
     },
     changeSelectedTabId: (state, action) => {
+      // eslint-disable-next-line no-param-reassign
       state.selectedTabId = action.payload;
     },
     addNewEditTab: (state, action) => {
       const index = state.tabsArray.findIndex(
         (e) => e.id === action.payload.id
       );
+      // eslint-disable-next-line no-param-reassign
       state.tabsArray[index] = action.payload;
     },
     changeNameNewTab: (state, action) => {
@@ -32,12 +35,14 @@ const tableTabsInfoSlice = createSlice({
       );
 
       if (action.payload.name) {
+        // eslint-disable-next-line no-param-reassign
         state.tabsArray[index].name = action.payload.name;
       } else {
         state.tabsArray[index].name = state.tabsArray[index]?.type;
       }
     },
     changeCreatedTabName: (state, action) => {
+      // eslint-disable-next-line no-param-reassign
       state.createdTabName = action.payload;
     },
   },

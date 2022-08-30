@@ -8,15 +8,17 @@ import {
   GROUP,
 } from "../../../constants/headerContantes/headerConstantes";
 import Layout from "./drawSelectedButton/layout/Layout";
+import Properties from "./drawSelectedButton/properties/Properties";
 
 function CreateSelectedButtonJsx() {
   const { selectedValueInView } = useSelector((store) => store.showPopoverInfo);
+
   function buildSelectedButtonJsx() {
     if (selectedValueInView === LAYOUT) {
       return <Layout />;
     }
     if (selectedValueInView === PROPERTIES) {
-      return <div>Properties</div>;
+      return <Properties />;
     }
     if (selectedValueInView === FILTER) {
       return <div>filter</div>;
@@ -27,7 +29,7 @@ function CreateSelectedButtonJsx() {
     if (selectedValueInView === GROUP) {
       return <div>group</div>;
     }
-    return <div>Reload</div>;
+    return <div>Re load</div>;
   }
 
   return buildSelectedButtonJsx();
