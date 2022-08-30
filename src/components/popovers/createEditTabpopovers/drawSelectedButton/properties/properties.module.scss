@@ -1,0 +1,138 @@
+@import '../../../../../style/variables.scss';
+
+
+
+.go_back_close_container {
+    width: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between
+}
+.onclose_btn {
+    @include customCloseBtn();
+}
+
+.show_hide_properties {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.shown_hidden_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 94%;
+
+    p {
+        font-size: $smallFont;
+        color: $lightGray;
+    }
+
+    button {
+        border-radius: 3px;
+        font-size: 12px;
+        line-height: 1.2;
+        min-width: 0px;
+        padding: 2px 6px;
+        color: rgb(46, 170, 220);
+        border: none;
+        background-color: #fff;
+        cursor: pointer;
+        
+
+        &:hover {
+            background: rgba(45, 170, 219, 0.3);
+        }
+    }
+}
+
+
+.property_btns {
+    @include customButtonGroup(space-between);
+    margin: 0 3px;
+    padding: 0 5px;
+    
+    & :nth-child(1n+1) {
+        margin-right: 3px;
+    }
+
+    &:hover {
+        .viewed_btn {
+            background-color: #f0f0f0;
+        }
+    }
+
+    .btn_title {
+        text-transform: capitalize;
+    }
+
+}
+
+.viewed_icon {
+    color: $gray;
+    padding: 4px;
+    border-radius: 3px;
+    font-size: 28px !important;
+
+    &:hover {
+        background-color: $gray;
+    }
+}
+
+
+.viewed_black_icon {
+    padding: 4px;
+    border-radius: 3px;
+    font-size: 28px !important;
+
+    &:hover {
+        background-color: $gray;
+    }
+}
+
+.property_btns_second_part {
+    @include customButtonGroup(space-between);
+    width: 94%;
+    margin: 5px 8px 5px 5px;
+    padding: 0 8px 0 5px;
+}
+
+
+.deleted_container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5px;
+    color: rgba(55, 53, 47,0.5);
+    cursor: text;
+    & :nth-child(1n + 1) {
+        display: flex;
+        align-items: center;
+    }
+
+    .back_delete_btns {
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 3px;
+        
+
+        &:hover {
+            background-color: rgba(55, 53, 47,0.2);
+        }
+    }
+
+}
+
+.chossen_type_btn {
+    @include customButtonGroup(space-between);
+    width: 94%;
+    margin: 5px 8px 5px 5px;
+    padding: 0 8px 0 5px;
+
+    & :last-child {
+        width: 40%;
+        display: flex;
+        justify-content: space-between;
+    }
+}

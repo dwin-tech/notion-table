@@ -1,11 +1,9 @@
 /* eslint-disable no-param-reassign */
-/* eslint-disable no-empty-pattern */
-import { v4 as uuidv4 } from "uuid";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  tabsArray: [{ type: "table", name: "table", id: uuidv4() }],
-  selectedTabId: this?.tabsArray[0]?.id,
+  tabsArray: [{ type: "table", name: "table", id: "12345" }],
+  selectedTabId: "12345",
   createdTabName: "",
 };
 
@@ -36,7 +34,7 @@ const tableTabsInfoSlice = createSlice({
       if (action.payload.name) {
         state.tabsArray[index].name = action.payload.name;
       } else {
-        state.tabsArray[index].name = state.tabsArray[index].type;
+        state.tabsArray[index].name = state.tabsArray[index]?.type;
       }
     },
     changeCreatedTabName: (state, action) => {
