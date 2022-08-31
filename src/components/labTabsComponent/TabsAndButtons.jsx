@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from "react";
-// eslint-disable-next-line no-unused-vars
-import Box from "@mui/material/Box";
+import React, { useMemo, useEffect } from "react";
 import Tabs, { tabsClasses } from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import AddIcon from "@mui/icons-material/Add";
@@ -28,26 +26,27 @@ import selectTabIcon from "../../utils/tabIeIcons";
 
 export default function TabsAndButtons() {
   const dispatch = useDispatch();
-  const { tabsArray } = useSelector((store) => store.tableTabsInfo);
-  const [value, setValue] = useState(0);
+  const { tabsArray, selectedTabId } = useSelector(
+    (store) => store.tableTabsInfo
+  );
 
-  const handleChange = (e, newValue) => {
-    setValue(newValue);
-    dispatch(changeSelectedTabId(tabsArray[value]?.id));
+  const handleChange = (event, newValue) => {
+    dispatch(changeSelectedTabId(tabsArray[newValue]?.id));
+    setDataIntoStorage("selectedTabId", tabsArray[newValue]?.id);
   };
 
+  const currentTab = useMemo(() => {
+    return tabsArray.findIndex((e) => e.id === selectedTabId);
+  }, [selectedTabId]);
+
   useEffect(() => {
-    const result = getDatainToStorage("tabs");
-    const selectedTab = getDatainToStorage("selectedTab");
-    if (result) {
-      dispatch(updateTabArray(result));
+    const tabs = getDatainToStorage("tabs");
+    const getSelectedTabId = getDatainToStorage("selectedTabId");
+    if (tabs) {
+      dispatch(updateTabArray(tabs));
     }
-    if (selectedTab || selectedTab === 0) {
-      setValue(selectedTab);
-      dispatch(changeSelectedTabId(tabsArray[selectedTab]?.id));
-    } else {
-      setValue(0);
-      dispatch(changeSelectedTabId(0));
+    if (getSelectedTabId) {
+      dispatch(changeSelectedTabId(getSelectedTabId));
     }
   }, []);
 
@@ -55,49 +54,28 @@ export default function TabsAndButtons() {
     setDataIntoStorage("tabs", tabsArray);
   }, [tabsArray]);
 
-  useEffect(() => {
-    setDataIntoStorage("selectedTab", value);
-    dispatch(changeSelectedTabId(tabsArray[value]?.id));
-  }, [value]);
-
-  const addTabBtn = (e) => {
+  const addTabBtn = () => {
     dispatch(changeShowCreateTabPopover(true));
     dispatch(changeShowNewTabPopover(true));
     dispatch(changeSelectedValueInView(LAYOUT));
     dispatch(changeShowView(true));
     dispatch(changeSelectedType("table"));
+    const id = uuid();
+    setDataIntoStorage("selectedTabId", id);
+    dispatch(changeSelectedTabId(id));
     dispatch(
       addNewTab({
         type: "table",
         name: "table",
-        id: uuid(),
+        id,
       })
     );
-    handleChange(e, tabsArray.length);
   };
 
   return (
-    <div
-      className={style.tabs_btns_section}
-      // style={{
-      //   width: "auto",
-      //   display: "flex",
-      //   justifyContent: "space-between",
-      // }}
-      // sx={{
-      //   flexGrow: 1,
-      //   maxWidth: {
-      //     sm: "100%",
-      //     display: "flex",
-      //     justifyContent: "space-between",
-      //     alignItems: "center",
-      //   },
-      //   bgcolor: "background.paper",
-      //   width: "100%",
-      // }}
-    >
+    <div className={style.tabs_btns_section}>
       <Tabs
-        value={value}
+        value={currentTab}
         onChange={handleChange}
         variant="scrollable"
         scrollButtons

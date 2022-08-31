@@ -1,7 +1,12 @@
 import React from "react";
+import EditTypePopover from "./EditTypePopover";
 
 function EditProperties() {
-  return <div>edit</div>;
+  return (
+    <div>
+      <EditTypePopover />
+    </div>
+  );
 }
 
 export default EditProperties;

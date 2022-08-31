@@ -10,8 +10,6 @@
 
 
 .left_border {
-   border-left: 1px solid #000; 
-   height: 100vh;
    width: 100%;
    overflow: hidden;
 
@@ -85,14 +83,15 @@
    }
 }
 
-.left_second_border{ 
-    border-left: 1px solid #000; 
-    height: 100vh;
-}
 .view_options_container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     
 }
+
+
+
+
+
 

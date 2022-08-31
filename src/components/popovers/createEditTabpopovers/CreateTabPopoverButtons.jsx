@@ -6,7 +6,6 @@ import InsertLinkIcon from "@mui/icons-material/InsertLink";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch, useSelector } from "react-redux";
-import { v4 as uuid } from "uuid";
 import {
   changeShowView,
   changeSelectedValueInView,
@@ -19,6 +18,8 @@ export default function CreateTabPopoverButtons() {
   const { selectedTabId, tabsArray } = useSelector(
     (store) => store.tableTabsInfo
   );
+
+  const tableData = useSelector((store) => store.tableDataInfo.data);
   const selectedObject = tabsArray.find((e) => e.id === selectedTabId);
 
   const popoverBtns = (type) => {
@@ -26,9 +27,21 @@ export default function CreateTabPopoverButtons() {
     dispatch(changeShowView(true));
   };
 
+  const shownPropertiesCount = () =>
+    tableData.reduce((acc, e) => {
+      if (!e.hide) {
+        // eslint-disable-next-line no-param-reassign
+        acc += 1;
+      }
+      return acc;
+    }, 0);
+
   const selectType = (type) => {
     if (type === "layout") {
       return selectedObject?.type;
+    }
+    if (type === "properties") {
+      return `${shownPropertiesCount()} shown`;
     }
     return "type";
   };

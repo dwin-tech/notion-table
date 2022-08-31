@@ -7,10 +7,12 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import propertyIcons from "../../../../propertyIcons/propertyIcons";
 import {
+  changeSelectedPropertyForEdit,
   toggleHideAItemProperty,
   toggleHidePropertyInToData,
 } from "../../../../../features/tableDataInfo/tableDataInfoSlice";
 import style from "./properties.module.scss";
+import { changeToggleAddPropertyPopover } from "../../../../../features/showPopoversInfo/showPopoverInfoSlice";
 
 function ShowOrHidePropertyElements({ type, text, buttonName }) {
   const dispatch = useDispatch();
@@ -33,7 +35,16 @@ function ShowOrHidePropertyElements({ type, text, buttonName }) {
       {type === "show"
         ? showData.map((e, i) => (
             // eslint-disable-next-line react/no-array-index-key
-            <button key={i} type="submit" className={style.property_btns}>
+            <button
+              // eslint-disable-next-line react/no-array-index-key
+              key={i}
+              type="submit"
+              className={style.property_btns}
+              onClick={() => {
+                dispatch(changeSelectedPropertyForEdit(e.id));
+                dispatch(changeToggleAddPropertyPopover(true));
+              }}
+            >
               <div>
                 <div>
                   <DragIndicatorIcon />
@@ -47,11 +58,12 @@ function ShowOrHidePropertyElements({ type, text, buttonName }) {
                 ) : (
                   <RemoveRedEyeIcon
                     className={style.viewed_black_icon}
-                    onClick={() =>
+                    onClick={(evt) => {
+                      evt.stopPropagation();
                       dispatch(
                         toggleHideAItemProperty({ id: e.id, value: true })
-                      )
-                    }
+                      );
+                    }}
                   />
                 )}
                 <KeyboardArrowRightIcon />
@@ -60,7 +72,16 @@ function ShowOrHidePropertyElements({ type, text, buttonName }) {
           ))
         : hideData.map((e, i) => (
             // eslint-disable-next-line react/no-array-index-key
-            <button key={i} type="submit" className={style.property_btns}>
+            <button
+              // eslint-disable-next-line react/no-array-index-key
+              key={i}
+              type="submit"
+              className={style.property_btns}
+              onClick={() => {
+                dispatch(changeSelectedPropertyForEdit(e.id));
+                dispatch(changeToggleAddPropertyPopover(true));
+              }}
+            >
               <div>
                 <div>
                   <DragIndicatorIcon />
@@ -71,11 +92,12 @@ function ShowOrHidePropertyElements({ type, text, buttonName }) {
               <div>
                 <VisibilityOffIcon
                   className={style.viewed_icon}
-                  onClick={() =>
+                  onClick={(evt) => {
+                    evt.stopPropagation();
                     dispatch(
                       toggleHideAItemProperty({ id: e.id, value: false })
-                    )
-                  }
+                    );
+                  }}
                 />
                 <KeyboardArrowRightIcon />
               </div>

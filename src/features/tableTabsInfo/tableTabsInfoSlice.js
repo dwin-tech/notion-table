@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   tabsArray: [{ type: "table", name: "table", id: "12345" }],
-  selectedTabId: "12345",
+
   createdTabName: "",
 };
 
