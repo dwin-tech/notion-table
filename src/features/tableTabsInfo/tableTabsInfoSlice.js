@@ -1,8 +1,9 @@
+/* eslint-disable no-param-reassign */
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  tabsArray: [{ type: "table", name: "table", id: "123456" }],
-  selectedTabId: "123456",
+  tabsArray: [{ type: "table", name: "table", id: "12345" }],
+
   createdTabName: "",
 };
 
@@ -37,8 +38,7 @@ const tableTabsInfoSlice = createSlice({
         // eslint-disable-next-line no-param-reassign
         state.tabsArray[index].name = action.payload.name;
       } else {
-        // eslint-disable-next-line no-param-reassign
-        state.tabsArray[index].name = state.tabsArray[index].type;
+        state.tabsArray[index].name = state.tabsArray[index]?.type;
       }
     },
     changeCreatedTabName: (state, action) => {
