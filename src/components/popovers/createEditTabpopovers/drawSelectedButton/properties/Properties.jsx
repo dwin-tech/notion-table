@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-unused-vars
-import React, { useState } from "react";
+import React from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
 import CustomInput from "../../../../custom/CustomInput";
@@ -8,16 +7,14 @@ import style from "./properties.module.scss";
 import {
   changeShowCreateTabPopover,
   changeShowView,
-  changeToggleAddPropertyPopover,
 } from "../../../../../features/showPopoversInfo/showPopoverInfoSlice";
-import CustomInputWithValue from "../../../../custom/CustomInputWithValue";
 import EditProperties from "./EditProperties";
 import DefaultProperties from "./DefaultProperties";
-// import DeletedProperties from "./DeletedProperties";
+import DeletedProperties from "./DeletedProperties";
 import PropertiesButtons from "./PropertiesButtons";
 import { changeSelectedPropertyTitle } from "../../../../../features/tableDataInfo/tableDataInfoSlice";
 
-function Properties() {
+export default function Properties() {
   const dispatch = useDispatch();
   const { toggleAddPropertyPopover } = useSelector(
     (store) => store.showPopoverInfo
@@ -25,13 +22,10 @@ function Properties() {
   const toggleDeletedProperties = useSelector(
     (store) => store.tableDataInfo.toggleDeletedProperties
   );
-  const { selectedPropertyForEdit, propertyNames } = useSelector(
+  const { selectedPropertyForEdit } = useSelector(
     (store) => store.tableDataInfo
   );
-  const [chekedTitle, setChekedTitle] = useState(false);
-  // const [propertiesInputValue, setPropertiesInputValue] = useState("");
 
-  // eslint-disable-next-line no-unused-vars
   const changePropertiesInputValue = (val) => {
     dispatch(
       changeSelectedPropertyTitle({
@@ -41,35 +35,29 @@ function Properties() {
     );
   };
 
-  const chekedIncludesTitleInData = (val) => {
-    if (selectedPropertyForEdit.title !== val) {
-      setChekedTitle(Object.values(propertyNames).includes(val));
-    }
-  };
-
   const closeButton = () => {
     dispatch(changeShowCreateTabPopover(false));
-    setTimeout(() => {
-      dispatch(changeShowView(false));
-    }, 500);
+    dispatch(changeShowView(false));
+  };
+
+  const selectedJsxAddOrDel = () => {
+    if (toggleAddPropertyPopover) {
+      return <EditProperties />;
+    }
+    if (toggleDeletedProperties) {
+      return <DeletedProperties />;
+    }
+    return null;
   };
 
   return (
     <div>
-      {toggleDeletedProperties ? (
-        // <DeletedProperties />
-        <div>hhhh</div>
+      {selectedJsxAddOrDel() ? (
+        selectedJsxAddOrDel()
       ) : (
         <>
           <div className={style.go_back_close_container}>
-            <GoBackComponent
-              text={toggleAddPropertyPopover ? "Edit property" : "Properties"}
-              onChange={
-                toggleAddPropertyPopover
-                  ? changeToggleAddPropertyPopover
-                  : changeShowView
-              }
-            />
+            <GoBackComponent text="Properties" onChange={changeShowView} />
             <button
               type="submit"
               className={style.onclose_btn}
@@ -79,35 +67,15 @@ function Properties() {
             </button>
           </div>
           <div>
-            {!toggleAddPropertyPopover ? (
-              <CustomInput
-                onChange={changePropertiesInputValue}
-                placeholder="Search for a property..."
-              />
-            ) : (
-              <CustomInputWithValue
-                value={selectedPropertyForEdit?.title}
-                onBlur={changePropertiesInputValue}
-                onChange={chekedIncludesTitleInData}
-                placeholder="Property name"
-              />
-            )}
-            {chekedTitle && (
-              <div>A property named Name already exists in this database</div>
-            )}
+            <CustomInput
+              onChange={changePropertiesInputValue}
+              placeholder="Search for a property..."
+            />
           </div>
-          {toggleAddPropertyPopover ? (
-            <EditProperties />
-          ) : (
-            <>
-              <DefaultProperties />
-              <PropertiesButtons />
-            </>
-          )}
+          <DefaultProperties />
+          <PropertiesButtons />
         </>
       )}
     </div>
   );
 }
-
-export default Properties;

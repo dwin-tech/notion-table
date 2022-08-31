@@ -58,15 +58,10 @@ export default function EditTabPopover() {
         }}
         PaperProps={{
           style: {
-            // overflow: "auto",
-            height: "85%",
-            marginTop: "81px",
-            marginRight: "-200px",
-            width: "25%",
-            minWidth: "300px",
-            boxShadow: "none",
-            backgroundColor: "#ffffff",
-            paddingBottom: "66px",
+            height: "73.2%",
+            borderLeft: "1px solid #000",
+            width: "22%",
+            minWidth: "250px",
           },
         }}
       >

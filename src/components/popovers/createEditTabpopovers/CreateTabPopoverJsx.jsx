@@ -10,8 +10,6 @@ import {
   changeCreatedTabName,
   changeNameNewTab,
 } from "../../../features/tableTabsInfo/tableTabsInfoSlice";
-// eslint-disable-next-line no-unused-vars
-import chekedName from "../../../utils/popoverFuncs";
 
 function EditTabPopoverJsx() {
   const dispatch = useDispatch();
