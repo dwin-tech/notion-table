@@ -3,7 +3,7 @@ import Popover from "@mui/material/Popover";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { useSelector, useDispatch } from "react-redux";
 import style from "./popovers.module.scss";
-import EditTabPopoverJsx from "./CreateTabPopoverJsx";
+import EditTabPopoverJsx from "./CreateTabPopoverDrawing";
 import {
   changeShowCreateTabPopover,
   // chengePopoverEventCurrentTarget,
@@ -58,15 +58,10 @@ export default function EditTabPopover() {
         }}
         PaperProps={{
           style: {
-            // overflow: "auto",
-            height: "85%",
-            marginTop: "81px",
-            marginRight: "-200px",
-            width: "25%",
-            minWidth: "300px",
-            boxShadow: "none",
-            backgroundColor: "#ffffff",
-            paddingBottom: "66px",
+            height: "73.2%",
+            borderLeft: "1px solid #000",
+            width: "22%",
+            minWidth: "250px",
           },
         }}
       >

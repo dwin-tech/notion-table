@@ -1,5 +1,4 @@
 /* eslint-disable no-param-reassign */
-/* eslint-disable no-empty-pattern */
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -16,7 +15,7 @@ const initialState = {
       type: "status",
       title: "status",
       hide: true,
-      deleted: false,
+      deleted: true,
       data: [],
       id: "45632",
     },
@@ -40,7 +39,7 @@ const initialState = {
       type: "filesMedia",
       title: "filesMedia",
       hide: false,
-      deleted: false,
+      deleted: true,
       data: [],
       id: "44557",
     },
@@ -53,6 +52,8 @@ const initialState = {
   },
   toggleDeletedProperties: false,
   selectedPropertyForEdit: null,
+  toggleDeletedDialog: false,
+  toggleEditTypeJsx: false,
 };
 
 const tableDataInfoSlice = createSlice({
@@ -62,16 +63,6 @@ const tableDataInfoSlice = createSlice({
     addPropertyInToData: (state, action) => {
       state.push(action.payload);
     },
-    // changePropertyNames: (state, action) => {
-    //   if (action.payload.type === "delete") {
-    //     const index = state.propertyNames.findIndex(
-    //       (e) => e === action.payload.value
-    //     );
-    //     state.propertyNames.splice(index, 1);
-    //   } else {
-    //     state.propertyNames.push(action.payload.value);
-    //   }
-    // },
     toggleHidePropertyInToData: (state, action) => {
       state.data.forEach((e) => {
         if (e.type !== "title") {
@@ -101,9 +92,9 @@ const tableDataInfoSlice = createSlice({
       state.data = state.data.filter((e) => e.id !== action.payload);
     },
     changeSelectedPropertyForEdit: (state, action) => {
-      state.selectedPropertyForEdit = state.data.find(
-        (e) => e.id === action.payload
-      );
+      const item = state.data.find((e) => e.id === action.payload);
+      item.deleted = false;
+      state.selectedPropertyForEdit = item;
     },
     changeSelectedPropertyTitle: (state, action) => {
       const findIndex = state.data.findIndex((e) => e.id === action.payload.id);
@@ -113,6 +104,12 @@ const tableDataInfoSlice = createSlice({
     changeSelectedPropertyType: (state, action) => {
       const findIndex = state.data.findIndex((e) => e.id === action.payload.id);
       state.data[findIndex].type = action.payload.type;
+    },
+    changeToggleDeletedDialog: (state, action) => {
+      state.toggleDeletedDialog = action.payload;
+    },
+    changeToggleEditTypeJsx: (state, action) => {
+      state.toggleEditTypeJsx = action.payload;
     },
   },
 });
@@ -128,6 +125,8 @@ export const {
   changeSelectedPropertyForEdit,
   changeSelectedPropertyTitle,
   changeSelectedPropertyType,
+  changeToggleDeletedDialog,
+  changeToggleEditTypeJsx,
 } = tableDataInfoSlice.actions;
 
 export default tableDataInfoSlice.reducer;

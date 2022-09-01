@@ -7,11 +7,12 @@ import { useDispatch, useSelector } from "react-redux";
 import style from "./properties.module.scss";
 import { changeToggleDeletedProperties } from "../../../../../features/tableDataInfo/tableDataInfoSlice";
 
-function PropertiesButtons() {
+export default function PropertiesButtons() {
   const dispatch = useDispatch();
   const tableData = useSelector((store) => store.tableDataInfo.data);
 
-  const countOfDeletedProperties = tableData.filter((e) => e.deleted);
+  const countOfDeletedProperties = tableData.filter((e) => e.deleted).length;
+
   return (
     <div>
       <button
@@ -30,20 +31,18 @@ function PropertiesButtons() {
       </button>
       <button type="submit" className={style.property_btns_second_part}>
         <div>
+          <AddIcon />
+          <p>New property</p>
+        </div>
+      </button>
+      <button type="submit" className={style.property_btns_second_part}>
+        <div>
           {" "}
           <HelpOutlineIcon />
           <p>Learn about properties</p>
         </div>
       </button>
       <div className={style.btn_under_border} />
-      <button type="submit" className={style.property_btns_second_part}>
-        <div>
-          <AddIcon />
-          <p>New property</p>
-        </div>
-      </button>
     </div>
   );
 }
-
-export default PropertiesButtons;

@@ -24,24 +24,3 @@ export const advancedTypeProperties = {
   lastEditedTime: "Last edited time",
   lastEditedBy: "Last edited by",
 };
-
-// title
-// text
-// number
-// select
-// multiSelect
-// status
-// date
-// person
-// filesMedia
-// checkBox
-// url
-// mail
-// phone
-// formula
-// relation
-// rollup
-// createdTime
-// createdBy
-// lastEditedTime
-// lastEditedBy

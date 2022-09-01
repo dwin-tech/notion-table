@@ -13,13 +13,11 @@ import {
   changeShowCreateTabPopover,
   changeShowView,
   changeToggleAddPropertyPopover,
-  // eslint-disable-next-line no-unused-vars
-  // changeTogglePropertyPopover,
 } from "../../features/showPopoversInfo/showPopoverInfoSlice";
 import { PROPERTIES } from "../../constants/headerContantes/headerConstantes";
 import PopoverOfButton from "../tablePropertyButtonWithPopover/PopoverOfButton";
 
-function TableDrawing() {
+export default function TableDrawing() {
   const dispatch = useDispatch();
   // eslint-disable-next-line no-unused-vars
   const [propertyCounter, setPropertyCounter] = useState(1);
@@ -58,5 +56,3 @@ function TableDrawing() {
     </div>
   );
 }
-
-export default TableDrawing;

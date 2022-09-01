@@ -1,0 +1,33 @@
+
+.dialog_btns_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+
+    & :nth-child(1n+1) {
+        height: 40px;
+        margin-bottom: 10px;
+        background-color: #fff;
+        cursor: pointer;
+    }
+
+    .delete_btn {
+        color: rgb(235, 87, 87);
+        border: 1px solid rgba(235, 87, 87, 0.5);
+        
+        &:hover {
+            background: rgba(235, 87, 87, 0.1);
+        }
+    }
+
+    .cancel_btn {
+        color: rgb(55, 53, 47);
+        border: 1px solid rgba(55, 53, 47, 0.16);
+        
+        &:hover {
+            background: rgb(225, 225, 225);
+        }
+    }
+
+}
