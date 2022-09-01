@@ -5,7 +5,7 @@ import basicTypeProperties, {
 } from "../../../../typeOfProperties/typeOfProperties";
 import style from "./properties.module.scss";
 
-export default function EditTypeJsx() {
+export default function EditTypeDrawing() {
   return (
     <div>
       <input type="text" />

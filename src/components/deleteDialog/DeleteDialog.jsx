@@ -1,13 +1,10 @@
 import React from "react";
-// import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
-// import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-// import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
-import style from "./deletedDialog.module.scss";
+import style from "./deleteDialog.module.scss";
 import { changeToggleDeletedDialog } from "../../features/tableDataInfo/tableDataInfoSlice";
 
 export default function DeletedDialog({ type, onDelete, id }) {

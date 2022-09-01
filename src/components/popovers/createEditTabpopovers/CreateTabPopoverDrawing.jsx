@@ -4,14 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 import style from "./popovers.module.scss";
 import CustomInput from "../../custom/CustomInput";
 import CreateTabPopoverButtons from "./CreateTabPopoverButtons";
-import CreateSelectedButtonJsx from "./CreateSelectedButtonJsx";
+import CreateSelectedButtonJsx from "./CreateSelectedButtonDrawing";
 import { changeShowCreateTabPopover } from "../../../features/showPopoversInfo/showPopoverInfoSlice";
 import {
   changeCreatedTabName,
   changeNameNewTab,
 } from "../../../features/tableTabsInfo/tableTabsInfoSlice";
 
-function EditTabPopoverJsx() {
+function EditTabPopoverDrawing() {
   const dispatch = useDispatch();
   const { showView } = useSelector((store) => store.showPopoverInfo);
   const { selectedTabId, createdTabName } = useSelector(
@@ -75,4 +75,4 @@ function EditTabPopoverJsx() {
   );
 }
 
-export default EditTabPopoverJsx;
+export default EditTabPopoverDrawing;

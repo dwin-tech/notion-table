@@ -10,7 +10,7 @@ import {
 import Layout from "./drawSelectedButton/layout/Layout";
 import Properties from "./drawSelectedButton/properties/Properties";
 
-function CreateSelectedButtonJsx() {
+function CreateSelectedButtonDrawing() {
   const { selectedValueInView } = useSelector((store) => store.showPopoverInfo);
 
   function buildSelectedButtonJsx() {
@@ -35,4 +35,4 @@ function CreateSelectedButtonJsx() {
   return buildSelectedButtonJsx();
 }
 
-export default CreateSelectedButtonJsx;
+export default CreateSelectedButtonDrawing;

@@ -3,7 +3,7 @@ import Popover from "@mui/material/Popover";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { useSelector, useDispatch } from "react-redux";
 import style from "./popovers.module.scss";
-import EditTabPopoverJsx from "./CreateTabPopoverJsx";
+import EditTabPopoverJsx from "./CreateTabPopoverDrawing";
 import {
   changeShowCreateTabPopover,
   // chengePopoverEventCurrentTarget,

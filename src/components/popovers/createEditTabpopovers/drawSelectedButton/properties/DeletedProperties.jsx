@@ -17,7 +17,7 @@ import {
 } from "../../../../../features/showPopoversInfo/showPopoverInfoSlice";
 import style from "./properties.module.scss";
 import propertyIcons from "../../../../propertyIcons/propertyIcons";
-import DeletedDialog from "../../../../deletedDialog/DeletedDialog";
+import DeletedDialog from "../../../../deleteDialog/DeleteDialog";
 
 export default function DeletedProperties() {
   const dispatch = useDispatch();
