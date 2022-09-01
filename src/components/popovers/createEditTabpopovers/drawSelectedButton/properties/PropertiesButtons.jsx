@@ -15,20 +15,22 @@ export default function PropertiesButtons() {
 
   return (
     <div>
-      <button
-        type="submit"
-        className={style.property_btns_second_part}
-        onClick={() => dispatch(changeToggleDeletedProperties())}
-      >
-        <div>
-          <DeleteIcon />
-          <p>Deleted properties</p>
-        </div>
-        <div>
-          <p>{countOfDeletedProperties}</p>
-          <KeyboardArrowRightIcon />
-        </div>
-      </button>
+      {countOfDeletedProperties ? (
+        <button
+          type="submit"
+          className={style.property_btns_second_part}
+          onClick={() => dispatch(changeToggleDeletedProperties())}
+        >
+          <div>
+            <DeleteIcon />
+            <p>Deleted properties</p>
+          </div>
+          <div>
+            <p>{countOfDeletedProperties}</p>
+            <KeyboardArrowRightIcon />
+          </div>
+        </button>
+      ) : null}
       <button type="submit" className={style.property_btns_second_part}>
         <div>
           <AddIcon />

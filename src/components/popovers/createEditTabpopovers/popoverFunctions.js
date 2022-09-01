@@ -9,6 +9,7 @@ import {
   changeToggleAddPropertyPopover,
 } from "../../../features/showPopoversInfo/showPopoverInfoSlice";
 import chekedName from "../../../utils/popoverFuncs";
+import { changeToggleEditTypeJsx } from "../../../features/tableDataInfo/tableDataInfoSlice";
 
 const onClosePopover = (
   dispatch,
@@ -43,6 +44,8 @@ const onClosePopover = (
   dispatch(changeShowCreateTabPopover(false));
   dispatch(changeShowNewTabPopover(false));
   dispatch(changeShowView(false));
+  dispatch(changeToggleAddPropertyPopover(false));
+  dispatch(changeToggleEditTypeJsx(false));
 };
 
 export default onClosePopover;

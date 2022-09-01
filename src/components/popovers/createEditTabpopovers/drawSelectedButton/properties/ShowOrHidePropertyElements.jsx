@@ -22,16 +22,20 @@ function ShowOrHidePropertyElements({ type, text, buttonName }) {
 
   return (
     <div className={style.show_hide_properties}>
-      <div className={style.shown_hidden_container}>
-        <p>{text} in table</p>
-        <button
-          type="submit"
-          className={style.hide_show_btn}
-          onClick={() => dispatch(toggleHidePropertyInToData(type === "show"))}
-        >
-          {buttonName} all
-        </button>
-      </div>
+      {type === "hide" && !hideData.length ? null : (
+        <div className={style.shown_hidden_container}>
+          <p>{text} in table</p>
+          <button
+            type="submit"
+            className={style.hide_show_btn}
+            onClick={() =>
+              dispatch(toggleHidePropertyInToData(type === "show"))
+            }
+          >
+            {buttonName} all
+          </button>
+        </div>
+      )}
       {type === "show"
         ? showData.map((e, i) => (
             // eslint-disable-next-line react/no-array-index-key

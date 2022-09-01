@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   tabsArray: [{ type: "table", name: "table", id: "12345" }],
-
+  selectedTabId: "12345",
   createdTabName: "",
 };
 
@@ -30,7 +30,6 @@ const tableTabsInfoSlice = createSlice({
       const index = state.tabsArray.findIndex(
         (e) => e.id === action.payload.id
       );
-
       if (action.payload.name) {
         state.tabsArray[index].name = action.payload.name;
       } else {

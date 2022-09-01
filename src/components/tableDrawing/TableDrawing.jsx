@@ -1,13 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import AddIcon from "@mui/icons-material/Add";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-// eslint-disable-next-line no-unused-vars
-import { v4 as uuidv4 } from "uuid";
 import style from "./tableDrawing.module.scss";
-// eslint-disable-next-line no-unused-vars
-import { addPropertyInToData } from "../../features/tableDataInfo/tableDataInfoSlice";
-import { getDatainToStorage } from "../../utils/callLocalStorage";
 import {
   changeSelectedValueInView,
   changeShowCreateTabPopover,
@@ -16,25 +11,31 @@ import {
 } from "../../features/showPopoversInfo/showPopoverInfoSlice";
 import { PROPERTIES } from "../../constants/headerContantes/headerConstantes";
 import PopoverOfButton from "../tablePropertyButtonWithPopover/PopoverOfButton";
+import {
+  changeToggleAddNewPropertyType,
+  changeToggleEditTypeJsx,
+} from "../../features/tableDataInfo/tableDataInfoSlice";
 
 export default function TableDrawing() {
   const dispatch = useDispatch();
-  // eslint-disable-next-line no-unused-vars
-  const [propertyCounter, setPropertyCounter] = useState(1);
-  const tableData = useSelector((store) => store?.tableDataInfo?.data);
-  const showData = tableData.filter((e) => !e.hide);
+  const { data } = useSelector((store) => store?.tableDataInfo);
+  const showData = data.filter((e) => !e.hide);
 
   const addProperty = () => {
     dispatch(changeShowCreateTabPopover(true));
     dispatch(changeSelectedValueInView(PROPERTIES));
     dispatch(changeShowView(true));
     dispatch(changeToggleAddPropertyPopover(true));
+    dispatch(changeToggleEditTypeJsx(true));
+    dispatch(changeToggleAddNewPropertyType(true));
   };
 
-  useEffect(() => {
-    // eslint-disable-next-line no-unused-vars
-    const counter = getDatainToStorage("property-counter");
-  }, []);
+  const openPropertiesField = () => {
+    dispatch(changeShowCreateTabPopover(true));
+    dispatch(changeSelectedValueInView(PROPERTIES));
+    dispatch(changeShowView(true));
+  };
+
   return (
     <div className={style.table_container}>
       <div className={style.property_container}>
@@ -49,7 +50,11 @@ export default function TableDrawing() {
         >
           <AddIcon />
         </button>
-        <button type="submit" className={style.more_property_btn}>
+        <button
+          type="submit"
+          className={style.more_property_btn}
+          onClick={openPropertiesField}
+        >
           <MoreHorizIcon />
         </button>
       </div>
