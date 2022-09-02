@@ -1,9 +1,10 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from "@reduxjs/toolkit";
+import TAB_ID from "../../constants/reduxConstantes";
 
 const initialState = {
-  tabsArray: [{ type: "table", name: "table", id: "12345" }],
-  selectedTabId: "12345",
+  tabsArray: [{ type: "table", name: "table", id: TAB_ID }],
+  selectedTabId: TAB_ID,
   createdTabName: "",
 };
 

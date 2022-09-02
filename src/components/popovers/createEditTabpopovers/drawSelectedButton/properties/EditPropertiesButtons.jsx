@@ -12,7 +12,7 @@ import basicTypeProperties, {
 import style from "./properties.module.scss";
 import {
   changeSelectedPropertyHide,
-  changeToggleEditTypeJsx,
+  changetoggleEditTypeDrawer,
 } from "../../../../../features/tableDataInfo/tableDataInfoSlice";
 
 export default function EditPropertiesButtons() {
@@ -27,7 +27,7 @@ export default function EditPropertiesButtons() {
         type="submit"
         onClick={() => {
           if (selectedPropertyForEdit?.type !== "title") {
-            dispatch(changeToggleEditTypeJsx(true));
+            dispatch(changetoggleEditTypeDrawer(true));
           }
         }}
       >

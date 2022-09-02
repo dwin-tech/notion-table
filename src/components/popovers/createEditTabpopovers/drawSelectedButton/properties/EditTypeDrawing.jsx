@@ -14,7 +14,7 @@ import {
   changeSelectedPropertyForEdit,
   changeSelectedPropertyType,
   changeToggleAddNewPropertyType,
-  changeToggleEditTypeJsx,
+  changetoggleEditTypeDrawer,
 } from "../../../../../features/tableDataInfo/tableDataInfoSlice";
 import GoBackComponent from "../../../../goBackButton/GoBackButton";
 import propertyIcons from "../../../../propertyIcons/propertyIcons";
@@ -25,10 +25,7 @@ import style from "./properties.module.scss";
 import CustomInputWithValue from "../../../../custom/CustomInputWithValue";
 import chekedNewTitle from "../../../../../utils/chekedNewTitle";
 
-<<<<<<< Updated upstream:src/components/popovers/createEditTabpopovers/drawSelectedButton/properties/EditTypeDrawing.jsx
 export default function EditTypeDrawing() {
-=======
-export default function EditTypeJsx() {
   const { selectedPropertyForEdit, toggleAddNewPropertyType, propertyNames } =
     useSelector((store) => store.tableDataInfo);
   const dispatch = useDispatch();
@@ -36,7 +33,7 @@ export default function EditTypeJsx() {
     dispatch(changeShowCreateTabPopover(false));
     dispatch(changeShowView(false));
     dispatch(changeToggleAddPropertyPopover(false));
-    dispatch(changeToggleEditTypeJsx(false));
+    dispatch(changetoggleEditTypeDrawer(false));
   };
 
   const selectNewType = (type) => {
@@ -71,16 +68,15 @@ export default function EditTypeJsx() {
         })
       );
     }
-    dispatch(changeToggleEditTypeJsx(false));
+    dispatch(changetoggleEditTypeDrawer(false));
   };
 
->>>>>>> Stashed changes:src/components/popovers/createEditTabpopovers/drawSelectedButton/properties/EditTypeJsx.jsx
   return (
     <div className={style.edit_type_section}>
       <div className={style.go_back_container}>
         <GoBackComponent
           text="Choose property type"
-          onChange={changeToggleEditTypeJsx}
+          onChange={changetoggleEditTypeDrawer}
         />
         <button
           type="submit"
@@ -96,7 +92,7 @@ export default function EditTypeJsx() {
         {Object.entries(basicTypeProperties).map((e, i) => (
           <button
             // eslint-disable-next-line react/no-array-index-key
-            key={e[0] + i}
+            key={i}
             type="submit"
             onClick={() => selectNewType(e[0])}
           >
@@ -114,7 +110,7 @@ export default function EditTypeJsx() {
         {Object.entries(advancedTypeProperties).map((e, i) => (
           <button
             // eslint-disable-next-line react/no-array-index-key
-            key={e[0] + i}
+            key={i}
             type="submit"
             onClick={() => selectNewType(e[0])}
           >

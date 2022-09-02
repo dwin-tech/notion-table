@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from "@reduxjs/toolkit";
+import { PROPERTY_ID } from "../../constants/reduxConstantes";
 
 const initialState = {
   data: [
@@ -9,14 +10,14 @@ const initialState = {
       hide: false,
       deleted: false,
       data: [],
-      id: "11111",
+      id: PROPERTY_ID,
     },
   ],
   propertyNames: {},
   toggleDeletedProperties: false,
   selectedPropertyForEdit: null,
   toggleDeletedDialog: false,
-  toggleEditTypeJsx: false,
+  toggleEditTypeDrawer: false,
   toggleAddNewPropertyType: false,
 };
 
@@ -84,8 +85,8 @@ const tableDataInfoSlice = createSlice({
     changeToggleDeletedDialog: (state, action) => {
       state.toggleDeletedDialog = action.payload;
     },
-    changeToggleEditTypeJsx: (state, action) => {
-      state.toggleEditTypeJsx = action.payload;
+    changetoggleEditTypeDrawer: (state, action) => {
+      state.toggleEditTypeDrawer = action.payload;
     },
     changeToggleAddNewPropertyType: (state, action) => {
       state.toggleAddNewPropertyType = action.payload;
@@ -105,7 +106,7 @@ export const {
   changeSelectedPropertyTitle,
   changeSelectedPropertyType,
   changeToggleDeletedDialog,
-  changeToggleEditTypeJsx,
+  changetoggleEditTypeDrawer,
   changeSelectedPropertyHide,
   changeToggleAddNewPropertyType,
   addNewPropertyNames,

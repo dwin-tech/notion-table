@@ -14,13 +14,13 @@ import {
   changeSelectedPropertyTitle,
 } from "../../../../../features/tableDataInfo/tableDataInfoSlice";
 import EditPropertiesButtons from "./EditPropertiesButtons";
-import EditTypeJsx from "./EditTypeJsx";
+import EditTypeDrawing from "./EditTypeDrawing";
 import chekedNewTitle from "../../../../../utils/chekedNewTitle";
 
 export default function EditProperties() {
   const dispatch = useDispatch();
 
-  const { propertyNames, selectedPropertyForEdit, toggleEditTypeJsx } =
+  const { propertyNames, selectedPropertyForEdit, toggleEditTypeDrawer } =
     useSelector((store) => store.tableDataInfo);
 
   const [customInputValue, setCustomInputValue] = useState("");
@@ -56,8 +56,8 @@ export default function EditProperties() {
   };
   return (
     <div>
-      {toggleEditTypeJsx ? (
-        <EditTypeJsx />
+      {toggleEditTypeDrawer ? (
+        <EditTypeDrawing />
       ) : (
         <>
           <div className={style.go_back_container}>

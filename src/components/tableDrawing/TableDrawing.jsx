@@ -13,7 +13,7 @@ import { PROPERTIES } from "../../constants/headerContantes/headerConstantes";
 import PopoverOfButton from "../tablePropertyButtonWithPopover/PopoverOfButton";
 import {
   changeToggleAddNewPropertyType,
-  changeToggleEditTypeJsx,
+  changetoggleEditTypeDrawer,
 } from "../../features/tableDataInfo/tableDataInfoSlice";
 
 export default function TableDrawing() {
@@ -26,7 +26,7 @@ export default function TableDrawing() {
     dispatch(changeSelectedValueInView(PROPERTIES));
     dispatch(changeShowView(true));
     dispatch(changeToggleAddPropertyPopover(true));
-    dispatch(changeToggleEditTypeJsx(true));
+    dispatch(changetoggleEditTypeDrawer(true));
     dispatch(changeToggleAddNewPropertyType(true));
   };
 
