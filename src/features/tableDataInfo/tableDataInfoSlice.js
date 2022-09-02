@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from "@reduxjs/toolkit";
+import { PROPERTY_ID } from "../../constants/reduxConstantes";
 
 const initialState = {
   data: [
@@ -9,51 +10,15 @@ const initialState = {
       hide: false,
       deleted: false,
       data: [],
-      id: "11111",
-    },
-    {
-      type: "status",
-      title: "status",
-      hide: true,
-      deleted: true,
-      data: [],
-      id: "45632",
-    },
-    {
-      type: "date",
-      title: "date",
-      hide: false,
-      deleted: false,
-      data: [],
-      id: "775544",
-    },
-    {
-      type: "person",
-      title: "person",
-      hide: true,
-      deleted: false,
-      data: [],
-      id: "996633",
-    },
-    {
-      type: "filesMedia",
-      title: "filesMedia",
-      hide: false,
-      deleted: true,
-      data: [],
-      id: "44557",
+      id: PROPERTY_ID,
     },
   ],
-  propertyNames: {
-    775544: "date",
-    45632: "status",
-    996633: "person",
-    11111: "Name",
-  },
+  propertyNames: {},
   toggleDeletedProperties: false,
   selectedPropertyForEdit: null,
   toggleDeletedDialog: false,
-  toggleEditTypeJsx: false,
+  toggleEditTypeDrawer: false,
+  toggleAddNewPropertyType: false,
 };
 
 const tableDataInfoSlice = createSlice({
@@ -61,7 +26,13 @@ const tableDataInfoSlice = createSlice({
   initialState,
   reducers: {
     addPropertyInToData: (state, action) => {
-      state.push(action.payload);
+      state.data.push(action.payload);
+    },
+    addNewPropertyNames: (state, action) => {
+      state.propertyNames[action.payload.value] = action.payload.id;
+    },
+    updatePropertyNames: (state, action) => {
+      state.propertyNames = action.payload;
     },
     toggleHidePropertyInToData: (state, action) => {
       state.data.forEach((e) => {
@@ -103,13 +74,22 @@ const tableDataInfoSlice = createSlice({
     },
     changeSelectedPropertyType: (state, action) => {
       const findIndex = state.data.findIndex((e) => e.id === action.payload.id);
-      state.data[findIndex].type = action.payload.type;
+      state.data[findIndex].type = action.payload?.type;
+      state.selectedPropertyForEdit = state.data[findIndex];
+    },
+    changeSelectedPropertyHide: (state, action) => {
+      const findIndex = state.data.findIndex((e) => e.id === action.payload);
+      state.data[findIndex].hide = !state.data[findIndex].hide;
+      state.selectedPropertyForEdit = state.data[findIndex];
     },
     changeToggleDeletedDialog: (state, action) => {
       state.toggleDeletedDialog = action.payload;
     },
-    changeToggleEditTypeJsx: (state, action) => {
-      state.toggleEditTypeJsx = action.payload;
+    changetoggleEditTypeDrawer: (state, action) => {
+      state.toggleEditTypeDrawer = action.payload;
+    },
+    changeToggleAddNewPropertyType: (state, action) => {
+      state.toggleAddNewPropertyType = action.payload;
     },
   },
 });
@@ -126,7 +106,11 @@ export const {
   changeSelectedPropertyTitle,
   changeSelectedPropertyType,
   changeToggleDeletedDialog,
-  changeToggleEditTypeJsx,
+  changetoggleEditTypeDrawer,
+  changeSelectedPropertyHide,
+  changeToggleAddNewPropertyType,
+  addNewPropertyNames,
+  updatePropertyNames,
 } = tableDataInfoSlice.actions;
 
 export default tableDataInfoSlice.reducer;

@@ -1,9 +1,10 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from "@reduxjs/toolkit";
+import TAB_ID from "../../constants/reduxConstantes";
 
 const initialState = {
-  tabsArray: [{ type: "table", name: "table", id: "12345" }],
-
+  tabsArray: [{ type: "table", name: "table", id: TAB_ID }],
+  selectedTabId: TAB_ID,
   createdTabName: "",
 };
 
@@ -30,7 +31,6 @@ const tableTabsInfoSlice = createSlice({
       const index = state.tabsArray.findIndex(
         (e) => e.id === action.payload.id
       );
-
       if (action.payload.name) {
         state.tabsArray[index].name = action.payload.name;
       } else {
