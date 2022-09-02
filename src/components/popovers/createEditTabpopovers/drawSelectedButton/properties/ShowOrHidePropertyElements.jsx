@@ -37,76 +37,80 @@ function ShowOrHidePropertyElements({ type, text, buttonName }) {
         </div>
       )}
       {type === "show"
-        ? showData.map((e, i) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <button
+        ? showData
+            .filter((e) => !e.deleted)
+            .map((e, i) => (
               // eslint-disable-next-line react/no-array-index-key
-              key={i}
-              type="submit"
-              className={style.property_btns}
-              onClick={() => {
-                dispatch(changeSelectedPropertyForEdit(e.id));
-                dispatch(changeToggleAddPropertyPopover(true));
-              }}
-            >
-              <div>
+              <button
+                // eslint-disable-next-line react/no-array-index-key
+                key={i}
+                type="submit"
+                className={style.property_btns}
+                onClick={() => {
+                  dispatch(changeSelectedPropertyForEdit(e.id));
+                  dispatch(changeToggleAddPropertyPopover(true));
+                }}
+              >
                 <div>
-                  <DragIndicatorIcon />
-                  {propertyIcons[e.type]}
+                  <div>
+                    <DragIndicatorIcon />
+                    {propertyIcons[e.type]}
+                  </div>
+                  <p className={style.btn_title}>{e.title}</p>
                 </div>
-                <p className={style.btn_title}>{e.title}</p>
-              </div>
-              <div>
-                {e.type === "title" ? (
-                  <VisibilityOffIcon className={style.viewed_icon} />
-                ) : (
-                  <RemoveRedEyeIcon
-                    className={style.viewed_black_icon}
+                <div>
+                  {e.type === "title" ? (
+                    <VisibilityOffIcon className={style.viewed_icon} />
+                  ) : (
+                    <RemoveRedEyeIcon
+                      className={style.viewed_black_icon}
+                      onClick={(evt) => {
+                        evt.stopPropagation();
+                        dispatch(
+                          toggleHideAItemProperty({ id: e.id, value: true })
+                        );
+                      }}
+                    />
+                  )}
+                  <KeyboardArrowRightIcon />
+                </div>
+              </button>
+            ))
+        : hideData
+            .filter((e) => !e.deleted)
+            .map((e, i) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <button
+                // eslint-disable-next-line react/no-array-index-key
+                key={i}
+                type="submit"
+                className={style.property_btns}
+                onClick={() => {
+                  dispatch(changeSelectedPropertyForEdit(e.id));
+                  dispatch(changeToggleAddPropertyPopover(true));
+                }}
+              >
+                <div>
+                  <div>
+                    <DragIndicatorIcon />
+                    {propertyIcons[e.type]}
+                  </div>
+                  <p className={style.btn_title}>{e.title}</p>
+                </div>
+                <div>
+                  <VisibilityOffIcon
+                    className={style.viewed_icon}
                     onClick={(evt) => {
                       evt.stopPropagation();
                       dispatch(
-                        toggleHideAItemProperty({ id: e.id, value: true })
+                        toggleHideAItemProperty({ id: e.id, value: false })
                       );
                     }}
                   />
-                )}
-                <KeyboardArrowRightIcon />
-              </div>
-            </button>
-          ))
-        : hideData.map((e, i) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <button
-              // eslint-disable-next-line react/no-array-index-key
-              key={i}
-              type="submit"
-              className={style.property_btns}
-              onClick={() => {
-                dispatch(changeSelectedPropertyForEdit(e.id));
-                dispatch(changeToggleAddPropertyPopover(true));
-              }}
-            >
-              <div>
-                <div>
-                  <DragIndicatorIcon />
-                  {propertyIcons[e.type]}
+                  <KeyboardArrowRightIcon />
                 </div>
-                <p className={style.btn_title}>{e.title}</p>
-              </div>
-              <div>
-                <VisibilityOffIcon
-                  className={style.viewed_icon}
-                  onClick={(evt) => {
-                    evt.stopPropagation();
-                    dispatch(
-                      toggleHideAItemProperty({ id: e.id, value: false })
-                    );
-                  }}
-                />
-                <KeyboardArrowRightIcon />
-              </div>
-            </button>
-          ))}
+              </button>
+            ))}
     </div>
   );
 }

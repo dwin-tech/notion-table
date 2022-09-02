@@ -80,7 +80,11 @@ export default function DeletedProperties() {
                 className={style.back_delete_btns}
               />
               {toggleDeletedDialog && (
-                <DeletedDialog onDelete={onDelete} id={e.id} type="property" />
+                <DeletedDialog
+                  onDelete={onDelete}
+                  id={e.id}
+                  text="Are you sure you want to delete this property ?"
+                />
               )}
             </div>
           </div>
