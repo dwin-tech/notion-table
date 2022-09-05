@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import propertyIcons from "../propertyIcons/propertyIcons";
 import style from "./popoverOfButton.module.scss";
 
-export default function PopoverOfButton({ title, type }) {
+export default function PopoverOfButton({ item }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -26,8 +26,8 @@ export default function PopoverOfButton({ title, type }) {
         className={style.btn_property}
         onClick={handleClick}
       >
-        {propertyIcons[type]}
-        <p>{title}</p>
+        {propertyIcons[item.type]}
+        <p>{item.title}</p>
       </button>
       <Popover
         id={id}
@@ -60,6 +60,6 @@ export default function PopoverOfButton({ title, type }) {
 }
 
 PopoverOfButton.propTypes = {
-  title: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  item: PropTypes.object.isRequired,
 };

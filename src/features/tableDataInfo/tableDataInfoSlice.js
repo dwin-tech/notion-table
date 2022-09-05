@@ -95,6 +95,9 @@ const tableDataInfoSlice = createSlice({
       const index = state.data.findIndex((e) => e.id === action.payload.id);
       state.data[index].deleted = action.payload.value;
     },
+    addNewFieldForData: (state) => {
+      state.data.forEach((el) => el.data.push({ value: "" }));
+    },
   },
 });
 
@@ -116,6 +119,7 @@ export const {
   addNewPropertyNames,
   updatePropertyNames,
   changeDeletePropertyInItem,
+  addNewFieldForData,
 } = tableDataInfoSlice.actions;
 
 export default tableDataInfoSlice.reducer;

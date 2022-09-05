@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import AddIcon from "@mui/icons-material/Add";
@@ -12,16 +13,17 @@ import {
 import { PROPERTIES } from "../../constants/headerContantes/headerConstantes";
 import PopoverOfButton from "../tablePropertyButtonWithPopover/PopoverOfButton";
 import {
+  addNewFieldForData,
   changeToggleAddNewPropertyType,
   changetoggleEditTypeDrawer,
 } from "../../features/tableDataInfo/tableDataInfoSlice";
+import TableDataStructure from "./TableDataStructure";
 
-export default function TableDrawing() {
+export default function TablePropertiesDrawing() {
   const dispatch = useDispatch();
   const { data } = useSelector((store) => store?.tableDataInfo);
-  const showData = data.filter((e) => !e.hide);
-  showData.filter((e) => !e.deleted);
-
+  let showData = data.filter((e) => !e.hide);
+  showData = showData.filter((e) => !e.deleted);
   const addProperty = () => {
     dispatch(changeShowCreateTabPopover(true));
     dispatch(changeSelectedValueInView(PROPERTIES));
@@ -40,12 +42,9 @@ export default function TableDrawing() {
   return (
     <div className={style.table_container}>
       <div className={style.property_container}>
-        {showData
-          .filter((e) => !e.deleted)
-          .map((e, i) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <PopoverOfButton title={e?.title} key={i} type={e?.type} />
-          ))}
+        {showData.map((e, i) => (
+          <PopoverOfButton item={e} key={i} index={i} />
+        ))}
         <button
           type="submit"
           className={style.add_property_btn}
@@ -61,6 +60,25 @@ export default function TableDrawing() {
           <MoreHorizIcon />
         </button>
       </div>
+      {showData[0].data.length ? (
+        <TableDataStructure />
+      ) : (
+        <button
+          type="submit"
+          className={style.add_new_item_btn}
+          onClick={() => dispatch(addNewFieldForData())}
+        >
+          Empty table.
+        </button>
+      )}
+      <button
+        type="submit"
+        className={style.add_new_item_btn}
+        onClick={() => dispatch(addNewFieldForData())}
+      >
+        <AddIcon />
+        <p>New</p>
+      </button>
     </div>
   );
 }

@@ -26,8 +26,12 @@ import CustomInputWithValue from "../../../../custom/CustomInputWithValue";
 import chekedNewTitle from "../../../../../utils/chekedNewTitle";
 
 export default function EditTypeDrawing() {
-  const { selectedPropertyForEdit, toggleAddNewPropertyType, propertyNames } =
-    useSelector((store) => store.tableDataInfo);
+  const {
+    data,
+    selectedPropertyForEdit,
+    toggleAddNewPropertyType,
+    propertyNames,
+  } = useSelector((store) => store.tableDataInfo);
   const dispatch = useDispatch();
   const closeButton = () => {
     dispatch(changeShowCreateTabPopover(false));
@@ -48,7 +52,7 @@ export default function EditTypeDrawing() {
           title: newTitle,
           hide: false,
           deleted: false,
-          data: [],
+          data: new Array(data[0].data.length).fill({ value: "" }),
         })
       );
       dispatch(changeSelectedPropertyForEdit(id));

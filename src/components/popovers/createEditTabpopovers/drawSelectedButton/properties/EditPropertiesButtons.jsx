@@ -42,7 +42,7 @@ export default function EditPropertiesButtons() {
         type="submit"
         onClick={() => {
           if (selectedPropertyForEdit?.type !== "title") {
-            dispatch(changetoggleEditTypeDrawer(false));
+            dispatch(changetoggleEditTypeDrawer(true));
           }
         }}
       >
@@ -50,9 +50,9 @@ export default function EditPropertiesButtons() {
         <div>
           {propertyIcons[selectedPropertyForEdit.type]}
           <p>
-            {basicTypeProperties[selectedPropertyForEdit.type] ||
-              advancedTypeProperties[selectedPropertyForEdit.type] ||
-              "Title"}
+            {basicTypeProperties[selectedPropertyForEdit.type]
+              ? basicTypeProperties[selectedPropertyForEdit.type]
+              : advancedTypeProperties[selectedPropertyForEdit.type]}
           </p>
           <KeyboardArrowRightIcon />
         </div>
