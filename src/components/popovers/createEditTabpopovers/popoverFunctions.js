@@ -26,7 +26,7 @@ const onClosePopover = (
       dispatch(
         changeNameNewTab({
           id: selectedTabId,
-          name: selectedObject.name,
+          name: selectedObject?.name,
         })
       );
     }
@@ -36,7 +36,6 @@ const onClosePopover = (
     dispatch(
       changeNameNewTab({
         id: selectedTabId,
-        type: selectedObject?.type,
         name: selectedObject?.name,
       })
     );

@@ -11,15 +11,30 @@ import basicTypeProperties, {
 } from "../../../../typeOfProperties/typeOfProperties";
 import style from "./properties.module.scss";
 import {
+  changeDeletePropertyInItem,
   changeSelectedPropertyHide,
+  changeToggleDeletedDialog,
   changetoggleEditTypeDrawer,
 } from "../../../../../features/tableDataInfo/tableDataInfoSlice";
+import DeletedDialog from "../../../../deleteDialog/DeleteDialog";
+import { changeToggleAddPropertyPopover } from "../../../../../features/showPopoversInfo/showPopoverInfoSlice";
 
 export default function EditPropertiesButtons() {
   const dispatch = useDispatch();
-  const { selectedPropertyForEdit } = useSelector(
+  const { selectedPropertyForEdit, toggleDeletedDialog } = useSelector(
     (store) => store.tableDataInfo
   );
+
+  const onDelete = () => {
+    dispatch(changeToggleDeletedDialog(false));
+    dispatch(
+      changeDeletePropertyInItem({
+        id: selectedPropertyForEdit?.id,
+        value: true,
+      })
+    );
+    dispatch(changeToggleAddPropertyPopover(false));
+  };
 
   return (
     <div className={style.edit_property_btns}>
@@ -27,7 +42,7 @@ export default function EditPropertiesButtons() {
         type="submit"
         onClick={() => {
           if (selectedPropertyForEdit?.type !== "title") {
-            dispatch(changetoggleEditTypeDrawer(true));
+            dispatch(changetoggleEditTypeDrawer(false));
           }
         }}
       >
@@ -69,12 +84,23 @@ export default function EditPropertiesButtons() {
                 <p>Duplicate property</p>
               </div>
             </button>
-            <button type="submit">
+            <button
+              type="submit"
+              onClick={() => {
+                dispatch(changeToggleDeletedDialog(true));
+              }}
+            >
               <div>
                 <DeleteIcon />
                 <p>Delete property</p>
               </div>
             </button>
+            {toggleDeletedDialog && (
+              <DeletedDialog
+                onDelete={onDelete}
+                text="Are you sure? This property will be deleted for everyone on Task title"
+              />
+            )}
           </div>
         </>
       ) : null}

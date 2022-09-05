@@ -20,6 +20,7 @@ export default function TableDrawing() {
   const dispatch = useDispatch();
   const { data } = useSelector((store) => store?.tableDataInfo);
   const showData = data.filter((e) => !e.hide);
+  showData.filter((e) => !e.deleted);
 
   const addProperty = () => {
     dispatch(changeShowCreateTabPopover(true));
@@ -39,10 +40,12 @@ export default function TableDrawing() {
   return (
     <div className={style.table_container}>
       <div className={style.property_container}>
-        {showData.map((e, i) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <PopoverOfButton title={e?.title} key={e.title + i} type={e?.type} />
-        ))}
+        {showData
+          .filter((e) => !e.deleted)
+          .map((e, i) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <PopoverOfButton title={e?.title} key={i} type={e?.type} />
+          ))}
         <button
           type="submit"
           className={style.add_property_btn}

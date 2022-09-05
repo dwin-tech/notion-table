@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import style from "./deleteDialog.module.scss";
 import { changeToggleDeletedDialog } from "../../features/tableDataInfo/tableDataInfoSlice";
 
-export default function DeletedDialog({ type, onDelete, id }) {
+export default function DeletedDialog({ text, onDelete, id }) {
   const dispatch = useDispatch();
 
   return (
@@ -19,9 +19,7 @@ export default function DeletedDialog({ type, onDelete, id }) {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">
-          Are you sure you want to delete this {type}?
-        </DialogTitle>
+        <DialogTitle id="alert-dialog-title">{text}</DialogTitle>
         <DialogContent className={style.dialog_btns_container}>
           <button
             className={style.delete_btn}
@@ -44,7 +42,7 @@ export default function DeletedDialog({ type, onDelete, id }) {
 }
 
 DeletedDialog.propTypes = {
-  type: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
   onDelete: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
 };

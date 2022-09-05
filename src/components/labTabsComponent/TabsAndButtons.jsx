@@ -47,6 +47,8 @@ export default function TabsAndButtons() {
     }
     if (getSelectedTabId) {
       dispatch(changeSelectedTabId(getSelectedTabId));
+    } else {
+      dispatch(changeSelectedTabId(tabsArray[0]?.id));
     }
   }, []);
 

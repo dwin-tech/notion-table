@@ -91,6 +91,10 @@ const tableDataInfoSlice = createSlice({
     changeToggleAddNewPropertyType: (state, action) => {
       state.toggleAddNewPropertyType = action.payload;
     },
+    changeDeletePropertyInItem: (state, action) => {
+      const index = state.data.findIndex((e) => e.id === action.payload.id);
+      state.data[index].deleted = action.payload.value;
+    },
   },
 });
 
@@ -111,6 +115,7 @@ export const {
   changeToggleAddNewPropertyType,
   addNewPropertyNames,
   updatePropertyNames,
+  changeDeletePropertyInItem,
 } = tableDataInfoSlice.actions;
 
 export default tableDataInfoSlice.reducer;
