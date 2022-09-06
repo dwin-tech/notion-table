@@ -5,7 +5,7 @@ import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import propertyIcons from "../../../../propertyIcons/propertyIcons";
+import PROPERTY_ICONS from "../../../../propertyIcons/propertyIcons";
 import {
   changeSelectedPropertyForEdit,
   toggleHideAItemProperty,
@@ -17,8 +17,18 @@ import { changeToggleAddPropertyPopover } from "../../../../../features/showPopo
 function ShowOrHidePropertyElements({ type, text, buttonName }) {
   const dispatch = useDispatch();
   const tableData = useSelector((store) => store.tableDataInfo.data);
-  const hideData = tableData.filter((e) => e.hide);
-  const showData = tableData.filter((e) => !e.hide);
+  const hideData = tableData.filter((data) => data.hide && !data.deleted);
+  const showData = tableData.filter((data) => !data.hide && !data.deleted);
+
+  const moveFoeChange = (id) => {
+    dispatch(changeSelectedPropertyForEdit(id));
+    dispatch(changeToggleAddPropertyPopover(true));
+  };
+
+  const changeHide = (event, id, value) => {
+    event.stopPropagation();
+    dispatch(toggleHideAItemProperty({ id, value }));
+  };
 
   return (
     <div className={style.show_hide_properties}>
@@ -37,80 +47,59 @@ function ShowOrHidePropertyElements({ type, text, buttonName }) {
         </div>
       )}
       {type === "show"
-        ? showData
-            .filter((e) => !e.deleted)
-            .map((e, i) => (
-              // eslint-disable-next-line react/no-array-index-key
-              <button
-                // eslint-disable-next-line react/no-array-index-key
-                key={i}
-                type="submit"
-                className={style.property_btns}
-                onClick={() => {
-                  dispatch(changeSelectedPropertyForEdit(e.id));
-                  dispatch(changeToggleAddPropertyPopover(true));
-                }}
-              >
+        ? showData.map((item) => (
+            <button
+              key={item.id}
+              type="submit"
+              className={style.property_btns}
+              onClick={() => moveFoeChange(item.id)}
+            >
+              <div>
                 <div>
-                  <div>
-                    <DragIndicatorIcon />
-                    {propertyIcons[e.type]}
-                  </div>
-                  <p className={style.btn_title}>{e.title}</p>
+                  <DragIndicatorIcon />
+                  {PROPERTY_ICONS[item.type]}
                 </div>
-                <div>
-                  {e.type === "title" ? (
-                    <VisibilityOffIcon className={style.viewed_icon} />
-                  ) : (
-                    <RemoveRedEyeIcon
-                      className={style.viewed_black_icon}
-                      onClick={(evt) => {
-                        evt.stopPropagation();
-                        dispatch(
-                          toggleHideAItemProperty({ id: e.id, value: true })
-                        );
-                      }}
-                    />
-                  )}
-                  <KeyboardArrowRightIcon />
-                </div>
-              </button>
-            ))
-        : hideData
-            .filter((e) => !e.deleted)
-            .map((e, i) => (
-              // eslint-disable-next-line react/no-array-index-key
-              <button
-                // eslint-disable-next-line react/no-array-index-key
-                key={i}
-                type="submit"
-                className={style.property_btns}
-                onClick={() => {
-                  dispatch(changeSelectedPropertyForEdit(e.id));
-                  dispatch(changeToggleAddPropertyPopover(true));
-                }}
-              >
-                <div>
-                  <div>
-                    <DragIndicatorIcon />
-                    {propertyIcons[e.type]}
-                  </div>
-                  <p className={style.btn_title}>{e.title}</p>
-                </div>
-                <div>
-                  <VisibilityOffIcon
-                    className={style.viewed_icon}
-                    onClick={(evt) => {
-                      evt.stopPropagation();
-                      dispatch(
-                        toggleHideAItemProperty({ id: e.id, value: false })
-                      );
-                    }}
+                <p className={style.btn_title}>{item.title}</p>
+              </div>
+              <div>
+                {item.type === "title" ? (
+                  <VisibilityOffIcon className={style.viewed_icon} />
+                ) : (
+                  <RemoveRedEyeIcon
+                    className={style.viewed_black_icon}
+                    onClick={(event) => changeHide(event, item.id, true)}
                   />
-                  <KeyboardArrowRightIcon />
-                </div>
-              </button>
-            ))}
+                )}
+                <KeyboardArrowRightIcon />
+              </div>
+            </button>
+          ))
+        : hideData.map((item) => (
+            <button
+              key={item.id}
+              type="submit"
+              className={style.property_btns}
+              onClick={() => moveFoeChange(item.id)}
+            >
+              <div>
+                <DragIndicatorIcon />
+                {PROPERTY_ICONS[item.type]}
+              </div>
+              <p className={style.btn_title}>{item.title}</p>
+              <div>
+                <VisibilityOffIcon
+                  className={style.viewed_icon}
+                  onClick={(evt) => {
+                    evt.stopPropagation();
+                    dispatch(
+                      toggleHideAItemProperty({ id: item.id, value: false })
+                    );
+                  }}
+                />
+                <KeyboardArrowRightIcon />
+              </div>
+            </button>
+          ))}
     </div>
   );
 }

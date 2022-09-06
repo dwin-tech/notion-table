@@ -1,12 +1,12 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import PropTypes from "prop-types";
 import propertyIcons from "../propertyIcons/propertyIcons";
 import style from "./popoverOfButton.module.scss";
 
-export default function PopoverOfButton({ title, type }) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+export default function PopoverOfButton({ item }) {
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -17,7 +17,7 @@ export default function PopoverOfButton({ title, type }) {
   };
 
   const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
+  const id = open ? "popover-of-property-buttons" : undefined;
 
   return (
     <div>
@@ -26,8 +26,8 @@ export default function PopoverOfButton({ title, type }) {
         className={style.btn_property}
         onClick={handleClick}
       >
-        {propertyIcons[type]}
-        <p>{title}</p>
+        {propertyIcons[item.type]}
+        <p>{item.title}</p>
       </button>
       <Popover
         id={id}
@@ -60,6 +60,5 @@ export default function PopoverOfButton({ title, type }) {
 }
 
 PopoverOfButton.propTypes = {
-  title: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
+  item: PropTypes.InstanceOf(Array).isRequired,
 };

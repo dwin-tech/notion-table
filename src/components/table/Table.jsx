@@ -7,7 +7,8 @@ import {
 import setDataIntoStorage, {
   getDatainToStorage,
 } from "../../utils/callLocalStorage";
-import TableDrawing from "../tableDrawing/TableDrawing";
+import TablePropertiesDrawing from "../tableDrawing/TablePropertiesDrawing";
+import style from "./table.module.scss";
 
 function Table() {
   const dispatch = useDispatch();
@@ -33,8 +34,8 @@ function Table() {
   }, [propertyNames]);
 
   return (
-    <div>
-      <TableDrawing />
+    <div className={style.table_section}>
+      <TablePropertiesDrawing />
     </div>
   );
 }

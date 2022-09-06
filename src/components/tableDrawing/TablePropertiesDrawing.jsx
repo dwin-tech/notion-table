@@ -12,15 +12,16 @@ import {
 import { PROPERTIES } from "../../constants/headerContantes/headerConstantes";
 import PopoverOfButton from "../tablePropertyButtonWithPopover/PopoverOfButton";
 import {
+  addNewFieldForData,
   changeToggleAddNewPropertyType,
   changetoggleEditTypeDrawer,
 } from "../../features/tableDataInfo/tableDataInfoSlice";
+import TableDataStructure from "./TableDataStructure";
 
-export default function TableDrawing() {
+export default function TablePropertiesDrawing() {
   const dispatch = useDispatch();
   const { data } = useSelector((store) => store?.tableDataInfo);
-  const showData = data.filter((e) => !e.hide);
-  showData.filter((e) => !e.deleted);
+  const showData = data.filter((item) => !item.hide && !item.deleted);
 
   const addProperty = () => {
     dispatch(changeShowCreateTabPopover(true));
@@ -40,12 +41,9 @@ export default function TableDrawing() {
   return (
     <div className={style.table_container}>
       <div className={style.property_container}>
-        {showData
-          .filter((e) => !e.deleted)
-          .map((e, i) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <PopoverOfButton title={e?.title} key={i} type={e?.type} />
-          ))}
+        {showData.map((item, i) => (
+          <PopoverOfButton item={item} key={item.id} index={i} />
+        ))}
         <button
           type="submit"
           className={style.add_property_btn}
@@ -61,6 +59,25 @@ export default function TableDrawing() {
           <MoreHorizIcon />
         </button>
       </div>
+      {showData[0].data.length ? (
+        <TableDataStructure />
+      ) : (
+        <button
+          type="submit"
+          className={style.add_new_item_btn}
+          onClick={() => dispatch(addNewFieldForData())}
+        >
+          Empty table.
+        </button>
+      )}
+      <button
+        type="submit"
+        className={style.add_new_item_btn}
+        onClick={() => dispatch(addNewFieldForData())}
+      >
+        <AddIcon />
+        <p>New</p>
+      </button>
     </div>
   );
 }
