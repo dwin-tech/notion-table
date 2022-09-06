@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
-// import AddIcon from "@mui/icons-material/Add";
 import {
   updatePropertyNames,
   updateTableData,

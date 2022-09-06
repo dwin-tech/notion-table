@@ -1,4 +1,3 @@
-/* eslint-disable react/no-array-index-key */
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AddIcon from "@mui/icons-material/Add";
@@ -9,8 +8,8 @@ import { addNewFieldForData } from "../../features/tableDataInfo/tableDataInfoSl
 function TableDataStructure() {
   const dispatch = useDispatch();
   const { data } = useSelector((store) => store.tableDataInfo);
-  let showData = data.filter((el) => !el.hide);
-  showData = showData.filter((el) => !el.deleted);
+  const showData = data.filter((el) => !el.hide && !el.deleted);
+
   const [eventIndex, setEvnetIndex] = useState(false);
 
   return (
@@ -19,23 +18,23 @@ function TableDataStructure() {
         className={style.table_data_container}
         style={{ position: "relative" }}
       >
-        {showData.map((el) => (
-          <React.Fragment key={el.id}>
+        {showData.map((elem) => (
+          <React.Fragment key={elem.id}>
             <div className={style.add_drag_icon_container}>
-              {data[0].data.map((item, i) => (
-                <div onMouseEnter={() => setEvnetIndex(i)} key={i}>
-                  {i === eventIndex && (
+              {Array.from(Array(data[0].data.length).keys()).map((index) => (
+                <div onMouseEnter={() => setEvnetIndex(index)} key={index}>
+                  {index === eventIndex && (
                     <AddIcon onClick={() => dispatch(addNewFieldForData())} />
                   )}
-                  {i === eventIndex && <ItemInfoPopover />}
+                  {index === eventIndex && <ItemInfoPopover />}
                 </div>
               ))}
             </div>
             <div>
-              {el.data.map((item, i) => (
+              {elem.data.map((item, i) => (
                 <input
                   type="text"
-                  key={item.value + i}
+                  key={item.value}
                   defaultValue={item.value}
                   onMouseEnter={() => setEvnetIndex(i)}
                 />
@@ -44,11 +43,11 @@ function TableDataStructure() {
           </React.Fragment>
         ))}
         <div style={{ width: "100%" }}>
-          {data[0].data.map((el, i) => (
+          {Array.from(Array(data[0].data.length).keys()).map((index) => (
             <div
               className={style.table_data_rows}
-              key={i}
-              onMouseEnter={() => setEvnetIndex(i)}
+              key={index}
+              onMouseEnter={() => setEvnetIndex(index)}
             />
           ))}
         </div>

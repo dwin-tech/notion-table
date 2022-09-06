@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import PropTypes from "prop-types";
@@ -6,7 +6,7 @@ import propertyIcons from "../propertyIcons/propertyIcons";
 import style from "./popoverOfButton.module.scss";
 
 export default function PopoverOfButton({ item }) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -17,7 +17,7 @@ export default function PopoverOfButton({ item }) {
   };
 
   const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
+  const id = open ? "popover-of-property-buttons" : undefined;
 
   return (
     <div>
@@ -60,6 +60,5 @@ export default function PopoverOfButton({ item }) {
 }
 
 PopoverOfButton.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  item: PropTypes.object.isRequired,
+  item: PropTypes.InstanceOf(Array).isRequired,
 };

@@ -1,4 +1,3 @@
-/* eslint-disable react/no-array-index-key */
 import React from "react";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
@@ -6,7 +5,7 @@ import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import propertyIcons from "../../../../propertyIcons/propertyIcons";
+import PROPERTY_ICONS from "../../../../propertyIcons/propertyIcons";
 import {
   changeSelectedPropertyForEdit,
   toggleHideAItemProperty,
@@ -18,10 +17,18 @@ import { changeToggleAddPropertyPopover } from "../../../../../features/showPopo
 function ShowOrHidePropertyElements({ type, text, buttonName }) {
   const dispatch = useDispatch();
   const tableData = useSelector((store) => store.tableDataInfo.data);
-  let hideData = tableData.filter((e) => e.hide);
-  let showData = tableData.filter((e) => !e.hide);
-  showData = showData.filter((e) => !e.deleted);
-  hideData = hideData.filter((e) => !e.deleted);
+  const hideData = tableData.filter((data) => data.hide && !data.deleted);
+  const showData = tableData.filter((data) => !data.hide && !data.deleted);
+
+  const moveFoeChange = (id) => {
+    dispatch(changeSelectedPropertyForEdit(id));
+    dispatch(changeToggleAddPropertyPopover(true));
+  };
+
+  const changeHide = (event, id, value) => {
+    event.stopPropagation();
+    dispatch(toggleHideAItemProperty({ id, value }));
+  };
 
   return (
     <div className={style.show_hide_properties}>
@@ -40,65 +47,52 @@ function ShowOrHidePropertyElements({ type, text, buttonName }) {
         </div>
       )}
       {type === "show"
-        ? showData.map((e, i) => (
+        ? showData.map((item) => (
             <button
-              key={i}
+              key={item.id}
               type="submit"
               className={style.property_btns}
-              onClick={() => {
-                dispatch(changeSelectedPropertyForEdit(e.id));
-                dispatch(changeToggleAddPropertyPopover(true));
-              }}
+              onClick={() => moveFoeChange(item.id)}
             >
               <div>
                 <div>
                   <DragIndicatorIcon />
-                  {propertyIcons[e.type]}
+                  {PROPERTY_ICONS[item.type]}
                 </div>
-                <p className={style.btn_title}>{e.title}</p>
+                <p className={style.btn_title}>{item.title}</p>
               </div>
               <div>
-                {e.type === "title" ? (
+                {item.type === "title" ? (
                   <VisibilityOffIcon className={style.viewed_icon} />
                 ) : (
                   <RemoveRedEyeIcon
                     className={style.viewed_black_icon}
-                    onClick={(evt) => {
-                      evt.stopPropagation();
-                      dispatch(
-                        toggleHideAItemProperty({ id: e.id, value: true })
-                      );
-                    }}
+                    onClick={(event) => changeHide(event, item.id, true)}
                   />
                 )}
                 <KeyboardArrowRightIcon />
               </div>
             </button>
           ))
-        : hideData.map((e, i) => (
+        : hideData.map((item) => (
             <button
-              key={i}
+              key={item.id}
               type="submit"
               className={style.property_btns}
-              onClick={() => {
-                dispatch(changeSelectedPropertyForEdit(e.id));
-                dispatch(changeToggleAddPropertyPopover(true));
-              }}
+              onClick={() => moveFoeChange(item.id)}
             >
               <div>
-                <div>
-                  <DragIndicatorIcon />
-                  {propertyIcons[e.type]}
-                </div>
-                <p className={style.btn_title}>{e.title}</p>
+                <DragIndicatorIcon />
+                {PROPERTY_ICONS[item.type]}
               </div>
+              <p className={style.btn_title}>{item.title}</p>
               <div>
                 <VisibilityOffIcon
                   className={style.viewed_icon}
                   onClick={(evt) => {
                     evt.stopPropagation();
                     dispatch(
-                      toggleHideAItemProperty({ id: e.id, value: false })
+                      toggleHideAItemProperty({ id: item.id, value: false })
                     );
                   }}
                 />

@@ -18,7 +18,7 @@ import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 import PersonIcon from "@mui/icons-material/Person";
 import TextFormatIcon from "@mui/icons-material/TextFormat";
 
-const propertyIcons = {
+const PROPERTY_ICONS = {
   // eslint-disable-next-line react/jsx-filename-extension
   title: <TextFormatIcon fontSize="small" />,
   text: <FormatAlignLeftIcon fontSize="small" />,
@@ -42,4 +42,4 @@ const propertyIcons = {
   lastEditedBy: <PersonIcon fontSize="small" />,
 };
 
-export default propertyIcons;
+export default PROPERTY_ICONS;

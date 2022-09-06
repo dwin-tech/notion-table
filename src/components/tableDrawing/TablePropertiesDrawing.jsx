@@ -1,4 +1,3 @@
-/* eslint-disable react/no-array-index-key */
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import AddIcon from "@mui/icons-material/Add";
@@ -22,8 +21,8 @@ import TableDataStructure from "./TableDataStructure";
 export default function TablePropertiesDrawing() {
   const dispatch = useDispatch();
   const { data } = useSelector((store) => store?.tableDataInfo);
-  let showData = data.filter((e) => !e.hide);
-  showData = showData.filter((e) => !e.deleted);
+  const showData = data.filter((item) => !item.hide && !item.deleted);
+
   const addProperty = () => {
     dispatch(changeShowCreateTabPopover(true));
     dispatch(changeSelectedValueInView(PROPERTIES));
@@ -42,8 +41,8 @@ export default function TablePropertiesDrawing() {
   return (
     <div className={style.table_container}>
       <div className={style.property_container}>
-        {showData.map((e, i) => (
-          <PopoverOfButton item={e} key={i} index={i} />
+        {showData.map((item, i) => (
+          <PopoverOfButton item={item} key={item.id} index={i} />
         ))}
         <button
           type="submit"

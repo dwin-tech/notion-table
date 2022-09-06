@@ -16,7 +16,7 @@ export default function ItemInfoPopover() {
   };
 
   const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
+  const id = open ? "popover-of-each-line" : undefined;
 
   return (
     <div>
