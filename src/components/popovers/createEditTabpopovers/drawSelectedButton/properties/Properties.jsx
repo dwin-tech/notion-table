@@ -40,7 +40,7 @@ export default function Properties() {
     dispatch(changeShowView(false));
   };
 
-  const selectedJsxAddOrDel = () => {
+  const selectedJsxAddOrDelete = () => {
     if (toggleAddPropertyPopover) {
       return <EditProperties />;
     }
@@ -52,8 +52,8 @@ export default function Properties() {
 
   return (
     <div>
-      {selectedJsxAddOrDel() ? (
-        selectedJsxAddOrDel()
+      {selectedJsxAddOrDelete() ? (
+        selectedJsxAddOrDelete()
       ) : (
         <>
           <div className={style.go_back_close_container}>

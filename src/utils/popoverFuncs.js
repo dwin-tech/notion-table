@@ -8,7 +8,7 @@ const possibleIncludes = [
 ];
 
 const chekedName = (selectedObject) => {
-  return possibleIncludes.includes(selectedObject.type);
+  return possibleIncludes.includes(selectedObject.name);
 };
 
 export default chekedName;

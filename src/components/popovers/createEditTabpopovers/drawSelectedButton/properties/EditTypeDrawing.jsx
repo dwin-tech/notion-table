@@ -52,7 +52,9 @@ export default function EditTypeDrawing() {
           title: newTitle,
           hide: false,
           deleted: false,
-          data: new Array(data[0].data.length).fill({ value: "" }),
+          data: new Array(data[0].data.length).fill().map(() => {
+            return { id: uuidv4(), value: "" };
+          }),
         })
       );
       dispatch(changeSelectedPropertyForEdit(id));

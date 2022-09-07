@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import GoBackComponent from "../../../../goBackButton/GoBackButton";
 import style from "./properties.module.scss";
 import {
@@ -12,6 +13,7 @@ import CustomInputWithValue from "../../../../custom/CustomInputWithValue";
 import {
   addNewPropertyNames,
   changeSelectedPropertyTitle,
+  changetoggleEditTypeDrawer,
 } from "../../../../../features/tableDataInfo/tableDataInfoSlice";
 import EditPropertiesButtons from "./EditPropertiesButtons";
 import EditTypeDrawing from "./EditTypeDrawing";
@@ -20,8 +22,12 @@ import chekedNewTitle from "../../../../../utils/chekedNewTitle";
 export default function EditProperties() {
   const dispatch = useDispatch();
 
-  const { propertyNames, selectedPropertyForEdit, toggleEditTypeDrawer } =
-    useSelector((store) => store.tableDataInfo);
+  const {
+    propertyNames,
+    selectedPropertyForEdit,
+    toggleEditTypeDrawer,
+    toggleSaveNewPropertyField,
+  } = useSelector((store) => store.tableDataInfo);
 
   const [customInputValue, setCustomInputValue] = useState("");
   const closeButton = () => {
@@ -61,10 +67,19 @@ export default function EditProperties() {
       ) : (
         <>
           <div className={style.go_back_container}>
-            <GoBackComponent
-              text="Edit properties"
-              onChange={changeToggleAddPropertyPopover}
-            />
+            {!toggleSaveNewPropertyField ? (
+              <GoBackComponent
+                text="Edit property"
+                onChange={changeToggleAddPropertyPopover}
+              />
+            ) : (
+              <div className={style.go_back_in_add_btn}>
+                <ArrowBackIcon
+                  onClick={() => dispatch(changetoggleEditTypeDrawer(true))}
+                />
+                <p>Edit Property</p>
+              </div>
+            )}
             <button
               type="submit"
               className={style.onclose_btn}
