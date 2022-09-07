@@ -75,7 +75,7 @@
         flex-direction: column;
 
         input {
-            width: 150px;
+            width: 200px;
             height: 30px;
             border: none;
             outline: none;
@@ -146,5 +146,80 @@
     }
 }
 
+.popover_btns {
+    display: flex;
+    flex-direction: column;
+
+
+    & :nth-child(1n+1) {
+        margin-bottom: 5px;
+    }
+
+    button {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 40px;
+        background-color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #f0f0f0;
+
+        }
+
+        & :nth-child(1n+1) {
+            display: flex;
+            align-items: center;
+
+            & :first-child {
+                margin-top: 10px;
+            }
+        }
+
+    }
+
+
+}
+
+
+.border_bottom_popover {
+    border-bottom: 1px solid #000;
+}
+
+.edited_by_text {
+    color: $gray;
+    font-size: 14px;
+}
+
+.calculate_btns_container {
+    display: flex;
+    // & :nth-child(1n+1):not(:first-child) {
+    //     display: none;
+    // }
+
+    &:hover {
+        display: flex;
+        & :nth-child(1n+1) {
+            display: flex;
+        }
+    }
+}
+
+.calculate_btns {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 200px;
+    height: 30px;
+    background-color: #fff;
+    border: none;
+
+    &:hover{
+        background-color: #f0f0f0;
+    }
+}
 
 

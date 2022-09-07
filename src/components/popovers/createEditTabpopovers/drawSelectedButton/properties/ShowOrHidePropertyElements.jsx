@@ -20,12 +20,12 @@ function ShowOrHidePropertyElements({ type, text, buttonName }) {
   const hideData = tableData.filter((data) => data.hide && !data.deleted);
   const showData = tableData.filter((data) => !data.hide && !data.deleted);
 
-  const moveFoeChange = (id) => {
+  const handleMoveToEditFieldBtnClick = (id) => {
     dispatch(changeSelectedPropertyForEdit(id));
     dispatch(changeToggleAddPropertyPopover(true));
   };
 
-  const changeHide = (event, id, value) => {
+  const handleChangeShowPropertyData = (event, id, value) => {
     event.stopPropagation();
     dispatch(toggleHideAItemProperty({ id, value }));
   };
@@ -52,7 +52,7 @@ function ShowOrHidePropertyElements({ type, text, buttonName }) {
               key={item.id}
               type="submit"
               className={style.property_btns}
-              onClick={() => moveFoeChange(item.id)}
+              onClick={() => handleMoveToEditFieldBtnClick(item.id)}
             >
               <div>
                 <div>
@@ -67,7 +67,9 @@ function ShowOrHidePropertyElements({ type, text, buttonName }) {
                 ) : (
                   <RemoveRedEyeIcon
                     className={style.viewed_black_icon}
-                    onClick={(event) => changeHide(event, item.id, true)}
+                    onClick={(event) =>
+                      handleChangeShowPropertyData(event, item.id, true)
+                    }
                   />
                 )}
                 <KeyboardArrowRightIcon />
@@ -79,22 +81,21 @@ function ShowOrHidePropertyElements({ type, text, buttonName }) {
               key={item.id}
               type="submit"
               className={style.property_btns}
-              onClick={() => moveFoeChange(item.id)}
+              onClick={() => handleMoveToEditFieldBtnClick(item.id)}
             >
               <div>
-                <DragIndicatorIcon />
-                {PROPERTY_ICONS[item.type]}
+                <div>
+                  <DragIndicatorIcon />
+                  {PROPERTY_ICONS[item.type]}
+                </div>
+                <p className={style.btn_title}>{item.title}</p>
               </div>
-              <p className={style.btn_title}>{item.title}</p>
               <div>
                 <VisibilityOffIcon
                   className={style.viewed_icon}
-                  onClick={(evt) => {
-                    evt.stopPropagation();
-                    dispatch(
-                      toggleHideAItemProperty({ id: item.id, value: false })
-                    );
-                  }}
+                  onClick={(event) =>
+                    handleChangeShowPropertyData(event, item.id, false)
+                  }
                 />
                 <KeyboardArrowRightIcon />
               </div>

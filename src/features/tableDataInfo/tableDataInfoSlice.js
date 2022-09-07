@@ -98,6 +98,25 @@ const tableDataInfoSlice = createSlice({
     addNewFieldForData: (state) => {
       state.data.forEach((el) => el.data.push({ value: "" }));
     },
+    addNewFieldUnderSelectedRow: (state, action) => {
+      state.data.map((el) =>
+        el.data.splice(action.payload + 1, 0, { value: "" })
+      );
+    },
+    deleteSelectedRow: (state, action) => {
+      console.log(action.payload);
+      state.data.forEach((elem) => elem.data.splice(action.payload, 1));
+    },
+    duplicateRow: (state, action) => {
+      state.data.forEach((el) =>
+        el.data.splice(action.payload + 1, 0, el.data[action.payload])
+      );
+    },
+    changeValueinPropertyData: (state, action) => {
+      const findIndex = state.data.findIndex((e) => e.id === action.payload.id);
+      state.data[findIndex].data[action.payload.index].value =
+        action.payload.value;
+    },
   },
 });
 
@@ -120,6 +139,10 @@ export const {
   updatePropertyNames,
   changeDeletePropertyInItem,
   addNewFieldForData,
+  addNewFieldUnderSelectedRow,
+  deleteSelectedRow,
+  duplicateRow,
+  changeValueinPropertyData,
 } = tableDataInfoSlice.actions;
 
 export default tableDataInfoSlice.reducer;

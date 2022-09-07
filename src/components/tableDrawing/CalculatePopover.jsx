@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import PropTypes from "prop-types";
-import propertyIcons from "../propertyIcons/propertyIcons";
-import style from "./popoverOfButton.module.scss";
+import style from "./tableDrawing.module.scss";
 
-export default function PopoverOfButton({ item }) {
+export default function CalculatePopover({ item }) {
   const [anchorEl, setAnchorEl] = useState(null);
+  // eslint-disable-next-line no-unused-vars
+  const [defaultTypeBtn, setDefaultTypeBtn] = useState("Calculate");
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -17,17 +19,17 @@ export default function PopoverOfButton({ item }) {
   };
 
   const open = Boolean(anchorEl);
-  const id = open ? "popover-of-property-buttons" : undefined;
+  const id = open ? "simple-popover" : undefined;
 
   return (
     <div>
       <button
+        className={style.calculate_btns}
         type="submit"
-        className={style.btn_property}
         onClick={handleClick}
       >
-        {propertyIcons[item.type]}
-        <p>{item.title}</p>
+        {defaultTypeBtn}
+        <KeyboardArrowDownIcon />
       </button>
       <Popover
         id={id}
@@ -44,22 +46,19 @@ export default function PopoverOfButton({ item }) {
         }}
         PaperProps={{
           style: {
-            display: "flex",
-            flexDirection: "column",
-            width: "220px",
-            minWidth: "180px",
-            maxWidth: "calc(100vw - 24px)",
-            maxHeight: "70vh",
+            maxWidth: "200px",
           },
         }}
       >
-        <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
+        <Typography component="div" sx={{ p: 2 }}>
+          <div>{JSON.stringify(item)}</div>
+        </Typography>
       </Popover>
     </div>
   );
 }
 
-PopoverOfButton.propTypes = {
+CalculatePopover.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   item: PropTypes.object.isRequired,
 };

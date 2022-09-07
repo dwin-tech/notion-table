@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
+import PropTypes from "prop-types";
 import style from "./tableDrawing.module.scss";
+import CustomInputWithValue from "../custom/CustomInputWithValue";
+import ItemInfoPopoverButtons from "./ItemInfoPopoverButtons";
 
-export default function ItemInfoPopover() {
+export default function ItemInfoPopover({ index }) {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -37,8 +40,15 @@ export default function ItemInfoPopover() {
           horizontal: "left",
         }}
       >
-        <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
+        <Typography component="div" sx={{ p: 2 }}>
+          <CustomInputWithValue placeholder="Search actions..." />
+          <ItemInfoPopoverButtons index={index} onClose={setAnchorEl} />
+        </Typography>
       </Popover>
     </div>
   );
 }
+
+ItemInfoPopover.propTypes = {
+  index: PropTypes.number.isRequired,
+};

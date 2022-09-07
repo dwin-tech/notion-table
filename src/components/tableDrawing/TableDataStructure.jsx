@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import AddIcon from "@mui/icons-material/Add";
 import style from "./tableDrawing.module.scss";
 import ItemInfoPopover from "./ItemInfoPopover";
-import { addNewFieldForData } from "../../features/tableDataInfo/tableDataInfoSlice";
+import {
+  addNewFieldUnderSelectedRow,
+  changeValueinPropertyData,
+} from "../../features/tableDataInfo/tableDataInfoSlice";
 
 function TableDataStructure() {
   const dispatch = useDispatch();
@@ -21,12 +24,17 @@ function TableDataStructure() {
         {showData.map((elem) => (
           <React.Fragment key={elem.id}>
             <div className={style.add_drag_icon_container}>
-              {Array.from(Array(data[0].data.length).keys()).map((index) => (
+              {Array.from(Array(data[0].data.length).keys()).map((_, index) => (
+                // eslint-disable-next-line react/no-array-index-key
                 <div onMouseEnter={() => setEvnetIndex(index)} key={index}>
                   {index === eventIndex && (
-                    <AddIcon onClick={() => dispatch(addNewFieldForData())} />
+                    <AddIcon
+                      onClick={() =>
+                        dispatch(addNewFieldUnderSelectedRow(index))
+                      }
+                    />
                   )}
-                  {index === eventIndex && <ItemInfoPopover />}
+                  {index === eventIndex && <ItemInfoPopover index={index} />}
                 </div>
               ))}
             </div>
@@ -34,8 +42,18 @@ function TableDataStructure() {
               {elem.data.map((item, i) => (
                 <input
                   type="text"
-                  key={item.value}
+                  // eslint-disable-next-line react/no-array-index-key
+                  key={i}
                   defaultValue={item.value}
+                  onBlur={(evt) =>
+                    dispatch(
+                      changeValueinPropertyData({
+                        id: elem.id,
+                        index: i,
+                        value: evt.target.value,
+                      })
+                    )
+                  }
                   onMouseEnter={() => setEvnetIndex(i)}
                 />
               ))}

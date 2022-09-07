@@ -17,6 +17,7 @@ import {
   changetoggleEditTypeDrawer,
 } from "../../features/tableDataInfo/tableDataInfoSlice";
 import TableDataStructure from "./TableDataStructure";
+import CalculateButtonsDrawing from "./CalculateButtonsDrawing";
 
 export default function TablePropertiesDrawing() {
   const dispatch = useDispatch();
@@ -42,7 +43,8 @@ export default function TablePropertiesDrawing() {
     <div className={style.table_container}>
       <div className={style.property_container}>
         {showData.map((item, i) => (
-          <PopoverOfButton item={item} key={item.id} index={i} />
+          // eslint-disable-next-line react/no-array-index-key
+          <PopoverOfButton item={item} key={i} index={i} />
         ))}
         <button
           type="submit"
@@ -78,6 +80,7 @@ export default function TablePropertiesDrawing() {
         <AddIcon />
         <p>New</p>
       </button>
+      <CalculateButtonsDrawing />
     </div>
   );
 }
