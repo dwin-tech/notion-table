@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CloseIcon from "@mui/icons-material/Close";
 import CheckIcon from "@mui/icons-material/Check";
@@ -32,6 +32,7 @@ export default function EditTypeDrawing() {
     toggleAddNewPropertyType,
     propertyNames,
   } = useSelector((store) => store.tableDataInfo);
+  const [searchPropertyTypeInput, setSearchPropertyTypeInput] = useState("");
   const dispatch = useDispatch();
   const closeButton = () => {
     dispatch(changeShowCreateTabPopover(false));
@@ -77,6 +78,10 @@ export default function EditTypeDrawing() {
     dispatch(changetoggleEditTypeDrawer(false));
   };
 
+  const changeSearchPropertyInputValue = (val) => {
+    setSearchPropertyTypeInput(val);
+  };
+
   return (
     <div className={style.edit_type_section}>
       <div className={style.go_back_container}>
@@ -92,7 +97,12 @@ export default function EditTypeDrawing() {
           <CloseIcon />
         </button>
       </div>
-      <CustomInputWithValue placeholder="Search for a property type..." />
+      <CustomInputWithValue
+        value={searchPropertyTypeInput}
+        onChange={changeSearchPropertyInputValue}
+        onBlur={changeSearchPropertyInputValue}
+        placeholder="Search for a property type..."
+      />
       <p>Basic</p>
       <div className={style.type_container}>
         {Object.entries(basicTypeProperties).map((e, i) => (

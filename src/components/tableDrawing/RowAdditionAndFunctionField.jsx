@@ -17,11 +17,13 @@ export default function RowAdditionAndFunctionField({
       {Array.from(Array(data[0].data.length).keys()).map((index) => (
         <div onMouseEnter={() => setEvnetIndex(index)} key={index}>
           {index === eventIndex && (
-            <AddIcon
-              onClick={() => dispatch(addNewFieldUnderSelectedRow(index))}
-            />
+            <>
+              <AddIcon
+                onClick={() => dispatch(addNewFieldUnderSelectedRow(index))}
+              />
+              <ItemInfoPopover index={index} />
+            </>
           )}
-          {index === eventIndex && <ItemInfoPopover index={index} />}
         </div>
       ))}
     </>

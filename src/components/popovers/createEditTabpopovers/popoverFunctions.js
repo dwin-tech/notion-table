@@ -64,11 +64,14 @@ export const doneAndCloseBtn = (
         changeNameNewTab({ id: selectedTabId, name: selectedObject?.name })
       );
     }
+  } else if (!chekedName(selectedObject) && createdTabName) {
+    dispatch(changeNameNewTab({ id: selectedTabId, name: createdTabName }));
   } else {
     dispatch(changeNameNewTab({ id: selectedTabId, name: "" }));
   }
   dispatch(changeShowCreateTabPopover(false));
   dispatch(changeToggleAddPropertyPopover(false));
+  dispatch(changetoggleEditTypeDrawer(false));
   // TODO get rid of setTimeout (popover onClose function works with a delay)
   setTimeout(() => {
     dispatch(changeShowNewTabPopover(false));

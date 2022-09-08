@@ -5,6 +5,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import PropTypes from "prop-types";
 import style from "./tableDrawing.module.scss";
 
+// eslint-disable-next-line no-unused-vars
 export default function CalculatePopover({ item }) {
   const [anchorEl, setAnchorEl] = useState(null);
   // eslint-disable-next-line no-unused-vars
@@ -51,7 +52,7 @@ export default function CalculatePopover({ item }) {
         }}
       >
         <Typography component="div" sx={{ p: 2 }}>
-          <div>{JSON.stringify(item)}</div>
+          The content of the Popover.
         </Typography>
       </Popover>
     </div>

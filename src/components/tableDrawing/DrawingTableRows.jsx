@@ -22,6 +22,8 @@ export default function DrawingTableRows({ eventIndex, setEvnetIndex }) {
           <div>
             {elem.data.map((item, i) => (
               <AppropriateElementSelector
+                key={item.id}
+                data={elem}
                 item={item}
                 setEvnetIndex={setEvnetIndex}
                 id={elem.id}

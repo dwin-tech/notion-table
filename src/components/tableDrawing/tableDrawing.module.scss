@@ -166,19 +166,22 @@
         border-radius: 5px;
         cursor: pointer;
 
+        & :first-child {
+            display: flex;
+            align-items: center;
+            height: 40px;
+        }
+
         &:hover {
             background-color: #f0f0f0;
 
         }
 
-        & :nth-child(1n+1) {
-            display: flex;
-            align-items: center;
+        // & :nth-child(1n+1) {
+        //     display: flex;
+        //     align-items: center;
 
-            & :first-child {
-                margin-top: 10px;
-            }
-        }
+        // }
 
     }
 

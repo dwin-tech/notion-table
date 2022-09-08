@@ -1,28 +1,39 @@
+/* eslint-disable react/forbid-prop-types */
 import React from "react";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { changeValueinPropertyData } from "../../features/tableDataInfo/tableDataInfoSlice";
 
-function AppropriateElementSelector({ item, setEvnetIndex, id, i }) {
+function AppropriateElementSelector({ item, data, setEvnetIndex, id, i }) {
   const dispatch = useDispatch();
 
-  const handleChangeValuePropertyData = (value, dataId, index) => {
+  const handleChangeValueInPropertyData = (value, dataId, index) => {
     dispatch(
       changeValueinPropertyData({
-        dataId,
+        id: dataId,
         index,
         value,
       })
     );
   };
 
+  const inputTypeSelector = () => {
+    if (data.type === "number") return "number";
+    if (data.type === "date") return "date";
+    return "text";
+  };
+
   return (
     <input
-      type="text"
+      type={inputTypeSelector()}
       key={item.id}
-      defaultValue={item.id}
+      defaultValue={item.value}
       onBlur={(event) =>
-        handleChangeValuePropertyData(event.target.value, id, i)
+        handleChangeValueInPropertyData(event.target.value, id, i)
+      }
+      onChange={(e) =>
+        data.type === "date" &&
+        handleChangeValueInPropertyData(e.target.value, id, i)
       }
       onMouseEnter={() => setEvnetIndex(i)}
     />
@@ -30,8 +41,8 @@ function AppropriateElementSelector({ item, setEvnetIndex, id, i }) {
 }
 
 AppropriateElementSelector.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
   item: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired,
   setEvnetIndex: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
   i: PropTypes.number.isRequired,

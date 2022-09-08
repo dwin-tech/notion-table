@@ -9,6 +9,7 @@ import ItemInfoPopoverButtons from "./ItemInfoPopoverButtons";
 
 export default function ItemInfoPopover({ index }) {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [searchActionInputValue, setSearchActionInputValue] = useState("");
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -16,6 +17,10 @@ export default function ItemInfoPopover({ index }) {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const changeActionInputValue = (val) => {
+    setSearchActionInputValue(val);
   };
 
   const open = Boolean(anchorEl);
@@ -41,7 +46,12 @@ export default function ItemInfoPopover({ index }) {
         }}
       >
         <Typography component="div" sx={{ p: 2 }}>
-          <CustomInputWithValue placeholder="Search actions..." />
+          <CustomInputWithValue
+            placeholder="Search actions..."
+            value={searchActionInputValue}
+            onChange={changeActionInputValue}
+            onBlur={changeActionInputValue}
+          />
           <ItemInfoPopoverButtons index={index} onClose={setAnchorEl} />
         </Typography>
       </Popover>
