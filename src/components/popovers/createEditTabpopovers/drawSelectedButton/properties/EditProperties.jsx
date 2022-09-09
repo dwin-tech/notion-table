@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-autofocus */
+/* eslint-disable no-param-reassign */
 import React, { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
@@ -37,23 +39,41 @@ export default function EditProperties() {
   };
 
   const changePropertiesInputValue = (val) => {
-    const newTitle = checkNewTitle(val, propertyNames);
-    dispatch(
-      addNewPropertyNames({
-        id: selectedPropertyForEdit.id,
-        value: newTitle,
-      })
-    );
-    dispatch(
-      changeSelectedPropertyTitle({
-        id: selectedPropertyForEdit.id,
-        value: newTitle,
-      })
-    );
+    val = val.trim();
+    if (selectedPropertyForEdit.title !== val) {
+      const newTitle = checkNewTitle(val, propertyNames);
+      if (val !== newTitle) {
+        dispatch(
+          addNewPropertyNames({
+            id: selectedPropertyForEdit.id,
+            value: newTitle,
+          })
+        );
+        dispatch(
+          changeSelectedPropertyTitle({
+            id: selectedPropertyForEdit.id,
+            value: newTitle,
+          })
+        );
+      } else {
+        dispatch(
+          addNewPropertyNames({
+            id: selectedPropertyForEdit.id,
+            value: val,
+          })
+        );
+        dispatch(
+          changeSelectedPropertyTitle({
+            id: selectedPropertyForEdit.id,
+            value: val,
+          })
+        );
+      }
+    }
   };
 
   const chekedIncludesTitleInData = (val) => {
-    val.trim();
+    val = val.trim();
     const newValue = checkNewTitle(val, propertyNames);
     if (val !== newValue) {
       setCustomInputValue(val);

@@ -54,11 +54,9 @@ export default function EditTypeDrawing() {
           title: newTitle,
           hide: false,
           deleted: false,
-          data: Array.from({ length: data[0].data.length }, (_, i) => i).map(
-            () => {
-              return { id: uuidv4(), value: "" };
-            }
-          ),
+          data: Array.from({ length: data[0].data.length }, () => {
+            return { id: uuidv4(), value: "" };
+          }),
         })
       );
       dispatch(changeSelectedPropertyForEdit(id));

@@ -8,7 +8,7 @@ export default function DrawingTableEmptyRows({ setEvnetIndex }) {
 
   return (
     <>
-      {Array.from({ length: data[0].data.length }, (_, i) => i).map((index) => (
+      {Array.from({ length: data[0].data.length }, (_, index) => (
         <div
           className={style.table_data_rows}
           key={index}
