@@ -181,3 +181,18 @@
     color: red;
     padding:  0 5px;
 }
+
+.go_back_in_add_btn {
+    display: flex;
+    align-items: center;
+    border-radius: 3px;
+    
+    & :first-child {
+        cursor: pointer;
+
+        &:hover {
+            background-color: #f0f0f0;
+        }
+    }
+    
+}

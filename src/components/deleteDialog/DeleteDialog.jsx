@@ -5,17 +5,16 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import style from "./deleteDialog.module.scss";
-import { changeToggleDeletedDialog } from "../../features/tableDataInfo/tableDataInfoSlice";
+import { changeToggleDeleteDialog } from "../../features/tableDataInfo/tableDataInfoSlice";
 
-export default function DeletedDialog({ text, onDelete, id }) {
+export default function DeleteDialog({ text, onDelete, id }) {
   const dispatch = useDispatch();
 
   return (
     <div>
       <Dialog
-        paperWidthSm
         open
-        onClose={() => dispatch(changeToggleDeletedDialog(false))}
+        onClose={() => dispatch(changeToggleDeleteDialog(false))}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
@@ -29,7 +28,7 @@ export default function DeletedDialog({ text, onDelete, id }) {
             Delete
           </button>
           <button
-            onClick={() => dispatch(changeToggleDeletedDialog(false))}
+            onClick={() => dispatch(changeToggleDeleteDialog(false))}
             className={style.cancel_btn}
             type="submit"
           >
@@ -41,7 +40,7 @@ export default function DeletedDialog({ text, onDelete, id }) {
   );
 }
 
-DeletedDialog.propTypes = {
+DeleteDialog.propTypes = {
   text: PropTypes.string.isRequired,
   onDelete: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,

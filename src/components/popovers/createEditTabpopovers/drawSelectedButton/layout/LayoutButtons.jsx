@@ -5,7 +5,7 @@ import { addNewEditTab } from "../../../../../features/tableTabsInfo/tableTabsIn
 import { changeSelectedType } from "../../../../../features/tableTypeInfo/tableTypeInfoSlice";
 
 import style from "./layout.module.scss";
-import chekedName from "../../../../../utils/popoverFuncs";
+import checkName from "../../../../../utils/popoverFuncs";
 
 function LayoutButtons() {
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ function LayoutButtons() {
     if (showNewTabPopover) {
       return { id: selectedTabId, type, name: "New View" };
     }
-    if (chekedName(selectedObject)) {
+    if (checkName(selectedObject)) {
       return { id: selectedTabId, type, name: type };
     }
     return { id: selectedTabId, type, name: selectedObject?.name };

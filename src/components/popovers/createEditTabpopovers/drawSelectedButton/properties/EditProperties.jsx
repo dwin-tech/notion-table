@@ -1,6 +1,9 @@
+/* eslint-disable jsx-a11y/no-autofocus */
+/* eslint-disable no-param-reassign */
 import React, { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import GoBackComponent from "../../../../goBackButton/GoBackButton";
 import style from "./properties.module.scss";
 import {
@@ -12,16 +15,21 @@ import CustomInputWithValue from "../../../../custom/CustomInputWithValue";
 import {
   addNewPropertyNames,
   changeSelectedPropertyTitle,
+  changetoggleEditTypeDrawer,
 } from "../../../../../features/tableDataInfo/tableDataInfoSlice";
 import EditPropertiesButtons from "./EditPropertiesButtons";
 import EditTypeDrawing from "./EditTypeDrawing";
-import chekedNewTitle from "../../../../../utils/chekedNewTitle";
+import checkNewTitle from "../../../../../utils/checkNewTitle";
 
 export default function EditProperties() {
   const dispatch = useDispatch();
 
-  const { propertyNames, selectedPropertyForEdit, toggleEditTypeDrawer } =
-    useSelector((store) => store.tableDataInfo);
+  const {
+    propertyNames,
+    selectedPropertyForEdit,
+    toggleEditTypeDrawer,
+    toggleSaveNewPropertyField,
+  } = useSelector((store) => store.tableDataInfo);
 
   const [customInputValue, setCustomInputValue] = useState("");
   const closeButton = () => {
@@ -31,29 +39,49 @@ export default function EditProperties() {
   };
 
   const changePropertiesInputValue = (val) => {
-    const newTitle = chekedNewTitle(val, propertyNames);
-    dispatch(
-      addNewPropertyNames({
-        id: selectedPropertyForEdit.id,
-        value: newTitle,
-      })
-    );
-    dispatch(
-      changeSelectedPropertyTitle({
-        id: selectedPropertyForEdit.id,
-        value: newTitle,
-      })
-    );
+    val = val.trim();
+    if (selectedPropertyForEdit.title !== val) {
+      const newTitle = checkNewTitle(val, propertyNames);
+      if (val !== newTitle) {
+        dispatch(
+          addNewPropertyNames({
+            id: selectedPropertyForEdit.id,
+            value: newTitle,
+          })
+        );
+        dispatch(
+          changeSelectedPropertyTitle({
+            id: selectedPropertyForEdit.id,
+            value: newTitle,
+          })
+        );
+      } else {
+        dispatch(
+          addNewPropertyNames({
+            id: selectedPropertyForEdit.id,
+            value: val,
+          })
+        );
+        dispatch(
+          changeSelectedPropertyTitle({
+            id: selectedPropertyForEdit.id,
+            value: val,
+          })
+        );
+      }
+    }
   };
 
   const chekedIncludesTitleInData = (val) => {
-    const newValue = chekedNewTitle(val, propertyNames);
+    val = val.trim();
+    const newValue = checkNewTitle(val, propertyNames);
     if (val !== newValue) {
       setCustomInputValue(val);
     } else {
       setCustomInputValue("");
     }
   };
+
   return (
     <div>
       {toggleEditTypeDrawer ? (
@@ -61,10 +89,19 @@ export default function EditProperties() {
       ) : (
         <>
           <div className={style.go_back_container}>
-            <GoBackComponent
-              text="Edit properties"
-              onChange={changeToggleAddPropertyPopover}
-            />
+            {!toggleSaveNewPropertyField ? (
+              <GoBackComponent
+                text="Edit property"
+                onChange={changeToggleAddPropertyPopover}
+              />
+            ) : (
+              <div className={style.go_back_in_add_btn}>
+                <ArrowBackIcon
+                  onClick={() => dispatch(changetoggleEditTypeDrawer(true))}
+                />
+                <p>Edit Property</p>
+              </div>
+            )}
             <button
               type="submit"
               className={style.onclose_btn}
