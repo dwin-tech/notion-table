@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/no-autofocus */
 /* eslint-disable no-param-reassign */
 import React, { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
