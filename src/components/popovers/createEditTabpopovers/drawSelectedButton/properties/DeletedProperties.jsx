@@ -6,7 +6,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import GoBackComponent from "../../../../goBackButton/GoBackButton";
 import {
   changeSelectedPropertyForEdit,
-  changeToggleDeletedDialog,
+  changeToggleDeleteDialog,
   changeToggleDeletedProperties,
   deleteProperty,
 } from "../../../../../features/tableDataInfo/tableDataInfoSlice";
@@ -17,12 +17,12 @@ import {
 } from "../../../../../features/showPopoversInfo/showPopoverInfoSlice";
 import style from "./properties.module.scss";
 import propertyIcons from "../../../../propertyIcons/propertyIcons";
-import DeletedDialog from "../../../../deleteDialog/DeleteDialog";
+import DeleteDialog from "../../../../deleteDialog/DeleteDialog";
 
 export default function DeletedProperties() {
   const dispatch = useDispatch();
 
-  const { data, toggleDeletedDialog } = useSelector(
+  const { data, toggleDeleteDialog } = useSelector(
     (store) => store.tableDataInfo
   );
 
@@ -41,7 +41,7 @@ export default function DeletedProperties() {
   const deletedData = data.filter((e) => e.deleted);
 
   const onDelete = (id) => {
-    dispatch(changeToggleDeletedDialog(false));
+    dispatch(changeToggleDeleteDialog(false));
     dispatch(deleteProperty(id));
   };
 
@@ -61,28 +61,27 @@ export default function DeletedProperties() {
         </button>
       </div>
       <div>
-        {deletedData.map((e, i) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <div key={i} className={style.deleted_container}>
+        {deletedData.map((item) => (
+          <div key={item.id} className={style.deleted_container}>
             <div>
-              {propertyIcons[e.type]}
-              <p>{e.title}</p>
+              {propertyIcons[item.type]}
+              <p>{item.title}</p>
             </div>
             <div>
               <UndoIcon
-                onClick={() => unDeleteProperty(e.id)}
+                onClick={() => unDeleteProperty(item.id)}
                 className={style.back_delete_btns}
               />
               <DeleteIcon
                 onClick={() => {
-                  dispatch(changeToggleDeletedDialog(true));
+                  dispatch(changeToggleDeleteDialog(true));
                 }}
                 className={style.back_delete_btns}
               />
-              {toggleDeletedDialog && (
-                <DeletedDialog
+              {toggleDeleteDialog && (
+                <DeleteDialog
                   onDelete={onDelete}
-                  id={e.id}
+                  id={item.id}
                   text="Are you sure you want to delete this property ?"
                 />
               )}

@@ -14,7 +14,7 @@ export default function RowAdditionAndFunctionField({
 
   return (
     <>
-      {Array.from(Array(data[0].data.length).keys()).map((index) => (
+      {Array.from({ length: data[0].data.length }, (_, i) => i).map((index) => (
         <div onMouseEnter={() => setEvnetIndex(index)} key={index}>
           {index === eventIndex && (
             <>

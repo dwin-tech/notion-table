@@ -7,8 +7,8 @@ const possibleIncludes = [
   "gallery",
 ];
 
-const chekedName = (selectedObject) => {
+const checkName = (selectedObject) => {
   return possibleIncludes.includes(selectedObject.name);
 };
 
-export default chekedName;
+export default checkName;

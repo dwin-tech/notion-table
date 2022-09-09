@@ -8,7 +8,7 @@ import {
   changeShowView,
   changeToggleAddPropertyPopover,
 } from "../../../features/showPopoversInfo/showPopoverInfoSlice";
-import chekedName from "../../../utils/popoverFuncs";
+import checkName from "../../../utils/popoverFuncs";
 import { changetoggleEditTypeDrawer } from "../../../features/tableDataInfo/tableDataInfoSlice";
 
 const onClosePopover = (
@@ -19,7 +19,7 @@ const onClosePopover = (
   selectedTabId
 ) => {
   if (createdTabName && !showNewTabPopover) {
-    if (chekedName(selectedObject)) {
+    if (checkName(selectedObject)) {
       dispatch(changeNameNewTab({ id: selectedTabId, name: createdTabName }));
       dispatch(changeCreatedTabName(""));
     } else {
@@ -57,14 +57,14 @@ export const doneAndCloseBtn = (
   selectedObject
 ) => {
   if (!showNewTabPopover) {
-    if (chekedName(selectedObject)) {
+    if (checkName(selectedObject)) {
       dispatch(changeNameNewTab({ id: selectedTabId, name: createdTabName }));
     } else {
       dispatch(
         changeNameNewTab({ id: selectedTabId, name: selectedObject?.name })
       );
     }
-  } else if (!chekedName(selectedObject) && createdTabName) {
+  } else if (!checkName(selectedObject) && createdTabName) {
     dispatch(changeNameNewTab({ id: selectedTabId, name: createdTabName }));
   } else {
     dispatch(changeNameNewTab({ id: selectedTabId, name: "" }));

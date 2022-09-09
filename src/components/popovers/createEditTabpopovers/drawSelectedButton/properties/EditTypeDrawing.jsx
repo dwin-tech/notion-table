@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CloseIcon from "@mui/icons-material/Close";
@@ -23,7 +24,7 @@ import basicTypeProperties, {
 } from "../../../../typeOfProperties/typeOfProperties";
 import style from "./properties.module.scss";
 import CustomInputWithValue from "../../../../custom/CustomInputWithValue";
-import chekedNewTitle from "../../../../../utils/chekedNewTitle";
+import checkNewTitle from "../../../../../utils/checkNewTitle";
 
 export default function EditTypeDrawing() {
   const {
@@ -43,7 +44,7 @@ export default function EditTypeDrawing() {
 
   const selectNewType = (type) => {
     if (toggleAddNewPropertyType) {
-      const newTitle = chekedNewTitle(type, propertyNames);
+      const newTitle = checkNewTitle(type, propertyNames);
       const id = uuidv4();
       dispatch(addNewPropertyNames({ id, value: newTitle }));
       dispatch(
@@ -53,15 +54,17 @@ export default function EditTypeDrawing() {
           title: newTitle,
           hide: false,
           deleted: false,
-          data: new Array(data[0].data.length).fill().map(() => {
-            return { id: uuidv4(), value: "" };
-          }),
+          data: Array.from({ length: data[0].data.length }, (_, i) => i).map(
+            () => {
+              return { id: uuidv4(), value: "" };
+            }
+          ),
         })
       );
       dispatch(changeSelectedPropertyForEdit(id));
       dispatch(changeToggleAddNewPropertyType(false));
     } else {
-      const newTitle = chekedNewTitle(type, propertyNames);
+      const newTitle = checkNewTitle(type, propertyNames);
       dispatch(
         addNewPropertyNames({
           id: selectedPropertyForEdit?.id,
@@ -71,7 +74,7 @@ export default function EditTypeDrawing() {
       dispatch(
         changeSelectedPropertyType({
           id: selectedPropertyForEdit?.id,
-          type: newTitle,
+          type,
         })
       );
     }
@@ -106,12 +109,7 @@ export default function EditTypeDrawing() {
       <p>Basic</p>
       <div className={style.type_container}>
         {Object.entries(basicTypeProperties).map((e, i) => (
-          <button
-            // eslint-disable-next-line react/no-array-index-key
-            key={i}
-            type="submit"
-            onClick={() => selectNewType(e[0])}
-          >
+          <button key={i} type="submit" onClick={() => selectNewType(e[0])}>
             <div>
               {propertyIcons[e[0]]}
               <p>{e[1]}</p>
@@ -124,12 +122,7 @@ export default function EditTypeDrawing() {
       <p>Advanced</p>
       <div className={style.type_container}>
         {Object.entries(advancedTypeProperties).map((e, i) => (
-          <button
-            // eslint-disable-next-line react/no-array-index-key
-            key={i}
-            type="submit"
-            onClick={() => selectNewType(e[0])}
-          >
+          <button key={i} type="submit" onClick={() => selectNewType(e[0])}>
             <div>
               {propertyIcons[e[0]]}
               <p>{e[1]}</p>

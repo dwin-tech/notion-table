@@ -40,7 +40,7 @@ export default function Properties() {
     dispatch(changeShowView(false));
   };
 
-  const renderAddOrDeleteX = () => {
+  const renderAddOrDeletePopoverContent = () => {
     if (toggleAddPropertyPopover) {
       return <EditProperties />;
     }
@@ -52,7 +52,7 @@ export default function Properties() {
 
   return (
     <div>
-      {renderAddOrDeleteX() || (
+      {renderAddOrDeletePopoverContent() || (
         <>
           <div className={style.go_back_close_container}>
             <GoBackComponent text="Properties" onChange={changeShowView} />

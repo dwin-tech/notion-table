@@ -17,7 +17,7 @@ import {
 } from "../../../../../features/tableDataInfo/tableDataInfoSlice";
 import EditPropertiesButtons from "./EditPropertiesButtons";
 import EditTypeDrawing from "./EditTypeDrawing";
-import chekedNewTitle from "../../../../../utils/chekedNewTitle";
+import checkNewTitle from "../../../../../utils/checkNewTitle";
 
 export default function EditProperties() {
   const dispatch = useDispatch();
@@ -37,7 +37,7 @@ export default function EditProperties() {
   };
 
   const changePropertiesInputValue = (val) => {
-    const newTitle = chekedNewTitle(val, propertyNames);
+    const newTitle = checkNewTitle(val, propertyNames);
     dispatch(
       addNewPropertyNames({
         id: selectedPropertyForEdit.id,
@@ -53,13 +53,15 @@ export default function EditProperties() {
   };
 
   const chekedIncludesTitleInData = (val) => {
-    const newValue = chekedNewTitle(val, propertyNames);
+    val.trim();
+    const newValue = checkNewTitle(val, propertyNames);
     if (val !== newValue) {
       setCustomInputValue(val);
     } else {
       setCustomInputValue("");
     }
   };
+
   return (
     <div>
       {toggleEditTypeDrawer ? (

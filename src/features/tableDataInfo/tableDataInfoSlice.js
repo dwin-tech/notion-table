@@ -17,7 +17,7 @@ const initialState = {
   propertyNames: {},
   toggleDeletedProperties: false,
   selectedPropertyForEdit: null,
-  toggleDeletedDialog: false,
+  toggleDeleteDialog: false,
   toggleEditTypeDrawer: false,
   toggleAddNewPropertyType: false,
   toggleSaveNewPropertyField: false,
@@ -31,7 +31,7 @@ const tableDataInfoSlice = createSlice({
       state.data.push(action.payload);
     },
     addNewPropertyNames: (state, action) => {
-      state.propertyNames[action.payload.value] = action.payload.id;
+      state.propertyNames[action.payload.id] = action.payload.value;
     },
     updatePropertyNames: (state, action) => {
       state.propertyNames = action.payload;
@@ -62,6 +62,7 @@ const tableDataInfoSlice = createSlice({
       state.data[findIndex].deleted = action.payload.bool;
     },
     deleteProperty: (state, action) => {
+      delete state.propertyNames[action.payload];
       state.data = state.data.filter((e) => e.id !== action.payload);
     },
     changeSelectedPropertyForEdit: (state, action) => {
@@ -84,8 +85,8 @@ const tableDataInfoSlice = createSlice({
       state.data[findIndex].hide = !state.data[findIndex].hide;
       state.selectedPropertyForEdit = state.data[findIndex];
     },
-    changeToggleDeletedDialog: (state, action) => {
-      state.toggleDeletedDialog = action.payload;
+    changeToggleDeleteDialog: (state, action) => {
+      state.toggleDeleteDialog = action.payload;
     },
     changetoggleEditTypeDrawer: (state, action) => {
       state.toggleEditTypeDrawer = action.payload;
@@ -138,7 +139,7 @@ export const {
   changeSelectedPropertyForEdit,
   changeSelectedPropertyTitle,
   changeSelectedPropertyType,
-  changeToggleDeletedDialog,
+  changeToggleDeleteDialog,
   changetoggleEditTypeDrawer,
   changeSelectedPropertyHide,
   changeToggleAddNewPropertyType,

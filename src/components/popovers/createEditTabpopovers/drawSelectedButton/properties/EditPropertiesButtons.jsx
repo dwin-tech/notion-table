@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
@@ -13,20 +13,22 @@ import style from "./properties.module.scss";
 import {
   changeDeletePropertyInItem,
   changeSelectedPropertyHide,
-  changeToggleDeletedDialog,
+  changeToggleDeleteDialog,
   changetoggleEditTypeDrawer,
 } from "../../../../../features/tableDataInfo/tableDataInfoSlice";
-import DeletedDialog from "../../../../deleteDialog/DeleteDialog";
+import DeleteDialog from "../../../../deleteDialog/DeleteDialog";
 import { changeToggleAddPropertyPopover } from "../../../../../features/showPopoversInfo/showPopoverInfoSlice";
 
 export default function EditPropertiesButtons() {
   const dispatch = useDispatch();
-  const { selectedPropertyForEdit, toggleDeletedDialog } = useSelector(
+  const { selectedPropertyForEdit, toggleDeleteDialog } = useSelector(
     (store) => store.tableDataInfo
   );
+  const [propertyIcon, setPropertyIcon] = useState();
+  const [basicOrAdvancedIcons, setBasicOrAdvancedIcons] = useState();
 
   const onDelete = () => {
-    dispatch(changeToggleDeletedDialog(false));
+    dispatch(changeToggleDeleteDialog(false));
     dispatch(
       changeDeletePropertyInItem({
         id: selectedPropertyForEdit?.id,
@@ -35,6 +37,16 @@ export default function EditPropertiesButtons() {
     );
     dispatch(changeToggleAddPropertyPopover(false));
   };
+
+  useEffect(() => {
+    if (selectedPropertyForEdit) {
+      setPropertyIcon(propertyIcons[selectedPropertyForEdit.type]);
+      setBasicOrAdvancedIcons(
+        basicTypeProperties[selectedPropertyForEdit.type] ||
+          advancedTypeProperties[selectedPropertyForEdit.type]
+      );
+    }
+  }, [selectedPropertyForEdit]);
 
   return (
     <div className={style.edit_property_btns}>
@@ -48,12 +60,8 @@ export default function EditPropertiesButtons() {
       >
         <p>Type</p>
         <div>
-          {propertyIcons[selectedPropertyForEdit.type]}
-          <p>
-            {basicTypeProperties[selectedPropertyForEdit.type]
-              ? basicTypeProperties[selectedPropertyForEdit.type]
-              : advancedTypeProperties[selectedPropertyForEdit.type]}
-          </p>
+          {propertyIcon}
+          <p>{basicOrAdvancedIcons}</p>
           <KeyboardArrowRightIcon />
         </div>
       </button>
@@ -87,7 +95,7 @@ export default function EditPropertiesButtons() {
             <button
               type="submit"
               onClick={() => {
-                dispatch(changeToggleDeletedDialog(true));
+                dispatch(changeToggleDeleteDialog(true));
               }}
             >
               <div>
@@ -95,9 +103,10 @@ export default function EditPropertiesButtons() {
                 <p>Delete property</p>
               </div>
             </button>
-            {toggleDeletedDialog && (
-              <DeletedDialog
+            {toggleDeleteDialog && (
+              <DeleteDialog
                 onDelete={onDelete}
+                id={selectedPropertyForEdit.id}
                 text="Are you sure? This property will be deleted for everyone on Task title"
               />
             )}
