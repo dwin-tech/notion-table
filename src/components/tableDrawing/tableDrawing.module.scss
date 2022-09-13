@@ -228,3 +228,11 @@
 
 
 
+.popover_btns {
+    display: flex;
+    justify-content: center;
+
+    &:first-child {
+        color: red
+    }
+}
