@@ -11,10 +11,9 @@ function DefaultButtonsCalculatePopover({ item, onCloseCalculatePopover }) {
 
   return (
     <div>
-      {Object.keys(defaultButton).map((el, i) => (
+      {Object.keys(defaultButton).map((el) => (
         <button
-          // eslint-disable-next-line react/no-array-index-key
-          key={i}
+          key={el}
           className={style.calculate_btns}
           type="submit"
           onClick={() => {

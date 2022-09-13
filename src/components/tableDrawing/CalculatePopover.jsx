@@ -19,7 +19,7 @@ export default function CalculatePopover({ item }) {
   };
 
   const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
+  const id = open ? "calculate-popover" : undefined;
 
   const buttonName = calculateButtonNamesAndFeatures.default[
     item.currentCalculateBtnValue
