@@ -4,12 +4,11 @@ import Typography from "@mui/material/Typography";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import PropTypes from "prop-types";
 import style from "./tableDrawing.module.scss";
+import ContentOfCalculatePopover from "../contentOfCalculatePopover/ContentOfCalculatePopover";
+import calculateButtonNamesAndFeatures from "../contentOfCalculatePopover/calculateButtonNamesAndFeatures";
 
-// eslint-disable-next-line no-unused-vars
 export default function CalculatePopover({ item }) {
   const [anchorEl, setAnchorEl] = useState(null);
-  // eslint-disable-next-line no-unused-vars
-  const [defaultTypeBtn, setDefaultTypeBtn] = useState("Calculate");
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -20,7 +19,11 @@ export default function CalculatePopover({ item }) {
   };
 
   const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
+  const id = open ? "calculate-popover" : undefined;
+
+  const buttonName = calculateButtonNamesAndFeatures.default[
+    item.currentCalculateBtnValue
+  ](item.data);
 
   return (
     <div>
@@ -29,8 +32,8 @@ export default function CalculatePopover({ item }) {
         type="submit"
         onClick={handleClick}
       >
-        {defaultTypeBtn}
-        <KeyboardArrowDownIcon />
+        {buttonName}
+        {buttonName === "Calculate" && <KeyboardArrowDownIcon />}
       </button>
       <Popover
         id={id}
@@ -52,7 +55,10 @@ export default function CalculatePopover({ item }) {
         }}
       >
         <Typography component="div" sx={{ p: 2 }}>
-          The content of the Popover.
+          <ContentOfCalculatePopover
+            onCloseCalculatePopover={setAnchorEl}
+            item={item}
+          />
         </Typography>
       </Popover>
     </div>

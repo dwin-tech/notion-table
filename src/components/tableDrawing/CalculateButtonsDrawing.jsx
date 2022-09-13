@@ -5,6 +5,7 @@ import style from "./tableDrawing.module.scss";
 
 function CalculateButtonsDrawing() {
   const { data } = useSelector((store) => store.tableDataInfo);
+
   const showData = data.filter((el) => !el.hide && !el.deleted);
 
   return (

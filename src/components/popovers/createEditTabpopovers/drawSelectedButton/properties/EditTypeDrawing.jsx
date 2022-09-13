@@ -54,6 +54,7 @@ export default function EditTypeDrawing() {
           title: newTitle,
           hide: false,
           deleted: false,
+          currentCalculateBtnValue: "None",
           data: Array.from({ length: data[0].data.length }, () => {
             return { id: uuidv4(), value: "" };
           }),

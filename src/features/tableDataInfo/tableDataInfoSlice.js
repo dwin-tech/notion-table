@@ -10,6 +10,7 @@ const initialState = {
       title: "Name",
       hide: false,
       deleted: false,
+      currentCalculateBtnValue: "None",
       data: [],
       id: PROPERTY_ID,
     },
@@ -125,6 +126,10 @@ const tableDataInfoSlice = createSlice({
     changeToggleSaveNewPropertyField: (state, action) => {
       state.toggleSaveNewPropertyField = action.payload;
     },
+    changeCurrentCalculateBtnValue: (state, action) => {
+      const index = state.data.findIndex((e) => e.id === action.payload.id);
+      state.data[index].currentCalculateBtnValue = action.payload.value;
+    },
   },
 });
 
@@ -152,6 +157,7 @@ export const {
   duplicateRow,
   changeValueinPropertyData,
   changeToggleSaveNewPropertyField,
+  changeCurrentCalculateBtnValue,
 } = tableDataInfoSlice.actions;
 
 export default tableDataInfoSlice.reducer;
