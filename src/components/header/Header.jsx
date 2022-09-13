@@ -44,6 +44,12 @@ export default function Header() {
     );
   }, []);
 
+  useEffect(() => {
+    document.querySelector("title").textContent = title
+      ? `${title}`
+      : "Notion table";
+  }, [title]);
+
   return (
     <div className={style.header_section}>
       {" "}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -9,6 +9,7 @@ import calculateButtonNamesAndFeatures from "../contentOfCalculatePopover/calcul
 
 export default function CalculatePopover({ item }) {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [buttonTitle, setButtonTitle] = useState("Calculate");
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -21,9 +22,39 @@ export default function CalculatePopover({ item }) {
   const open = Boolean(anchorEl);
   const id = open ? "calculate-popover" : undefined;
 
-  const buttonName = calculateButtonNamesAndFeatures.default[
-    item.currentCalculateBtnValue
-  ](item.data);
+  const renderOfCalculateButtonName = () => {
+    if (
+      Object.keys(calculateButtonNamesAndFeatures.number).includes(
+        item.currentCalculateBtnValue
+      )
+    ) {
+      setButtonTitle(
+        calculateButtonNamesAndFeatures.number[item.currentCalculateBtnValue](
+          item.data
+        )
+      );
+    } else if (
+      Object.keys(calculateButtonNamesAndFeatures.date).includes(
+        item.currentCalculateBtnValue
+      )
+    ) {
+      setButtonTitle(
+        calculateButtonNamesAndFeatures.date[item.currentCalculateBtnValue](
+          item.data
+        )
+      );
+    } else {
+      setButtonTitle(
+        calculateButtonNamesAndFeatures.default[item.currentCalculateBtnValue](
+          item.data
+        )
+      );
+    }
+  };
+
+  useEffect(() => {
+    renderOfCalculateButtonName();
+  }, [item]);
 
   return (
     <div>
@@ -32,8 +63,8 @@ export default function CalculatePopover({ item }) {
         type="submit"
         onClick={handleClick}
       >
-        {buttonName}
-        {buttonName === "Calculate" && <KeyboardArrowDownIcon />}
+        {buttonTitle}
+        {buttonTitle === "Calculate" && <KeyboardArrowDownIcon />}
       </button>
       <Popover
         id={id}

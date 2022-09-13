@@ -1,6 +1,5 @@
-import React, { useMemo, useEffect } from "react";
+import React, { useMemo, useEffect, useState } from "react";
 import Tabs, { tabsClasses } from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
 import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuid } from "uuid";
@@ -22,13 +21,14 @@ import {
 import setDataIntoStorage, {
   getDatainToStorage,
 } from "../../utils/callLocalStorage";
-import selectTabIcon from "../../utils/tabIeIcons";
+import TabPopover from "./TabPopover";
 
 export default function TabsAndButtons() {
   const dispatch = useDispatch();
   const { tabsArray, selectedTabId } = useSelector(
     (store) => store.tableTabsInfo
   );
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleChange = (event, newValue) => {
     dispatch(changeSelectedTabId(tabsArray[newValue]?.id));
@@ -74,6 +74,9 @@ export default function TabsAndButtons() {
     );
   };
 
+  useEffect(() => {
+    setCurrentIndex(currentTab);
+  }, [currentTab]);
   return (
     <div className={style.tabs_btns_section}>
       <Tabs
@@ -89,12 +92,12 @@ export default function TabsAndButtons() {
         }}
       >
         {tabsArray.map((e, i) => (
-          <Tab
-            icon={selectTabIcon[e.type]}
-            iconPosition="start"
-            value={i}
+          <TabPopover
+            currentIndex={currentIndex}
+            setCurrentIndex={setCurrentIndex}
             key={e.id}
-            label={e.name}
+            item={e}
+            index={i}
           />
         ))}
       </Tabs>
