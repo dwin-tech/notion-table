@@ -25,7 +25,7 @@ const initialState = {
 };
 
 const tableDataInfoSlice = createSlice({
-  name: "tableTabsInfo",
+  name: "tableDataInfo",
   initialState,
   reducers: {
     addPropertyInToData: (state, action) => {

@@ -3,6 +3,7 @@ import Tabs, { tabsClasses } from "@mui/material/Tabs";
 import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuid } from "uuid";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import style from "./tabs.module.scss";
 import {
   changeSelectedValueInView,
@@ -16,6 +17,7 @@ import { changeSelectedType } from "../../features/tableTypeInfo/tableTypeInfoSl
 import {
   addNewTab,
   changeSelectedTabId,
+  dragAndDropTabsArray,
   updateTabArray,
 } from "../../features/tableTabsInfo/tableTabsInfoSlice";
 import setDataIntoStorage, {
@@ -37,7 +39,7 @@ export default function TabsAndButtons() {
 
   const currentTab = useMemo(() => {
     return tabsArray.findIndex((e) => e.id === selectedTabId);
-  }, [selectedTabId]);
+  }, [selectedTabId, tabsArray]);
 
   useEffect(() => {
     const tabs = getDatainToStorage("tabs");
@@ -77,30 +79,51 @@ export default function TabsAndButtons() {
   useEffect(() => {
     setCurrentIndex(currentTab);
   }, [currentTab]);
+
+  const handleOnDragEnd = (result) => {
+    dispatch(
+      dragAndDropTabsArray({
+        sourceIndex: result.source.index,
+        destinationIndex: result.destination.index,
+      })
+    );
+  };
+
   return (
     <div className={style.tabs_btns_section}>
-      <Tabs
-        value={currentTab}
-        onChange={handleChange}
-        variant="scrollable"
-        scrollButtons
-        aria-label="visible arrows tabs example"
-        sx={{
-          [`& .${tabsClasses.scrollButtons}`]: {
-            "&.Mui-disabled": { opacity: 0.3 },
-          },
-        }}
-      >
-        {tabsArray.map((e, i) => (
-          <TabPopover
-            currentIndex={currentIndex}
-            setCurrentIndex={setCurrentIndex}
-            key={e.id}
-            item={e}
-            index={i}
-          />
-        ))}
-      </Tabs>
+      <DragDropContext onDragEnd={handleOnDragEnd}>
+        <Droppable droppableId="characters" direction="horizontal">
+          {(provided) => (
+            <Tabs
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+              className="characters"
+              value={currentTab}
+              onChange={handleChange}
+              variant="scrollable"
+              scrollButtons
+              aria-label="visible arrows tabs example"
+              sx={{
+                [`& .${tabsClasses.scrollButtons}`]: {
+                  "&.Mui-disabled": { opacity: 0.3 },
+                },
+              }}
+            >
+              {tabsArray.map((e, i) => (
+                <TabPopover
+                  currentIndex={currentIndex}
+                  setCurrentIndex={setCurrentIndex}
+                  item={e}
+                  index={i}
+                  key={e.id}
+                />
+              ))}
+              {provided.placeholder}
+            </Tabs>
+          )}
+        </Droppable>
+      </DragDropContext>
       <button
         className={style.add_btn}
         type="submit"
