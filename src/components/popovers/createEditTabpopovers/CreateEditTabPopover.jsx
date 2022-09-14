@@ -30,7 +30,6 @@ export default function EditTabPopover() {
         type="submit"
         onClick={() => {
           dispatch(changeShowCreateTabPopover(true));
-          // dispatch(chengePopoverEventCurrentTarget([e.currentTarget]));
         }}
       >
         <MoreHorizIcon />
@@ -38,7 +37,6 @@ export default function EditTabPopover() {
       <Popover
         id={id}
         open={showCreateTabPopover}
-        // anchorEl={popoverEventCurrentTarget[0]}
         onClose={() =>
           onClosePopover(
             dispatch,

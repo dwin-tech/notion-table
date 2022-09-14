@@ -66,6 +66,8 @@ export const doneAndCloseBtn = (
     }
   } else if (!checkName(selectedObject) && createdTabName) {
     dispatch(changeNameNewTab({ id: selectedTabId, name: createdTabName }));
+  } else if (checkName(selectedObject)) {
+    dispatch(changeNameNewTab({ id: selectedTabId, name: createdTabName }));
   } else {
     dispatch(changeNameNewTab({ id: selectedTabId, name: "" }));
   }
