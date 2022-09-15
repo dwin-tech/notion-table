@@ -2,26 +2,58 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import AddIcon from "@mui/icons-material/Add";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import style from "./tableDrawing.module.scss";
-import PopoverOfButton from "../tablePropertyButtonWithPopover/PopoverOfButton";
-import { addNewFieldForData } from "../../features/tableDataInfo/tableDataInfoSlice";
+import {
+  addNewFieldForData,
+  DragAndDropToProperty,
+} from "../../features/tableDataInfo/tableDataInfoSlice";
 import TableDataStructure from "./TableDataStructure";
 import CalculateButtonsDrawing from "./CalculateButtonsDrawing";
 import addProperty, {
   openPropertiesField,
 } from "./tablePropertiesDrawingFunctions";
+import PropertyButtonAndPopover from "../tablePropertyButtonWithPopover/PropertyButtonAndPopover";
 
 export default function TablePropertiesDrawing() {
   const dispatch = useDispatch();
   const { data } = useSelector((store) => store?.tableDataInfo);
   const showData = data.filter((item) => !item.hide && !item.deleted);
 
+  const handleDrag = (result) => {
+    dispatch(
+      DragAndDropToProperty({
+        sourceIndex: result.source.index,
+        destinationIndex: result.destination.index,
+      })
+    );
+  };
+
   return (
     <div className={style.table_container}>
       <div className={style.property_container}>
-        {showData.map((item, i) => (
-          <PopoverOfButton item={item} key={item.id} index={i} />
-        ))}
+        <DragDropContext onDragEnd={(result) => handleDrag(result)}>
+          <Droppable droppableId="droppable" direction="horizontal">
+            {(provided) => (
+              <div
+                style={{ display: "flex" }}
+                className="characters"
+                // eslint-disable-next-line react/jsx-props-no-spreading
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+              >
+                {showData.map((item, i) => (
+                  <PropertyButtonAndPopover
+                    item={item}
+                    key={item.id}
+                    index={i}
+                  />
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
         <button
           type="submit"
           className={style.add_property_btn}

@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable no-shadow */
 import React, { useState } from "react";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
@@ -22,7 +21,6 @@ export default function TabPopover({
   const dispatch = useDispatch();
   const { tabsArray } = useSelector((store) => store.tableTabsInfo);
 
-  // eslint-disable-next-line no-unused-vars
   const handleClick = (event, newValue) => {
     if (currentIndex === newValue) {
       setAnchorEl(event.currentTarget);

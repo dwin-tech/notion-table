@@ -41,10 +41,10 @@ const tableTabsInfoSlice = createSlice({
       state.createdTabName = action.payload;
     },
     dragAndDropTabsArray: (state, action) => {
-      const reorderedItem = state.tabsArray.find(
-        (e) => e.id === state.tabsArray[action.payload.sourceIndex].id
+      const [reorderedItem] = state.tabsArray.splice(
+        action.payload.sourceIndex,
+        1
       );
-      state.tabsArray.splice(action.payload.sourceIndex, 1);
       state.tabsArray.splice(action.payload.destinationIndex, 0, reorderedItem);
     },
   },
