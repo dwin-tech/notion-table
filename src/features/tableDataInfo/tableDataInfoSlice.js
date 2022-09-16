@@ -119,9 +119,8 @@ const tableDataInfoSlice = createSlice({
       );
     },
     changeValueinPropertyData: (state, action) => {
-      const findIndex = state.data.findIndex((e) => e.id === action.payload.id);
-      state.data[findIndex].data[action.payload.index].value =
-        action.payload.value;
+      const index = state.data.findIndex((el) => el.id === action.payload.id);
+      state.data[index].data[action.payload.index].value = action.payload.value;
     },
     changeToggleSaveNewPropertyField: (state, action) => {
       state.toggleSaveNewPropertyField = action.payload;

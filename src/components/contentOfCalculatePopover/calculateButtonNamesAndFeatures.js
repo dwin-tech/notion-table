@@ -30,14 +30,12 @@ const calculateButtonNamesAndFeatures = {
       return `NOT EMPTY ${data.filter((el) => el.value).length}`;
     },
     "Percent empty": (data) => {
-      return `EMPTY ${
-        (data.filter((el) => !el.value).length * 100) / data.length
-      }%`;
+      const value = (data.filter((el) => !el.value).length * 100) / data.length;
+      return `EMPTY ${value > 0 ? value.toFixed(3) : value}%`;
     },
     "Percent not empty": (data) => {
-      return `NOT EMPTY ${
-        (data.filter((el) => el.value).length * 100) / data.length
-      }%`;
+      const value = (data.filter((el) => el.value).length * 100) / data.length;
+      return `NOT EMPTY ${value > 0 ? value.toFixed(3) : value}%`;
     },
   },
   number: {
@@ -81,7 +79,7 @@ const calculateButtonNamesAndFeatures = {
             acc = +el.value;
           }
           return acc;
-        }, 0);
+        }, newData[0].value);
         return `MIN ${value}`;
       }
       return "MIN";

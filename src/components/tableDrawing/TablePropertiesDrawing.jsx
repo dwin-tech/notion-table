@@ -21,12 +21,14 @@ export default function TablePropertiesDrawing() {
   const showData = data.filter((item) => !item.hide && !item.deleted);
 
   const handleDrag = (result) => {
-    dispatch(
-      DragAndDropToProperty({
-        sourceIndex: result.source.index,
-        destinationIndex: result.destination.index,
-      })
-    );
+    if (result.destination) {
+      dispatch(
+        DragAndDropToProperty({
+          sourceIndex: result.source.index,
+          destinationIndex: result.destination.index,
+        })
+      );
+    }
   };
 
   return (
