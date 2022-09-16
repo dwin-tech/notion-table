@@ -40,6 +40,13 @@ const tableTabsInfoSlice = createSlice({
     changeCreatedTabName: (state, action) => {
       state.createdTabName = action.payload;
     },
+    dragAndDropTabsArray: (state, action) => {
+      const [reorderedItem] = state.tabsArray.splice(
+        action.payload.sourceIndex,
+        1
+      );
+      state.tabsArray.splice(action.payload.destinationIndex, 0, reorderedItem);
+    },
   },
 });
 
@@ -50,6 +57,7 @@ export const {
   addNewEditTab,
   changeNameNewTab,
   changeCreatedTabName,
+  dragAndDropTabsArray,
 } = tableTabsInfoSlice.actions;
 
 export default tableTabsInfoSlice.reducer;

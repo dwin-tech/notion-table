@@ -25,7 +25,7 @@ const initialState = {
 };
 
 const tableDataInfoSlice = createSlice({
-  name: "tableTabsInfo",
+  name: "tableDataInfo",
   initialState,
   reducers: {
     addPropertyInToData: (state, action) => {
@@ -130,6 +130,10 @@ const tableDataInfoSlice = createSlice({
       const index = state.data.findIndex((e) => e.id === action.payload.id);
       state.data[index].currentCalculateBtnValue = action.payload.value;
     },
+    DragAndDropToProperty: (state, action) => {
+      const [reorderItem] = state.data.splice(action.payload.sourceIndex, 1);
+      state.data.splice(action.payload.destinationIndex, 0, reorderItem);
+    },
   },
 });
 
@@ -158,6 +162,7 @@ export const {
   changeValueinPropertyData,
   changeToggleSaveNewPropertyField,
   changeCurrentCalculateBtnValue,
+  DragAndDropToProperty,
 } = tableDataInfoSlice.actions;
 
 export default tableDataInfoSlice.reducer;
