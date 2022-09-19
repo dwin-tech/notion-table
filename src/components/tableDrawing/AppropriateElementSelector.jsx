@@ -21,7 +21,6 @@ function AppropriateElementSelector({ item }) {
     <input
       className={style.input_for_data}
       type={item.type}
-      key={item.id}
       defaultValue={item.value}
       onBlur={(event) => handleChangeValueInPropertyData(event.target.value)}
       onChange={(event) =>

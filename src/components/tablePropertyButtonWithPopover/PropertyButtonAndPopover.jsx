@@ -25,17 +25,17 @@ export default function PropertyButtonAndPopover({ item, index }) {
     <Draggable key={item.id} draggableId={item.id} index={index}>
       {(provided, snapshot) => (
         <div
-          style={{
-            backgroundColor: snapshot.isDragging ? "#fff" : "gray",
-            ...provided.dragHandleProps.style,
-          }}
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
           <button
             type="submit"
-            className={style.btn_property}
+            className={
+              snapshot.isDragging
+                ? style.ondrag_btn_property
+                : style.btn_property
+            }
             onClick={handleClick}
             {...provided.dragHandleProps}
           >

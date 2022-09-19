@@ -133,6 +133,12 @@ const tableDataInfoSlice = createSlice({
       const [reorderItem] = state.data.splice(action.payload.sourceIndex, 1);
       state.data.splice(action.payload.destinationIndex, 0, reorderItem);
     },
+    dragAndDropRows: (state, action) => {
+      state.data.forEach((el) => {
+        const [reorderItem] = el.data.splice(action.payload.sourceIndex, 1);
+        el.data.splice(action.payload.destinationIndex, 0, reorderItem);
+      });
+    },
   },
 });
 
@@ -162,6 +168,7 @@ export const {
   changeToggleSaveNewPropertyField,
   changeCurrentCalculateBtnValue,
   DragAndDropToProperty,
+  dragAndDropRows,
 } = tableDataInfoSlice.actions;
 
 export default tableDataInfoSlice.reducer;
