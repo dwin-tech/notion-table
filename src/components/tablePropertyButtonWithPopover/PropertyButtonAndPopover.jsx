@@ -26,8 +26,8 @@ export default function PropertyButtonAndPopover({ item, index }) {
       {(provided, snapshot) => (
         <div
           style={{
-            backgroundColor: snapshot.isDragging ? "gray" : "#fff",
-            opacity: snapshot.isDraging ? 0.5 : 1,
+            backgroundColor: snapshot.isDragging ? "#fff" : "gray",
+            ...provided.dragHandleProps.style,
           }}
           ref={provided.innerRef}
           {...provided.draggableProps}
@@ -37,12 +37,14 @@ export default function PropertyButtonAndPopover({ item, index }) {
             type="submit"
             className={style.btn_property}
             onClick={handleClick}
+            {...provided.dragHandleProps}
           >
             <span className={style.propert_icons}>
               {propertyIcons[item.type]}
             </span>
             <p>{item.title}</p>
           </button>
+
           <Popover
             id={id}
             open={open}

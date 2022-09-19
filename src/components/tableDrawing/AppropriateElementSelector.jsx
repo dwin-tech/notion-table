@@ -1,51 +1,40 @@
-/* eslint-disable react/forbid-prop-types */
 import React from "react";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { changeValueinPropertyData } from "../../features/tableDataInfo/tableDataInfoSlice";
+import style from "./tableDrawing.module.scss";
 
-function AppropriateElementSelector({ item, data, setEvnetIndex, id, i }) {
+function AppropriateElementSelector({ item }) {
   const dispatch = useDispatch();
 
-  const handleChangeValueInPropertyData = (value, dataId, index) => {
+  const handleChangeValueInPropertyData = (value) => {
     dispatch(
       changeValueinPropertyData({
-        id: dataId,
-        index,
+        id: item.parrentId,
+        index: item.index,
         value,
       })
     );
   };
 
-  const inputTypeSelector = () => {
-    if (data.type === "number") return "number";
-    if (data.type === "date") return "date";
-    return "text";
-  };
-
   return (
     <input
-      type={inputTypeSelector()}
+      className={style.input_for_data}
+      type={item.type}
       key={item.id}
       defaultValue={item.value}
-      onBlur={(event) =>
-        handleChangeValueInPropertyData(event.target.value, id, i)
+      onBlur={(event) => handleChangeValueInPropertyData(event.target.value)}
+      onChange={(event) =>
+        item.type === "date" &&
+        handleChangeValueInPropertyData(event.target.value)
       }
-      onChange={(e) =>
-        data.type === "date" &&
-        handleChangeValueInPropertyData(e.target.value, id, i)
-      }
-      onMouseEnter={() => setEvnetIndex(i)}
     />
   );
 }
 
 AppropriateElementSelector.propTypes = {
+  /* eslint-disable react/forbid-prop-types */
   item: PropTypes.object.isRequired,
-  data: PropTypes.object.isRequired,
-  setEvnetIndex: PropTypes.func.isRequired,
-  id: PropTypes.string.isRequired,
-  i: PropTypes.number.isRequired,
 };
 
 export default AppropriateElementSelector;

@@ -2,11 +2,13 @@
 
 
 .table_container {
-    min-width: 100vw;
-    min-height: 78.2vh;
+    width: 100%;
+    min-height: 76.8vh;
     padding: 0 50px 0 70px;
     margin-top: 5px;
     display: table;
+    padding-bottom: 50px;
+
     
 
     .property_container {
@@ -50,6 +52,7 @@
 
 }
 
+
 .add_new_item_btn {
     width: 100%;
     display: flex;
@@ -66,39 +69,6 @@
     }
 }
 
-.table_data_container {
-    display: flex;
-    position: relative;
-    
-
-    div {
-        display: flex;
-        flex-direction: column;
-
-        input {
-            width: 200px;
-            height: 30px;
-            border: none;
-            outline: none;
-            border-bottom: 1px solid #000;
-            border-right: 1px solid #000;
-
-            &:focus {
-               border-top: 2px solid rgba(45, 170, 219);
-               border-left: 2px solid rgba(45, 170, 219);
-               border-right: 2px solid rgba(45, 170, 219);
-               border-bottom: 2px solid rgba(45, 170, 219);
-
-            }
-        }
-    }
-
-    .table_data_rows {
-        width: 100%;
-        height: 30px;
-        border-bottom: 1px solid #000;
-    }
-}
 
 .add_drag_icon_container {
     position: absolute;
@@ -177,12 +147,6 @@
 
         }
 
-        // & :nth-child(1n+1) {
-        //     display: flex;
-        //     align-items: center;
-
-        // }
-
     }
 
 
@@ -200,10 +164,6 @@
 
 .calculate_btns_container {
     display: flex;
-    // & :nth-child(1n+1):not(:first-child) {
-    //     display: none;
-    // }
-
     &:hover {
         display: flex;
         & :nth-child(1n+1) {
@@ -235,4 +195,57 @@
     &:first-child {
         color: red
     }
+}
+
+.icons_section {
+    margin-left: -45px;
+    min-width: 45px;
+    min-height: 31px;
+    &:hover {
+        .icons_container {
+            display: flex;
+            align-items: center;
+        }
+    }
+}
+
+.data_input_container {
+    display: table;
+    width: 100%;
+    height: 30px;
+
+    .data_rows {
+         border-bottom: 1px solid #000;
+          display: flex;
+
+          &:hover {
+            .icons_container {
+                display: flex;
+                align-items: center;
+            }
+          }
+    }
+
+    .icons_container {
+        margin-left: -8px;
+        display: none;
+        cursor: pointer;
+        
+         &:first-child {
+            color:#000;
+         }
+    }
+}
+
+.input_for_data {
+        border: none;
+        border-right: 1px solid #000;
+        height: 31px;
+        width: 200px;
+    
+        &:focus {
+            outline: none !important;
+            border: 2px solid #719ECE;
+            border-right: 3px solid #719ECE;
+        }
 }
