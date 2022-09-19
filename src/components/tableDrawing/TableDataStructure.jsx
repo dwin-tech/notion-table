@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-expressions */
 import React, { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AddIcon from "@mui/icons-material/Add";
+import { v4 as uuidv4 } from "uuid";
 import { addNewFieldUnderSelectedRow } from "../../features/tableDataInfo/tableDataInfoSlice";
 import AppropriateElementSelector from "./AppropriateElementSelector";
 import ItemInfoPopover from "./ItemInfoPopover";
@@ -15,23 +17,13 @@ export default function TableDataStructure() {
   const changeStructureData = () => {
     return showData?.reduce((acc, el) => {
       el.data.forEach((item, i) => {
-        if (acc[i]) {
-          acc[i].push({
-            ...item,
-            type: el.type,
-            index: i,
-            parrentId: el.id,
-          });
-        } else {
-          acc[i] = [
-            {
-              ...item,
-              type: el.type,
-              index: i,
-              parrentId: el.id,
-            },
-          ];
-        }
+        const changedData = {
+          ...item,
+          type: el.type,
+          index: i,
+          parrentId: el.id,
+        };
+        !acc[i] ? (acc[i] = [changedData]) : acc[i].push(changedData);
       });
       return acc;
     }, []);
@@ -43,13 +35,8 @@ export default function TableDataStructure() {
 
   return (
     <div className={style.data_input_container}>
-      {neweData.map((el, i) => (
-        <div
-          // eslint-disable-next-line react/no-array-index-key
-          key={i}
-          className={style.data_rows}
-          draggable
-        >
+      {neweData.map((el) => (
+        <div key={uuidv4()} className={style.data_rows} draggable>
           {el.map((item, index) => (
             <React.Fragment key={item.parrentId}>
               {index === 0 && (

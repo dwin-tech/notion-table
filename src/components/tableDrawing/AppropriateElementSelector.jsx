@@ -19,7 +19,7 @@ function AppropriateElementSelector({ item }) {
 
   return (
     <input
-      className={style.properties_input}
+      className={style.input_for_data}
       type={item.type}
       key={item.id}
       defaultValue={item.value}
