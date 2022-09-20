@@ -31,18 +31,12 @@ const calculateButtonNamesAndFeatures = {
     },
     "Percent empty": (data) => {
       const value = (data.filter((el) => !el.value).length * 100) / data.length;
-      return `EMPTY ${
-        value > 0 || value % 2 !== 0 || value % 2 !== 1
-          ? value.toFixed(3)
-          : value
-      }%`;
+      return `EMPTY ${!Number.isInteger(+value) ? value.toFixed(3) : value}%`;
     },
     "Percent not empty": (data) => {
       const value = (data.filter((el) => el.value).length * 100) / data.length;
       return `NOT EMPTY ${
-        value > 0 || value % 2 !== 0 || value % 2 !== 1
-          ? value.toFixed(3)
-          : value
+        !Number.isInteger(+value) ? value.toFixed(3) : value
       }%`;
     },
   },
