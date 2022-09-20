@@ -81,12 +81,14 @@ export default function TabsAndButtons() {
   }, [currentTab]);
 
   const handleOnDragEnd = (result) => {
-    dispatch(
-      dragAndDropTabsArray({
-        sourceIndex: result.source.index,
-        destinationIndex: result.destination.index,
-      })
-    );
+    if (result.destination) {
+      dispatch(
+        dragAndDropTabsArray({
+          sourceIndex: result.source.index,
+          destinationIndex: result.destination.index,
+        })
+      );
+    }
   };
 
   return (

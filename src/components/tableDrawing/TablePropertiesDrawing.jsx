@@ -8,12 +8,12 @@ import {
   addNewFieldForData,
   DragAndDropToProperty,
 } from "../../features/tableDataInfo/tableDataInfoSlice";
-import TableDataStructure from "./TableDataStructure";
 import CalculateButtonsDrawing from "./CalculateButtonsDrawing";
 import addProperty, {
   openPropertiesField,
 } from "./tablePropertiesDrawingFunctions";
 import PropertyButtonAndPopover from "../tablePropertyButtonWithPopover/PropertyButtonAndPopover";
+import TableDataStructure from "./TableDataStructure";
 
 export default function TablePropertiesDrawing() {
   const dispatch = useDispatch();
@@ -38,8 +38,9 @@ export default function TablePropertiesDrawing() {
           <Droppable droppableId="droppable" direction="horizontal">
             {(provided) => (
               <div
-                style={{ display: "flex" }}
-                className="characters"
+                style={{
+                  display: "flex",
+                }}
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 {...provided.droppableProps}
                 ref={provided.innerRef}
