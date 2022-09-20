@@ -67,6 +67,27 @@
 
 }
 
+.onDrag_property_btns {
+    @include customButtonGroup(space-between);
+    background-color: #f0f0f0;
+    margin: 0 3px;
+    padding: 0 5px;
+    
+    & :nth-child(1n+1) {
+        margin-right: 3px;
+    }
+
+    &:hover {
+        .viewed_btn {
+            background-color: #f0f0f0;
+        }
+    }
+
+    .btn_title {
+        text-transform: capitalize;
+    }
+}
+
 .viewed_icon {
     color: $gray;
     padding: 4px;
@@ -195,4 +216,12 @@
         }
     }
     
+}
+
+.hide_show_btn_container {
+    width: 100%;
+}
+
+.drag_icon {
+    cursor: grab !important;
 }

@@ -1,13 +1,28 @@
 import React from "react";
+import PropTypes from "prop-types";
 import ShowOrHidePropertyElements from "./ShowOrHidePropertyElements";
 
-function DefaultProperties() {
+function DefaultProperties({ searchPropertyInput }) {
   return (
     <div>
-      <ShowOrHidePropertyElements text="Shown" buttonName="Hide" type="show" />
-      <ShowOrHidePropertyElements text="Hidden" buttonName="Show" type="hide" />
+      <ShowOrHidePropertyElements
+        searchPropertyInput={searchPropertyInput}
+        text="Shown"
+        buttonName="Hide"
+        type="show"
+      />
+      <ShowOrHidePropertyElements
+        searchPropertyInput={searchPropertyInput}
+        text="Hidden"
+        buttonName="Show"
+        type="hide"
+      />
     </div>
   );
 }
+
+DefaultProperties.propTypes = {
+  searchPropertyInput: PropTypes.string.isRequired,
+};
 
 export default DefaultProperties;

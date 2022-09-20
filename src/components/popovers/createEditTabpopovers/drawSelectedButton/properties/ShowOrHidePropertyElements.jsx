@@ -1,11 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
-import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
-import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import PROPERTY_ICONS from "../../../../propertyIcons/propertyIcons";
 import {
   changeSelectedPropertyForEdit,
   toggleHideAItemProperty,
@@ -13,12 +8,17 @@ import {
 } from "../../../../../features/tableDataInfo/tableDataInfoSlice";
 import style from "./properties.module.scss";
 import { changeToggleAddPropertyPopover } from "../../../../../features/showPopoversInfo/showPopoverInfoSlice";
+import ShowDataContent from "./ShowDataContent";
+import HideDataContent from "./HideDataContent";
 
-function ShowOrHidePropertyElements({ type, text, buttonName }) {
+function ShowOrHidePropertyElements({
+  type,
+  text,
+  buttonName,
+  searchPropertyInput,
+}) {
   const dispatch = useDispatch();
   const tableData = useSelector((store) => store.tableDataInfo.data);
-  const hideData = tableData.filter((data) => data.hide && !data.deleted);
-  const showData = tableData.filter((data) => !data.hide && !data.deleted);
 
   const handleMoveToEditFieldBtnClick = (id) => {
     dispatch(changeSelectedPropertyForEdit(id));
@@ -32,7 +32,8 @@ function ShowOrHidePropertyElements({ type, text, buttonName }) {
 
   return (
     <div className={style.show_hide_properties}>
-      {type === "hide" && !hideData.length ? null : (
+      {type === "hide" &&
+      !tableData.filter((data) => data.hide && !data.deleted).length ? null : (
         <div className={style.shown_hidden_container}>
           <p>{text} in table</p>
           <button
@@ -46,61 +47,21 @@ function ShowOrHidePropertyElements({ type, text, buttonName }) {
           </button>
         </div>
       )}
-      {type === "show"
-        ? showData.map((item) => (
-            <button
-              key={item.id}
-              type="submit"
-              className={style.property_btns}
-              onClick={() => handleMoveToEditFieldBtnClick(item.id)}
-            >
-              <div>
-                <div>
-                  <DragIndicatorIcon />
-                  {PROPERTY_ICONS[item.type]}
-                </div>
-                <p className={style.btn_title}>{item.title}</p>
-              </div>
-              <div>
-                {item.type === "title" ? (
-                  <VisibilityOffIcon className={style.viewed_icon} />
-                ) : (
-                  <RemoveRedEyeIcon
-                    className={style.viewed_black_icon}
-                    onClick={(event) =>
-                      handleChangeShowPropertyData(event, item.id, true)
-                    }
-                  />
-                )}
-                <KeyboardArrowRightIcon />
-              </div>
-            </button>
-          ))
-        : hideData.map((item) => (
-            <button
-              key={item.id}
-              type="submit"
-              className={style.property_btns}
-              onClick={() => handleMoveToEditFieldBtnClick(item.id)}
-            >
-              <div>
-                <div>
-                  <DragIndicatorIcon />
-                  {PROPERTY_ICONS[item.type]}
-                </div>
-                <p className={style.btn_title}>{item.title}</p>
-              </div>
-              <div>
-                <VisibilityOffIcon
-                  className={style.viewed_icon}
-                  onClick={(event) =>
-                    handleChangeShowPropertyData(event, item.id, false)
-                  }
-                />
-                <KeyboardArrowRightIcon />
-              </div>
-            </button>
-          ))}
+      {type === "show" ? (
+        <ShowDataContent
+          type={type}
+          handleMoveToEditFieldBtnClick={handleMoveToEditFieldBtnClick}
+          handleChangeShowPropertyData={handleChangeShowPropertyData}
+          searchPropertyInput={searchPropertyInput}
+        />
+      ) : (
+        <HideDataContent
+          type={type}
+          handleMoveToEditFieldBtnClick={handleMoveToEditFieldBtnClick}
+          handleChangeShowPropertyData={handleChangeShowPropertyData}
+          searchPropertyInput={searchPropertyInput}
+        />
+      )}
     </div>
   );
 }
@@ -109,6 +70,7 @@ ShowOrHidePropertyElements.propTypes = {
   type: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
   buttonName: PropTypes.string.isRequired,
+  searchPropertyInput: PropTypes.string.isRequired,
 };
 
 export default ShowOrHidePropertyElements;
