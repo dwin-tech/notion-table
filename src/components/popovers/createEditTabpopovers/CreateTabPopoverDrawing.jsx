@@ -21,7 +21,7 @@ function EditTabPopoverDrawing() {
     goEditPropertyFromPopover,
   } = useSelector((store) => store.tableTabsInfo);
 
-  const currentTab = tabsArray.find((e) => e.id === selectedTabId);
+  const currentTab = tabsArray.find((el) => el.id === selectedTabId);
 
   const [viewName, setViewName] = useState("");
 
