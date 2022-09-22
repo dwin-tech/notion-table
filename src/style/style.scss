@@ -14,23 +14,21 @@ body {
 }
 
 
-// #root {
-//     width: 100vw;
-//     height: 100%;
-// }
-
-
-// .App {
-//     width: 100vw;
-// }
-
-
 .css-1aquho2-MuiTabs-indicator {
     background-color: #000 !important;
 }
 
 .MuiTab-labelIcon {
+    white-space: nowrap !important;
     & :last-child {
-        cursor: grab !important;
+        cursor:grab !important;
     }
+}
+
+.MuiTypography-root {
+    padding: 0 !important;
+}
+
+.css-bdhsul-MuiTypography-root-MuiDialogTitle-root  {
+    padding: 10px 24px 10px !important;
 }

@@ -1,6 +1,7 @@
 import {
   changeNameNewTab,
   changeCreatedTabName,
+  changeGoEditPropertyFromPopover,
 } from "../../../features/tableTabsInfo/tableTabsInfoSlice";
 import {
   changeShowCreateTabPopover,
@@ -43,6 +44,7 @@ const onClosePopover = (
   dispatch(changeShowCreateTabPopover(false));
   dispatch(changeShowNewTabPopover(false));
   dispatch(changeShowView(false));
+  dispatch(changeGoEditPropertyFromPopover(false));
   dispatch(changeToggleAddPropertyPopover(false));
   dispatch(changetoggleEditTypeDrawer(false));
 };
@@ -74,6 +76,7 @@ export const doneAndCloseBtn = (
   dispatch(changeShowCreateTabPopover(false));
   dispatch(changeToggleAddPropertyPopover(false));
   dispatch(changetoggleEditTypeDrawer(false));
+  dispatch(changeGoEditPropertyFromPopover(false));
   // TODO get rid of setTimeout (popover onClose function works with a delay)
   setTimeout(() => {
     dispatch(changeShowNewTabPopover(false));

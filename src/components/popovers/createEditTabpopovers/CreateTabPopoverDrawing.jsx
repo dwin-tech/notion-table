@@ -14,9 +14,14 @@ import {
 function EditTabPopoverDrawing() {
   const dispatch = useDispatch();
   const { showView } = useSelector((store) => store.showPopoverInfo);
-  const { selectedTabId, createdTabName } = useSelector(
-    (store) => store.tableTabsInfo
-  );
+  const {
+    tabsArray,
+    selectedTabId,
+    createdTabName,
+    goEditPropertyFromPopover,
+  } = useSelector((store) => store.tableTabsInfo);
+
+  const currentTab = tabsArray.find((el) => el.id === selectedTabId);
 
   const [viewName, setViewName] = useState("");
 
@@ -46,6 +51,10 @@ function EditTabPopoverDrawing() {
     }
   };
 
+  const onChangeDuplicateTabName = (value) => {
+    dispatch(changeNameNewTab({ id: currentTab.id, name: value }));
+  };
+
   return (
     <div className={style.layout_options_container}>
       {!showView ? (
@@ -62,7 +71,18 @@ function EditTabPopoverDrawing() {
           </div>
           <div>
             {" "}
-            <CustomInput placeholder="View name" onChange={changeViewName} />
+            {goEditPropertyFromPopover ? (
+              <input
+                // eslint-disable-next-line jsx-a11y/no-autofocus
+                autoFocus
+                className={style.custom_input}
+                defaultValue={currentTab.name}
+                placeholder="View name"
+                onBlur={(e) => onChangeDuplicateTabName(e.target.value)}
+              />
+            ) : (
+              <CustomInput placeholder="View name" onChange={changeViewName} />
+            )}
           </div>
           <CreateTabPopoverButtons />
         </div>

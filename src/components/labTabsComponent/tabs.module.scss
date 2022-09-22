@@ -38,7 +38,6 @@
 .tabs_btns_section {
     display: flex;
     justify-content: space-between;
-    // width: 100vw;
     padding: 0 50px;
 }
 
@@ -46,3 +45,28 @@
     color: #000 !important; 
 }
 
+.tab_popover_btns {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    button {
+        @include customButtonGroup(left);
+        padding:  0 10px;
+      
+        & :first-child {
+            margin-right: 7px;
+        }
+    }
+
+    .border_top{
+        width: 100%;
+        border-top: 1px solid rgba(153, 153, 153, 0.418) !important; 
+    }
+    
+    .border_bottom{
+        width: 100%;
+    border-bottom: 1px solid rgba(153, 153, 153, 0.418) !important;
+    }
+
+}

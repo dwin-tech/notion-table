@@ -90,7 +90,9 @@
     
 }
 
-
+.custom_input {
+    @include customInput()
+}
 
 
 

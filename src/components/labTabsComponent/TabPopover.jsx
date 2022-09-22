@@ -10,6 +10,7 @@ import selectTabIcon from "../../utils/tabIeIcons";
 import { changeSelectedTabId } from "../../features/tableTabsInfo/tableTabsInfoSlice";
 import setDataIntoStorage from "../../utils/callLocalStorage";
 import style from "./tabs.module.scss";
+import ContentOfTabPopover from "./ContentOfTabPopover";
 
 export default function TabPopover({
   item,
@@ -76,7 +77,7 @@ export default function TabPopover({
             }}
           >
             <Typography component="div" sx={{ p: 2 }}>
-              popover
+              <ContentOfTabPopover setAnchorEl={setAnchorEl} />
             </Typography>
           </Popover>
         </div>
