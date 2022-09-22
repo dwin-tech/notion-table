@@ -111,7 +111,7 @@ export default function EditProperties() {
           </div>
           <CustomInputWithValue
             value={selectedPropertyForEdit.title}
-            placeholder="Search for a property"
+            placeholder="Property name"
             onChange={chekedIncludesTitleInData}
             onBlur={changePropertiesInputValue}
           />

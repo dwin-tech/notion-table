@@ -16,19 +16,34 @@ import ItemInfoPopover from "./ItemInfoPopover";
 export default function TableDataStructure() {
   const dispatch = useDispatch();
   const { data } = useSelector((store) => store.tableDataInfo);
-
+  const searchDataInputValue = useSelector(
+    (store) => store.tableDataInfo.searchDataInputValue
+  );
   const showData = data.filter((el) => !el.hide && !el.deleted);
+  const showDataWithSearchValueIndex = () => {
+    return showData.reduce((acc, el) => {
+      el.data.forEach((item, i) =>
+        item.value.includes(searchDataInputValue) && !acc.includes(i)
+          ? acc.push(i)
+          : acc
+      );
+      return acc;
+    }, []);
+  };
 
   const changeStructureData = () => {
+    const indexsArr = showDataWithSearchValueIndex();
     return showData?.reduce((acc, el) => {
       el.data.forEach((item, i) => {
-        const changedData = {
-          ...item,
-          type: el.type,
-          index: i,
-          parrentId: el.id,
-        };
-        !acc[i] ? (acc[i] = [changedData]) : acc[i].push(changedData);
+        if (indexsArr.includes(i)) {
+          const changedData = {
+            ...item,
+            type: el.type,
+            index: i,
+            parrentId: el.id,
+          };
+          !acc[i] ? (acc[i] = [changedData]) : acc[i].push(changedData);
+        }
       });
       return acc;
     }, []);
@@ -36,7 +51,7 @@ export default function TableDataStructure() {
 
   const newData = useMemo(() => {
     return changeStructureData();
-  }, [data]);
+  }, [data, searchDataInputValue]);
 
   const handleOnDragEnd = (result) => {
     if (result.destination) {

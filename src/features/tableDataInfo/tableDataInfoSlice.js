@@ -22,6 +22,7 @@ const initialState = {
   toggleEditTypeDrawer: false,
   toggleAddNewPropertyType: false,
   toggleSaveNewPropertyField: false,
+  searchDataInputValue: "",
 };
 
 const tableDataInfoSlice = createSlice({
@@ -139,6 +140,9 @@ const tableDataInfoSlice = createSlice({
         el.data.splice(action.payload.destinationIndex, 0, reorderItem);
       });
     },
+    changeSearchDataInputValue: (state, action) => {
+      state.searchDataInputValue = action.payload;
+    },
   },
 });
 
@@ -169,6 +173,7 @@ export const {
   changeCurrentCalculateBtnValue,
   DragAndDropToProperty,
   dragAndDropRows,
+  changeSearchDataInputValue,
 } = tableDataInfoSlice.actions;
 
 export default tableDataInfoSlice.reducer;

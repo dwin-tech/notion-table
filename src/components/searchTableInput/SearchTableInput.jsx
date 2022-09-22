@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
+import { useDispatch, useSelector } from "react-redux";
 import style from "./searchTableInput.module.scss";
+import { changeSearchDataInputValue } from "../../features/tableDataInfo/tableDataInfoSlice";
 
 function SearchTableInput() {
+  const dispatch = useDispatch();
+  const inputValue = useSelector(
+    (store) => store.tableDataInfo.searchDataInputValue
+  );
   const [showInput, setShowInput] = useState(false);
-  const [inputValue, setInputValue] = useState("");
   return (
     <div className={style.search_container}>
       <button
@@ -16,13 +21,14 @@ function SearchTableInput() {
       </button>
       {showInput && (
         <input
-          onFocus={showInput}
+          // eslint-disable-next-line jsx-a11y/no-autofocus
+          autoFocus
           type="text"
           value={inputValue}
           className={style.search_input}
           placeholder="Type to search..."
-          onChange={(e) => setInputValue(e.target.value)}
-          onBlur={() => setShowInput(false)}
+          onChange={(e) => dispatch(changeSearchDataInputValue(e.target.value))}
+          onBlur={() => !inputValue && setShowInput(false)}
         />
       )}
     </div>

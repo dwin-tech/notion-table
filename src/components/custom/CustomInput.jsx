@@ -6,7 +6,7 @@ function CustomInput({ onChange, placeholder }) {
   return (
     <input
       type="text"
-      onBlur={(e) => onChange(e.target.value)}
+      onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
       className={style.custom_input}
     />
