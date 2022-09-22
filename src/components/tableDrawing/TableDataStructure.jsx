@@ -32,10 +32,10 @@ export default function TableDataStructure() {
   };
 
   const changeStructureData = () => {
-    const indexArr = showDataWithSearchValueIndex();
+    const indexsArr = showDataWithSearchValueIndex();
     return showData?.reduce((acc, el) => {
       el.data.forEach((item, i) => {
-        if (indexArr.includes(i)) {
+        if (indexsArr.includes(i)) {
           const changedData = {
             ...item,
             type: el.type,

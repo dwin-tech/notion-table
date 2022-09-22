@@ -15,7 +15,6 @@ import PropertiesButtons from "./PropertiesButtons";
 
 export default function Properties() {
   const dispatch = useDispatch();
-  // eslint-disable-next-line no-unused-vars
   const [searchPropertyInput, setSearchPropertyInput] = useState("");
   const { toggleAddPropertyPopover } = useSelector(
     (store) => store.showPopoverInfo
