@@ -15,7 +15,7 @@ import {
 import { changeToggleDeleteDialog } from "../../features/tableDataInfo/tableDataInfoSlice";
 import DeleteDialog from "../deleteDialog/DeleteDialog";
 
-function ContentOfTabPopover({ setAnchorEl }) {
+function ContentOfTabPopover({ setAnchorEl, item }) {
   const dispatch = useDispatch();
   const { toggleDeleteDialog } = useSelector((store) => store.tableDataInfo);
   const { selectedTabId } = useSelector((store) => store.tableTabsInfo);
@@ -24,8 +24,23 @@ function ContentOfTabPopover({ setAnchorEl }) {
     setAnchorEl(null);
   };
 
-  const handleduplicateTab = () => {
-    dispatch(duplicateTab());
+  const newNameSelector = (name) => {
+    const order = name?.substring(
+      name.lastIndexOf("(") + 1,
+      name.lastIndexOf(")")
+    );
+    if (typeof +name[name.length - 2] !== "number") return `${name} (1)`;
+    const output = name.substring(0, name.lastIndexOf(" "))
+      ? name.substring(0, name.lastIndexOf(" "))
+      : name;
+    if (Number.isInteger(+order)) {
+      return `${output} (${+order + 1})`;
+    }
+    return `${name} (1)`;
+  };
+
+  const handleDuplicateTab = () => {
+    dispatch(duplicateTab(newNameSelector(item.name)));
     setAnchorEl(null);
     dispatch(changeShowCreateTabPopover(true));
   };
@@ -56,7 +71,7 @@ function ContentOfTabPopover({ setAnchorEl }) {
         <p>Copy link to view</p>
       </button>
       <div className={style.border_bottom} />
-      <button type="submit" onClick={handleduplicateTab}>
+      <button type="submit" onClick={handleDuplicateTab}>
         <ContentCopyIcon />
         <p>Duplicate</p>
       </button>
@@ -77,6 +92,8 @@ function ContentOfTabPopover({ setAnchorEl }) {
 
 ContentOfTabPopover.propTypes = {
   setAnchorEl: PropTypes.func.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  item: PropTypes.object.isRequired,
 };
 
 export default ContentOfTabPopover;

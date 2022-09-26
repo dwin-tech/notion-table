@@ -77,7 +77,7 @@ export default function TabPopover({
             }}
           >
             <Typography component="div" sx={{ p: 2 }}>
-              <ContentOfTabPopover setAnchorEl={setAnchorEl} />
+              <ContentOfTabPopover item={item} setAnchorEl={setAnchorEl} />
             </Typography>
           </Popover>
         </div>
