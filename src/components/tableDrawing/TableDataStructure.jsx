@@ -5,8 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import AddIcon from "@mui/icons-material/Add";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { v4 as uuidv4 } from "uuid";
+import ImportContactsIcon from "@mui/icons-material/ImportContacts";
 import {
   addNewFieldUnderSelectedRow,
+  changeToggleNewDrawer,
   dragAndDropRows,
 } from "../../features/tableDataInfo/tableDataInfoSlice";
 import AppropriateElementSelector from "./AppropriateElementSelector";
@@ -86,6 +88,15 @@ export default function TableDataStructure() {
                     {...provide.draggableProps}
                     {...provide.dragHandleProps}
                   >
+                    <button
+                      className={style.open_btn}
+                      type="submit"
+                      onClick={() => dispatch(changeToggleNewDrawer(true))}
+                    >
+                      <ImportContactsIcon />
+                      <p>OPEN</p>
+                    </button>
+
                     {el.map((item, index) => (
                       <React.Fragment key={item.parrentId}>
                         {index === 0 && (

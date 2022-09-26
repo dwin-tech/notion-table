@@ -23,6 +23,7 @@ const initialState = {
   toggleAddNewPropertyType: false,
   toggleSaveNewPropertyField: false,
   searchDataInputValue: "",
+  toggleNewDrawer: false,
 };
 
 const tableDataInfoSlice = createSlice({
@@ -161,6 +162,9 @@ const tableDataInfoSlice = createSlice({
         });
       });
     },
+    changeToggleNewDrawer: (state, action) => {
+      state.toggleNewDrawer = action.payload;
+    },
   },
 });
 
@@ -193,6 +197,7 @@ export const {
   dragAndDropRows,
   changeSearchDataInputValue,
   sortDataToAscendingOrDescending,
+  changeToggleNewDrawer,
 } = tableDataInfoSlice.actions;
 
 export default tableDataInfoSlice.reducer;
