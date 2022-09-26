@@ -19,6 +19,7 @@ import {
   changeSelectedPropertyTitle,
 } from "../../features/tableDataInfo/tableDataInfoSlice";
 import SortAndFilterBtnsContent from "./SortAndFilterBtnsContent";
+import EditTypePopoverBtns from "./EditTypePopoverBtns";
 
 function ContentOfPropertyPopover({ item, setAnchorElement }) {
   const dispatch = useDispatch();
@@ -72,6 +73,15 @@ function ContentOfPropertyPopover({ item, setAnchorElement }) {
         item={item}
         setAnchorElement={setAnchorElement}
       />
+      {item.type !== "title" && (
+        <>
+          <div className={style.border_top} />
+          <EditTypePopoverBtns
+            item={item}
+            setAnchorElement={setAnchorElement}
+          />
+        </>
+      )}
     </div>
   );
 }
