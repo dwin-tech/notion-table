@@ -12,19 +12,10 @@ import sortedPositions from "./sortAndFilterFeatures";
 function SortAndFilterBtnsContent({ item, setAnchorElement }) {
   const dispatch = useDispatch();
 
-  const handleSortToAscending = () => {
+  const handleSortToAscendingOrDecending = (type) => {
     dispatch(
       sortDataToAscendingOrDescending({
-        positions: sortedPositions(item, "ascending"),
-      })
-    );
-    setAnchorElement(false);
-  };
-
-  const handleSortToDescending = () => {
-    dispatch(
-      sortDataToAscendingOrDescending({
-        positions: sortedPositions(item, "descending"),
+        positions: sortedPositions(item, type),
       })
     );
     setAnchorElement(false);
@@ -35,7 +26,7 @@ function SortAndFilterBtnsContent({ item, setAnchorElement }) {
       <button
         type="submit"
         className={style.property_popover_btns}
-        onClick={handleSortToAscending}
+        onClick={() => handleSortToAscendingOrDecending("ascending")}
       >
         <div>
           <NorthIcon />
@@ -45,7 +36,7 @@ function SortAndFilterBtnsContent({ item, setAnchorElement }) {
       <button
         type="submit"
         className={style.property_popover_btns}
-        onClick={handleSortToDescending}
+        onClick={() => handleSortToAscendingOrDecending("descending")}
       >
         <div>
           <SouthIcon />

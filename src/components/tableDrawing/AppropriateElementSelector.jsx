@@ -8,7 +8,7 @@ function AppropriateElementSelector({ item }) {
   const dispatch = useDispatch();
   const [inputChange, setInputChange] = useState(false);
 
-  const handleChangeValueInPropertyData = (value) => {
+  const handlePropertyDataChange = (value) => {
     dispatch(
       changeValueinPropertyData({
         id: item.parrentId,
@@ -25,7 +25,7 @@ function AppropriateElementSelector({ item }) {
       defaultValue={item.value}
       onBlur={(event) => {
         if (inputChange) {
-          handleChangeValueInPropertyData(event.target.value);
+          handlePropertyDataChange(event.target.value);
         }
         setInputChange(false);
       }}
@@ -34,7 +34,7 @@ function AppropriateElementSelector({ item }) {
           setInputChange(true);
         }
         if (item.type === "date") {
-          handleChangeValueInPropertyData(event.target.value);
+          handlePropertyDataChange(event.target.value);
         }
       }}
     />

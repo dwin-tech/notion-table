@@ -50,6 +50,7 @@ const tableTabsInfoSlice = createSlice({
       state.tabsArray.splice(action.payload.destinationIndex, 0, reorderedItem);
     },
     duplicateTab: (state, action) => {
+      console.log(action);
       const findIndex = state.tabsArray.findIndex(
         (el) => el.id === state.selectedTabId
       );
