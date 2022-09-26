@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
@@ -9,10 +9,13 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
+import { useSelector, useDispatch } from "react-redux";
 import style from "./drawer.module.scss";
+import { changeToggleNewDrawer } from "../../features/tableDataInfo/tableDataInfoSlice";
 
 export default function CreateNewDrawer() {
-  const [right, setRight] = useState(false);
+  const dispatch = useDispatch();
+  const { toggleNewDrawer } = useSelector((store) => store.tableDataInfo);
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -22,7 +25,7 @@ export default function CreateNewDrawer() {
       return;
     }
 
-    setRight(open);
+    dispatch(changeToggleNewDrawer(open));
   };
 
   const newItemCreater = (anchor) => (
@@ -66,11 +69,19 @@ export default function CreateNewDrawer() {
         <button
           className={style.new_button}
           type="submit"
-          onClick={toggleDrawer(true)}
+          onClick={() => {
+            dispatch(changeToggleNewDrawer(true));
+          }}
         >
           New
         </button>
-        <Drawer anchor="right" open={right} onClose={toggleDrawer(false)}>
+        <Drawer
+          anchor="right"
+          open={toggleNewDrawer}
+          onClose={() => {
+            dispatch(changeToggleNewDrawer(false));
+          }}
+        >
           {newItemCreater("right")}
         </Drawer>
       </React.Fragment>
