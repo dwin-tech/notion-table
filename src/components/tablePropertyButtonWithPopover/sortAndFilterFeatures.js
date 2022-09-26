@@ -1,4 +1,4 @@
-const sorteDataByType = (data, sortType) => {
+const sortDataByType = (data, sortType) => {
   return sortType === "ascending"
     ? data.sort((a, b) => {
         if (a.value === "") return 1;
@@ -32,7 +32,7 @@ const sortedDate = (data, sortType, type) => {
 const sortedPositions = (item, sortType) => {
   const data = [...item.data];
   if (item.type !== "date") {
-    return sorteDataByType(data, sortType).reduce((acc, el) => {
+    return sortDataByType(data, sortType).reduce((acc, el) => {
       acc.push(el.position);
       return acc;
     }, []);

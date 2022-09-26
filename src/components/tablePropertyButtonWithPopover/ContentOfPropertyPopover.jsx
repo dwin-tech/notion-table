@@ -24,7 +24,8 @@ function ContentOfPropertyPopover({ item, setAnchorElement }) {
   const dispatch = useDispatch();
   const { propertyNames } = useSelector((store) => store.tableDataInfo);
   const [customInputValue, setCustomInputValue] = useState("");
-  const isTitleInData = (val) => {
+
+  const hasTitleInData = (val) => {
     val = val.trim();
     const newValue = checkNewTitle(val, propertyNames);
     setCustomInputValue(val !== newValue ? val : "");
@@ -46,7 +47,7 @@ function ContentOfPropertyPopover({ item, setAnchorElement }) {
     <div>
       <CustomInputWithValue
         value={item.title}
-        onChange={isTitleInData}
+        onChange={hasTitleInData}
         placeholder="Property name"
         onBlur={handleChangePropertyName}
       />

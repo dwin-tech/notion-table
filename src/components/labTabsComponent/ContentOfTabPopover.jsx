@@ -29,15 +29,14 @@ function ContentOfTabPopover({ setAnchorEl, item }) {
       name.lastIndexOf("(") + 1,
       name.lastIndexOf(")")
     );
-    if (order !== null) {
-      const output = name.substring(0, name.lastIndexOf(" "))
-        ? name.substring(0, name.lastIndexOf(" "))
-        : name;
-      if (Number.isInteger(+order)) {
-        return `${output} (${+order + 1})`;
-      }
+    if (typeof +name[name.length - 2] !== "number") return `${name} (1)`;
+    const output = name.substring(0, name.lastIndexOf(" "))
+      ? name.substring(0, name.lastIndexOf(" "))
+      : name;
+    if (Number.isInteger(+order)) {
+      return `${output} (${+order + 1})`;
     }
-    return `${order} ${1}`;
+    return `${name} (1)`;
   };
 
   const handleDuplicateTab = () => {
