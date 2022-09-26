@@ -1,4 +1,4 @@
-
+@import '../../style/variables.scss';
 
     .btn_property {
         min-width: 200px;
@@ -51,3 +51,30 @@
         }
     }
  
+    .property_popover_btns {
+        @include  customButtonGroup(space-between);
+        padding: 0 5px;
+        margin-left: 4px;
+    }
+
+    .type_container {
+        display: flex;
+        flex-direction: column;
+    
+        button {
+            @include customButtonGroup(space-between);
+            width: 98%;
+            margin: 5px 8px 5px 5px;
+            padding: 0 8px 0 5px;
+        }
+    }
+    
+
+    .name_include_text {
+        color: red;
+        padding:  0 5px;
+    }
+
+    .border_top {
+        border-top: 1px solid #999;
+    }

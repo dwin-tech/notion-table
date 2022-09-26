@@ -101,11 +101,17 @@ const tableDataInfoSlice = createSlice({
       state.data[index].deleted = action.payload.value;
     },
     addNewFieldForData: (state) => {
-      state.data.forEach((el) => el.data.push({ id: uuidv4(), value: "" }));
+      state.data.forEach((el) =>
+        el.data.push({ id: uuidv4(), position: el.data.length + 1, value: "" })
+      );
     },
     addNewFieldUnderSelectedRow: (state, action) => {
       state.data.forEach((el) =>
-        el.data.splice(action.payload + 1, 0, { id: uuidv4(), value: "" })
+        el.data.splice(action.payload + 1, 0, {
+          id: uuidv4(),
+          value: "",
+          position: el.data.length + 1,
+        })
       );
     },
     deleteSelectedRow: (state, action) => {
@@ -116,6 +122,7 @@ const tableDataInfoSlice = createSlice({
         el.data.splice(action.payload + 1, 0, {
           id: uuidv4(),
           value: el.data[action.payload].value,
+          position: el.data.length + 1,
         })
       );
     },
@@ -142,6 +149,17 @@ const tableDataInfoSlice = createSlice({
     },
     changeSearchDataInputValue: (state, action) => {
       state.searchDataInputValue = action.payload;
+    },
+    sortDataToAscendingOrDescending: (state, action) => {
+      action.payload.positions.forEach((position) => {
+        state.data.forEach((item) => {
+          const [reorderItem] = item.data.splice(
+            item.data.findIndex((el) => el.position === position),
+            1
+          );
+          item.data.push(reorderItem);
+        });
+      });
     },
   },
 });
@@ -174,6 +192,7 @@ export const {
   DragAndDropToProperty,
   dragAndDropRows,
   changeSearchDataInputValue,
+  sortDataToAscendingOrDescending,
 } = tableDataInfoSlice.actions;
 
 export default tableDataInfoSlice.reducer;

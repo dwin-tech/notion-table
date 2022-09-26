@@ -8,19 +8,6 @@ const initialState = {
   selectedTabId: TAB_ID,
   createdTabName: "",
   goEditPropertyFromPopover: false,
-  newNameSelector: (name) => {
-    const order = name.substring(
-      name.lastIndexOf("(") + 1,
-      name.lastIndexOf(")")
-    );
-    const output = name.substring(0, name.lastIndexOf(" "))
-      ? name.substring(0, name.lastIndexOf(" "))
-      : name;
-    if (Number.isInteger(+order)) {
-      return `${output} (${+order + 1})`;
-    }
-    return `${order} (${1})`;
-  },
 };
 
 const tableTabsInfoSlice = createSlice({
@@ -62,17 +49,16 @@ const tableTabsInfoSlice = createSlice({
       );
       state.tabsArray.splice(action.payload.destinationIndex, 0, reorderedItem);
     },
-    duplicateTab: (state) => {
+    duplicateTab: (state, action) => {
       const findIndex = state.tabsArray.findIndex(
         (el) => el.id === state.selectedTabId
       );
       state.goEditPropertyFromPopover = !state.goEditPropertyFromPopover;
-      const { name } = state.tabsArray[findIndex];
       const id = uuidv4();
       state.selectedTabId = id;
       state.tabsArray.splice(findIndex + 1, 0, {
         ...state.tabsArray[findIndex],
-        name: state.newNameSelector(name),
+        name: action.payload,
         id,
       });
     },
