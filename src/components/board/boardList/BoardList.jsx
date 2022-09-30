@@ -8,16 +8,16 @@ import style from "./boardList.module.scss";
 import RowFeaturePopover from "../boardHeader/RowFeaturePopover";
 
 function BoardList({ titles }) {
-  const [editTitleByIndex, setEditTitleByIndex] = useState(-1);
+  const [runFormater, setRunFormater] = useState(-1);
 
   return (
     <div>
       {Object.values(titles)[0].map((item, index) =>
-        index !== editTitleByIndex ? (
+        index !== runFormater ? (
           <div key={uuidv4()} className={style.board_btn}>
             <div>{item.value || "Untitled"}</div>
             <div className={style.board_icon_container}>
-              <EditIcon onClick={() => setEditTitleByIndex(index)} />
+              <EditIcon onClick={() => setRunFormater(index)} />
               <div />
               <RowFeaturePopover />
             </div>
@@ -31,7 +31,7 @@ function BoardList({ titles }) {
               type="text"
               defaultValue={item.value}
               placeholder="Type a name..."
-              onBlur={() => setEditTitleByIndex(-1)}
+              onBlur={() => setRunFormater(-1)}
             />
             <div className={style.board_icon_container}>
               <ImportContactsIcon />
