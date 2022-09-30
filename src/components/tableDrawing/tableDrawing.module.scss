@@ -207,9 +207,6 @@
     }
 }
 
-.open_btn {
-    display: none;
-}
 .data_input_container {
     display: table;
     width: 100%;
@@ -223,24 +220,6 @@
             .icons_container {
                 display: flex;
                 align-items: center;
-            }
-            .open_btn {
-                position: absolute;
-                left: 188px;
-                margin-top: 3px;
-                background-color: #fff;
-                display: flex;
-                align-items: center;
-                border: 1px solid gray;
-                border-radius: 3px;
-                cursor: pointer;
-                height: 25px;
-                color: rgba(128, 128, 128, 0.849); 
-
-                &:hover {
-                    background-color: rgba(128, 128, 128, 0.315);
-                    color: #000;
-                }
             }
           }
     }

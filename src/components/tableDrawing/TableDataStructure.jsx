@@ -5,11 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import AddIcon from "@mui/icons-material/Add";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { v4 as uuidv4 } from "uuid";
-import ImportContactsIcon from "@mui/icons-material/ImportContacts";
 import {
   addNewFieldUnderSelectedRow,
-  changeCurrentRowForDrawer,
-  changeToggleNewDrawer,
   dragAndDropRows,
 } from "../../features/tableDataInfo/tableDataInfoSlice";
 import AppropriateElementSelector from "./AppropriateElementSelector";
@@ -22,9 +19,9 @@ export default function TableDataStructure() {
   const searchDataInputValue = useSelector(
     (store) => store.tableDataInfo.searchDataInputValue
   );
-
+  const showData = data.filter((el) => !el.hide && !el.deleted);
   const showDataWithSearchValueIndex = () => {
-    return data.reduce((acc, el) => {
+    return showData.reduce((acc, el) => {
       el.data.forEach((item, i) =>
         item.value.includes(searchDataInputValue) && !acc.includes(i)
           ? acc.push(i)
@@ -36,12 +33,10 @@ export default function TableDataStructure() {
 
   const changeStructureData = () => {
     const indexsArr = showDataWithSearchValueIndex();
-    return data?.reduce((acc, el) => {
+    return showData?.reduce((acc, el) => {
       el.data.forEach((item, i) => {
         if (indexsArr.includes(i)) {
           const changedData = {
-            hide: el.hide,
-            deleted: el.deleted,
             ...item,
             type: el.type,
             index: i,
@@ -69,11 +64,6 @@ export default function TableDataStructure() {
     }
   };
 
-  const handleOpenDrawer = (item) => {
-    dispatch(changeToggleNewDrawer(true));
-    dispatch(changeCurrentRowForDrawer(item));
-  };
-
   return (
     <DragDropContext onDragEnd={handleOnDragEnd}>
       <Droppable droppableId="rowDropps">
@@ -96,41 +86,25 @@ export default function TableDataStructure() {
                     {...provide.draggableProps}
                     {...provide.dragHandleProps}
                   >
-                    <button
-                      className={style.open_btn}
-                      type="submit"
-                      onClick={() => handleOpenDrawer(el)}
-                    >
-                      <ImportContactsIcon />
-                      <p>OPEN</p>
-                    </button>
-
-                    {el.map(
-                      (item, index) =>
-                        !item.hide &&
-                        !item.deleted && (
-                          <React.Fragment key={item.parrentId}>
-                            {index === 0 && (
-                              <div className={style.icons_section}>
-                                <div className={style.icons_container}>
-                                  <AddIcon
-                                    onClick={() =>
-                                      dispatch(
-                                        addNewFieldUnderSelectedRow(item.index)
-                                      )
-                                    }
-                                  />
-                                  <ItemInfoPopover index={item.index} />
-                                </div>
-                              </div>
-                            )}
-                            <AppropriateElementSelector
-                              key={item.id}
-                              item={item}
-                            />
-                          </React.Fragment>
-                        )
-                    )}
+                    {el.map((item, index) => (
+                      <React.Fragment key={item.parrentId}>
+                        {index === 0 && (
+                          <div className={style.icons_section}>
+                            <div className={style.icons_container}>
+                              <AddIcon
+                                onClick={() =>
+                                  dispatch(
+                                    addNewFieldUnderSelectedRow(item.index)
+                                  )
+                                }
+                              />
+                              <ItemInfoPopover index={item.index} />
+                            </div>
+                          </div>
+                        )}
+                        <AppropriateElementSelector key={item.id} item={item} />
+                      </React.Fragment>
+                    ))}
                   </div>
                 )}
               </Draggable>
