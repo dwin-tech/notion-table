@@ -23,6 +23,8 @@ const initialState = {
   toggleAddNewPropertyType: false,
   toggleSaveNewPropertyField: false,
   searchDataInputValue: "",
+  toggleNewDrawer: false,
+  currentRowForDrawer: [],
 };
 
 const tableDataInfoSlice = createSlice({
@@ -161,6 +163,12 @@ const tableDataInfoSlice = createSlice({
         });
       });
     },
+    changeToggleNewDrawer: (state, action) => {
+      state.toggleNewDrawer = action.payload;
+    },
+    changeCurrentRowForDrawer: (state, action) => {
+      state.currentRowForDrawer = action.payload;
+    },
   },
 });
 
@@ -193,6 +201,8 @@ export const {
   dragAndDropRows,
   changeSearchDataInputValue,
   sortDataToAscendingOrDescending,
+  changeToggleNewDrawer,
+  changeCurrentRowForDrawer,
 } = tableDataInfoSlice.actions;
 
 export default tableDataInfoSlice.reducer;

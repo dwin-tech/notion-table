@@ -76,6 +76,13 @@ const tableTabsInfoSlice = createSlice({
     changeGoEditPropertyFromPopover: (state, action) => {
       state.goEditPropertyFromPopover = action.payload;
     },
+    addOrUpdateGroupToBoardType: (state, action) => {
+      state.tabsArray.forEach((el) => {
+        if (el.type === "board") {
+          el.boardGroup = [{ "": action.payload }];
+        }
+      });
+    },
   },
 });
 
@@ -90,6 +97,7 @@ export const {
   duplicateTab,
   deleteTab,
   changeGoEditPropertyFromPopover,
+  addOrUpdateGroupToBoardType,
 } = tableTabsInfoSlice.actions;
 
 export default tableTabsInfoSlice.reducer;
