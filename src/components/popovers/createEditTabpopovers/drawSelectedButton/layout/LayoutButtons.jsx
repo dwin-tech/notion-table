@@ -14,6 +14,7 @@ function LayoutButtons() {
   const { selectedTabId, tabsArray } = useSelector(
     (store) => store.tableTabsInfo
   );
+  const { data } = useSelector((store) => store.tableDataInfo);
   const { showNewTabPopover } = useSelector((store) => store?.showPopoverInfo);
   const selectedObject = tabsArray.find((e) => e.id === selectedTabId);
   const btnStyleCheked = (type) => {
@@ -26,10 +27,34 @@ function LayoutButtons() {
 
   const actionDeliver = (type) => {
     if (showNewTabPopover) {
+      if (type === "board") {
+        return {
+          id: selectedTabId,
+          boardGroup: [{ "": data.find((e) => e.type === "title").data }],
+          type,
+          name: "New View",
+        };
+      }
       return { id: selectedTabId, type, name: "New View" };
     }
     if (checkName(selectedObject)) {
+      if (type === "board") {
+        return {
+          id: selectedTabId,
+          boardGroup: [{ "": data.find((e) => e.type === "title").data }],
+          type,
+          name: type,
+        };
+      }
       return { id: selectedTabId, type, name: type };
+    }
+    if (type === "board") {
+      return {
+        id: selectedTabId,
+        boardGroup: [{ "": data.find((e) => e.type === "title").data }],
+        type,
+        name: selectedObject?.name,
+      };
     }
     return { id: selectedTabId, type, name: selectedObject?.name };
   };

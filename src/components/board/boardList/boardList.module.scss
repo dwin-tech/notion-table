@@ -1,0 +1,73 @@
+@import "../../../style/variables.scss";
+
+.board_btn {
+  @include boardButton();
+  color: #000;
+  padding: 5px;
+
+  &:hover {
+    background-color: rgba(153, 153, 153, 0.24);
+    .board_icon_container {
+      display: flex;
+    }
+  }
+
+  .board_icon_container {
+    display: none;
+    color: gray;
+    height: 30px;
+    border: 1px solid #999;
+    border-radius: 3px;
+    background-color: #fff;
+
+    &:nth-child(1n + 1) {
+      padding: 0 5px;
+    }
+
+    div {
+      border-left: 1px solid #999;
+    }
+  }
+
+  &:first-child {
+    margin-top: 5px;
+  }
+}
+
+.board_input_area {
+  @include boardButton();
+  &:first-child {
+    margin-top: 5px;
+  }
+
+  .input_icon {
+    color: $gray;
+  }
+
+  input {
+    width: 80%;
+    height: 100%;
+    border: none;
+    outline: none;
+    font-size: 17px;
+  }
+
+  .board_icon_container {
+    height: 30px;
+    color: gray;
+    display: flex;
+    justify-content: center;
+    border: 1px solid #999;
+    border-radius: 3px;
+    background-color: #fff;
+    margin-right: 5px;
+
+    &:nth-child(1n + 1) {
+      padding: 0 5px;
+    }
+
+    div {
+      border-left: 1px solid #999;
+    }
+  }
+}
