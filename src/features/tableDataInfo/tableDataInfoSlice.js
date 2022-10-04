@@ -103,30 +103,55 @@ const tableDataInfoSlice = createSlice({
       state.data[index].deleted = action.payload.value;
     },
     addNewFieldForData: (state) => {
+      const id = uuidv4();
       state.data.forEach((el) =>
-        el.data.push({ id: uuidv4(), position: el.data.length + 1, value: "" })
+        el.data.push({
+          id,
+          position: el.data.length + 1,
+          value: "",
+        })
       );
+      const index = state.data.findIndex((el) => el.type === "title");
+      const newFieldIndex = state.data[index].data.findIndex(
+        (el) => el.id === id
+      );
+      state.data[index].data[newFieldIndex].boardType = "";
+      state.data[index].data[newFieldIndex].toggleInput = false;
     },
     addNewFieldUnderSelectedRow: (state, action) => {
+      const id = uuidv4();
       state.data.forEach((el) =>
         el.data.splice(action.payload + 1, 0, {
-          id: uuidv4(),
+          id,
           value: "",
           position: el.data.length + 1,
         })
       );
+      const index = state.data.findIndex((el) => el.type === "title");
+      const newFieldIndex = state.data[index].data.findIndex(
+        (el) => el.id === id
+      );
+      state.data[index].data[newFieldIndex].boardType = "";
+      state.data[index].data[newFieldIndex].toggleInput = false;
     },
     deleteSelectedRow: (state, action) => {
       state.data.forEach((elem) => elem.data.splice(action.payload, 1));
     },
     duplicateRow: (state, action) => {
+      const id = uuidv4();
       state.data.forEach((el) =>
         el.data.splice(action.payload + 1, 0, {
-          id: uuidv4(),
+          id,
           value: el.data[action.payload].value,
           position: el.data.length + 1,
         })
       );
+      const index = state.data.findIndex((el) => el.type === "title");
+      const newFieldIndex = state.data[index].data.findIndex(
+        (el) => el.id === id
+      );
+      state.data[index].data[newFieldIndex].boardType = "";
+      state.data[index].data[newFieldIndex].toggleInput = false;
     },
     changeValueinPropertyData: (state, action) => {
       const index = state.data.findIndex((el) => el.id === action.payload.id);
@@ -169,6 +194,52 @@ const tableDataInfoSlice = createSlice({
     changeCurrentRowForDrawer: (state, action) => {
       state.currentRowForDrawer = action.payload;
     },
+    addRowFromBoardOnTop: (state, action) => {
+      state.data.forEach((el) =>
+        el.data.unshift({
+          id: uuidv4(),
+          position: el.data.length + 1,
+          value: "",
+        })
+      );
+      const index = state.data.findIndex((el) => el.type === "title");
+      state.data[index].data[0].boardType = action.payload.groupName;
+      state.data[index].data[0].toggleInput = true;
+    },
+    addRowFromBoardOnBottom: (state, action) => {
+      state.data.forEach((el) =>
+        el.data.push({
+          id: uuidv4(),
+          position: el.data.length + 1,
+          value: "",
+        })
+      );
+      const index = state.data.findIndex((el) => el.type === "title");
+      state.data[index].data[state.data[index].data.length - 1].boardType =
+        action.payload.groupName;
+      state.data[index].data[
+        state.data[index].data.length - 1
+      ].toggleInput = true;
+    },
+    changeTitleBoardOrDelete: (state, action) => {
+      const index = state.data.findIndex((el) => el.type === "title");
+      const elementIndex = state.data[index].data.findIndex(
+        (el) => el.id === action.payload.id
+      );
+      if (action.payload.value) {
+        state.data[index].data[elementIndex].value = action.payload.value;
+        state.data[index].data[elementIndex].toggleInput = false;
+      } else {
+        state.data.forEach((el) => el.data.splice(elementIndex, 1));
+      }
+    },
+    changeToggleInputItem: (state, action) => {
+      const index = state.data.findIndex((el) => el.type === "title");
+      const elementIndex = state.data[index].data.findIndex(
+        (el) => el.id === action.payload.id
+      );
+      state.data[index].data[elementIndex].toggleInput = action.payload.bool;
+    },
   },
 });
 
@@ -203,6 +274,10 @@ export const {
   sortDataToAscendingOrDescending,
   changeToggleNewDrawer,
   changeCurrentRowForDrawer,
+  addRowFromBoardOnTop,
+  addRowFromBoardOnBottom,
+  changeTitleBoardOrDelete,
+  changeToggleInputItem,
 } = tableDataInfoSlice.actions;
 
 export default tableDataInfoSlice.reducer;

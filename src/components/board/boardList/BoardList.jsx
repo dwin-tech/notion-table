@@ -1,23 +1,38 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import EditIcon from "@mui/icons-material/Edit";
 import ImportContactsIcon from "@mui/icons-material/ImportContacts";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import { v4 as uuidv4 } from "uuid";
+import { useDispatch } from "react-redux";
 import style from "./boardList.module.scss";
 import RowFeaturePopover from "../boardHeader/RowFeaturePopover";
+import {
+  changeToggleInputItem,
+  changeToggleNewDrawer,
+} from "../../../features/tableDataInfo/tableDataInfoSlice";
 
-function BoardList({ titles }) {
-  const [runFormater, setRunFormater] = useState(-1);
+function BoardList({ titles, onBlur }) {
+  const dispatch = useDispatch();
+
+  const changeToggleInput = (id, bool) => {
+    dispatch(changeToggleInputItem({ id, bool }));
+  };
+
+  // eslint-disable-next-line no-unused-vars
+  const handleOpenDrawer = (id) => {
+    dispatch(changeToggleNewDrawer(true));
+    // dispatch(changeCurrentRowForDrawer(item));
+  };
 
   return (
     <div>
-      {Object.values(titles)[0].map((item, index) =>
-        index !== runFormater ? (
+      {titles.map((item) =>
+        !item.toggleInput ? (
           <div key={uuidv4()} className={style.board_btn}>
-            <div>{item.value || "Untitled"}</div>
+            <div>{item?.value || "Untitled"}</div>
             <div className={style.board_icon_container}>
-              <EditIcon onClick={() => setRunFormater(index)} />
+              <EditIcon onClick={() => changeToggleInput(item.id, true)} />
               <div />
               <RowFeaturePopover />
             </div>
@@ -31,10 +46,15 @@ function BoardList({ titles }) {
               type="text"
               defaultValue={item.value}
               placeholder="Type a name..."
-              onBlur={() => setRunFormater(-1)}
+              onBlur={(e) => onBlur(e.target.value, item.id)}
             />
             <div className={style.board_icon_container}>
-              <ImportContactsIcon />
+              <ImportContactsIcon
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleOpenDrawer(item.id);
+                }}
+              />
               <div />
               <RowFeaturePopover />
             </div>
@@ -47,7 +67,8 @@ function BoardList({ titles }) {
 
 BoardList.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
-  titles: PropTypes.object.isRequired,
+  titles: PropTypes.array.isRequired,
+  onBlur: PropTypes.func.isRequired,
 };
 
 export default BoardList;
