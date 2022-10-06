@@ -8,7 +8,6 @@ import {
   updatePropertyNames,
   updateTableData,
 } from "./features/tableDataInfo/tableDataInfoSlice";
-import { addOrUpdateGroupToBoardType } from "./features/tableTabsInfo/tableTabsInfoSlice";
 import "./style/style.scss";
 import setDataIntoStorage, {
   getDatainToStorage,
@@ -37,9 +36,6 @@ export default function App() {
 
   useEffect(() => {
     setDataIntoStorage("tableData", data);
-    dispatch(
-      addOrUpdateGroupToBoardType(data.find((el) => el.type === "title").data)
-    );
   }, [data]);
 
   useEffect(() => {

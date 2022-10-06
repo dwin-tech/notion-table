@@ -1,3 +1,4 @@
+/* eslint-disable no-return-assign */
 /* eslint-disable no-param-reassign */
 import { createSlice } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
@@ -8,6 +9,7 @@ const initialState = {
   selectedTabId: TAB_ID,
   createdTabName: "",
   goEditPropertyFromPopover: false,
+  toggleShowModal: false,
 };
 
 const tableTabsInfoSlice = createSlice({
@@ -76,12 +78,19 @@ const tableTabsInfoSlice = createSlice({
     changeGoEditPropertyFromPopover: (state, action) => {
       state.goEditPropertyFromPopover = action.payload;
     },
-    addOrUpdateGroupToBoardType: (state, action) => {
-      state.tabsArray.forEach((el) => {
-        if (el.type === "board") {
-          el.boardGroup = [{ "": action.payload }];
-        }
-      });
+    addNewBoardGroup: (state, action) => {
+      const index = state.tabsArray.findIndex(
+        (el) => el.id === state.selectedTabId
+      );
+      if (!action.payload.oldName) {
+        state.tabsArray[index].boardGroup.push(action.payload.name);
+      } else {
+        state.tabsArray[index].boardGroup[action.payload.index] =
+          action.payload.name;
+      }
+    },
+    changeToggleShowModal: (state, action) => {
+      state.toggleShowModal = action.payload;
     },
   },
 });
@@ -97,7 +106,8 @@ export const {
   duplicateTab,
   deleteTab,
   changeGoEditPropertyFromPopover,
-  addOrUpdateGroupToBoardType,
+  addNewBoardGroup,
+  changeToggleShowModal,
 } = tableTabsInfoSlice.actions;
 
 export default tableTabsInfoSlice.reducer;
